@@ -1,0 +1,39 @@
+.convex-ai-chat {
+  --convex-ai-chat-bg: #f1f1f1;
+  --convex-ai-chat-border: #8d2676;
+  align-items: center;
+  background-color: var(--convex-ai-chat-bg);
+  border-radius: 0.5rem;
+  border: 0;
+  border: 2px solid var(--convex-ai-chat-bg);
+  display: flex;
+  flex-direction: row;
+  font-size: 0.875rem;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  transition: all 0.2s ease-in-out;
+  font-family: Inter, sans-serif;
+
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+html[data-theme="dark"] .convex-ai-chat {
+  --convex-ai-chat-bg: #292929;
+  --convex-ai-chat-border: #f3c01c;
+}
+
+.convex-ai-chat span {
+  display: inline-block;
+  mask: url("../../static/img/icons/chat-bubble.svg") no-repeat center;
+  height: 1.5rem;
+  width: 1.5rem;
+  background-color: #797979;
+}
+
+.convex-ai-chat:hover,
+.convex-ai-chat:focus {
+  background: transparent;
+  border-color: var(--convex-ai-chat-border);
+  cursor: pointer;
+}

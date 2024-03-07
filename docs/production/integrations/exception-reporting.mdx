@@ -1,0 +1,40 @@
+---
+title: "Exception Reporting"
+sidebar_label: "Exception Reporting"
+sidebar_position: 3
+description:
+  "Configure exception reporting integrations for your Convex deployment"
+---
+
+Configure exception reporting to gain visibility into errors from your Convex
+function executions. Convex supports integration with
+[Sentry](https://sentry.io/).
+
+Currently, exception reporting is only available to Pro users.
+
+<BetaAdmonition feature="Exception Reporting Integrations" verb="are" />
+
+## Configuring Sentry
+
+To configure sentry, navigate to the
+[Deployment Settings](/docs/dashboard/deployments/settings.md) in the Dashboard,
+and the "Integrations" tab in the sidebar.
+
+![Integrations Page](/screenshots/integrations_page.png)
+
+Click on the Sentry card and follow the setup directions. You will need your
+[Sentry DSN](https://docs.sentry.io/product/sentry-basics/concepts/dsn-explainer/).
+
+![Configure sentry](/screenshots/configure_sentry.png)
+
+## Sentry Notes
+
+- If the function is [authenticated](/auth), then the
+  [tokenIdentifier](/api/interfaces/server.UserIdentity#tokenidentifier) is used
+  as the user id on Sentry. The `tokenIdentifier` is a stable and globally
+  unique string representing the authenticated user.
+- Sentry Exceptions may take a minute or two to propagate to Sentry.
+- Convex's built-in sentry support does not yet support the advanced
+  customization provided by the sentry SDK.
+- Please reach out with any questions, comments, or suggestions
+  [on Discord](https://convex.dev/community).

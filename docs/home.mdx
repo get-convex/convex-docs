@@ -1,0 +1,61 @@
+---
+title: "Convex Docs"
+slug: "home"
+hide_table_of_contents: true
+---
+
+import TutorialGraphic from "@site/static/img/tutorial-graphic.svg";
+import { QuickstartsList } from "@site/src/QuickstartsList.tsx";
+
+<span className="convex-hero">
+  Convex is a Backend Application Platform that keeps you focused on building
+  your product. Convex Functions, Database, File Storage, Scheduling, and Search
+  fit together cohesively, and are accessible from client libraries for your
+  favorite environment. Everything in Convex is live and realtime.
+</span>
+
+<CardLink
+  className="convex-hero-card"
+  item={{
+    icon: <TutorialGraphic height={40} />,
+    href: "/get-started",
+    docId: "get-started",
+    label: "Learn about Convex by creating a chat app",
+  }}
+/>
+
+## Quickstarts
+
+Quickly get up and running with your favorite frontend tooling or language:
+
+<QuickstartsList />
+
+## Why Convex?
+
+Visit [Stack](https://stack.convex.dev/) to learn more about building products
+with Convex:
+
+<DocCardList
+  items={[
+    {
+      type: "link",
+      href: "https://stack.convex.dev/convex-vs-relational-databases",
+      label: "Convex vs Relational Databases",
+    },
+    {
+      type: "link",
+      href: "https://stack.convex.dev/convex-vs-firebase",
+      label: "Convex vs Firebase",
+    },
+    {
+      type: "link",
+      href: "https://stack.convex.dev/not-sql",
+      label: "It's not you, it's SQL",
+    },
+    {
+      type: "link",
+      href: "https://stack.convex.dev/full-stack-chatgpt-app",
+      label: "Building a Full-Stack ChatGPT app",
+    },
+  ]}
+/>

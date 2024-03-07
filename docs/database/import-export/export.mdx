@@ -1,0 +1,79 @@
+---
+title: "Exporting Data Snapshots"
+sidebar_label: "Snapshot Export"
+description: "Export your data out of Convex"
+sidebar_position: 168
+---
+
+You can export your data from Convex using Snapshot export, which you can find
+in the settings page of your project in the dashboard.
+
+![Snapshot Export View](/screenshots/snapshot_export.png)
+
+Alternatively, you can export the same data with the
+[command line](/docs/cli.md#export-data-to-a-file):
+
+```sh
+npx convex export --path ~/Downloads
+```
+
+<BetaAdmonition feature="Snapshot export" verb="is" />
+
+When you request an export, Convex will generate a ZIP file with all documents
+in all Convex tables in your deployment. This may take a few seconds or a few
+minutes, depending on how much data is in your deployment. You can download the
+ZIP file by clicking on the link in the Latest Snapshot table.
+
+Each export is a consistent snapshot of your data at the time of your request.
+The ZIP file's name has the format `snapshot_{ts}.zip` where `ts` is a UNIX
+timestamp of the snapshot in nanoseconds. The export ZIP file contains documents
+for each table at `<table_name>/documents.jsonl`, with one document per line.
+
+Exported ZIP files also optionally contain data from
+[file storage](/file-storage) in a `_storage` folder, with metadata like IDs and
+checksums in `_storage/documents.jsonl` and each file as `_storage/<id>`.
+
+![Latest Export View](/screenshots/latest_export.png)
+
+### Using the snapshot
+
+Exported ZIP files can be imported into the same deployment or a different
+deployment with the
+[CLI](/docs/database/import-export/import.mdx#import-data-from-a-snapshot-zip-file).
+
+```bash
+npx convex import path/to/snapshot.zip
+```
+
+### What the snapshot doesn't contain
+
+The snapshot ZIP file only contains the documents for your tables. In particular
+it lacks:
+
+1. Your deployment's code and configuration. Convex functions, crons.ts,
+   auth.config.js, schema.ts, etc. are configured in your source code.
+2. Pending scheduled functions. You can access pending scheduled functions in
+   the [`_scheduled_functions`](/docs/database/advanced/system-tables.mdx)
+   system table.
+3. Environment variables. Environment variables can be copied from Settings in
+   the Convex dashboard.
+
+## FAQ
+
+### Can I use snapshot export as an automated backup?
+
+Right now, you can only access one export at a time, so this is not an automated
+backup system. You are welcome to download your tables routinely, and feel free
+to chime in [on Discord](https://convex.dev/community) if you would like to see
+better support for backups.
+
+### Are there any limitations?
+
+Each export is accessible for up to 14 days (if no more exports are requested).
+There is no limit to how many exports you can request.
+
+Snapshot export uses database bandwidth to read all documents, and file
+bandwidth if the export includes file storage. You can observe this bandwidth in
+the [usage dashboard](https://dashboard.convex.dev/team/settings/usage) as
+function name `_cli/export`. Check the
+[limits docs](/production/state/limits#database) for pricing details.

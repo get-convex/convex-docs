@@ -1,0 +1,89 @@
+---
+title: "Storing Users in the Convex Database"
+sidebar_label: "Database"
+sidebar_position: 5
+---
+
+import Schema from "!!raw-loader!@site/../demos/users-and-clerk/convex/schema.ts";
+import AppJSX from "!!raw-loader!@site/../demos/users-and-clerk/src/App.tsx";
+import useStoreUserEffectTS from "!!raw-loader!@site/../demos/users-and-clerk/src/useStoreUserEffect.ts";
+import useStoreUserEffectJS from "!!raw-loader!@site/../js_demos/users-and-clerk/src/useStoreUserEffect.js";
+import MessagesTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/messages.ts";
+import UsersTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/users.ts";
+
+You might want to have a centralized place that stores information about the
+users who have previously signed up or logged in to your app. To do this you
+can:
+
+1. Add a [mutation](/docs/functions/mutation-functions.mdx) that reads user
+   information from [`MutationCtx`](/api/interfaces/server.MutationCtx)'s
+   [`auth`](/api/interfaces/server.Auth) and stores it in a table.
+2. Call this mutation from your client.
+3. Optionally [define a schema](/docs/database/schemas.mdx) and an index for
+   this table
+
+## `storeUser` mutation
+
+This is an example of a mutation that stores the user's `name` and
+`tokenIdentifier`:
+
+<TSAndJSSnippet sourceTS={UsersTS} sourceJS={UsersTS} title="convex/users.js" />
+
+## Calling `storeUser` from React
+
+You can call this mutation when the user logs in from a `useEffect` hook. Once
+the mutation succeeds we store the Convex document ID representing the user in
+the component state.
+
+Here we created a helper hook that does this job:
+
+<TSAndJSSnippet
+  sourceTS={useStoreUserEffectTS}
+  sourceJS={useStoreUserEffectJS}
+  title="src/useStoreUserEffect.js"
+/>
+
+You can then use this hook in the top level component which needs the user ID:
+
+```tsx title="src/App.tsx"
+import useStoreUserEffect from "./useStoreUserEffect.js";
+
+export function App {
+   const userId = useStoreUserEffect();
+   if (userId === null) {
+      return <div>Storing user...</div>;
+   }
+   return <div>Stored user ID: {userId}</div>;
+}
+```
+
+Note that you can simplify the hook based on your needs. You can remove the
+`isAuthenticated` check if you only call the hook from a component wrapped in
+`Authenticated` from `convex/react`. You can remove the `useState` if your
+client doesn't need to know the user ID, but you need to make sure that a
+mutation which requires that the user is stored doesn't get called before the
+`useEffect` finishes.
+
+## `users` table schema
+
+We can define a `users` table, optionally with an
+[index](/docs/database/indexes/indexes.md) for efficient document queries:
+
+<Snippet source={Schema} snippet="user" title="convex/schema.ts" />
+
+## Reading from `users` table
+
+You can now load user documents from queries and mutations. This can be useful
+for referencing the user's [document ID](/docs/database/document-ids.mdx) in
+other documents. Note that using the "by_token" index requires you to
+[define that index](/docs/database/indexes/indexes.md).
+
+<TSAndJSSnippet
+  sourceTS={MessagesTS}
+  sourceJS={MessagesTS}
+  snippet="load-user"
+  title="convex/myMutation.ts"
+  suffix={`    // do something with \`user\`...
+  }
+});`}
+/>

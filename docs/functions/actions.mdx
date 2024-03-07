@@ -1,0 +1,187 @@
+---
+title: Actions
+sidebar_position: 30
+---
+
+import Constructor from "!!raw-loader!@site/../private-demos/snippets/convex/actionsConstructor.ts";
+import ArgsWithValidation from "!!raw-loader!@site/../private-demos/snippets/convex/actionsArgsWithValidation.ts";
+import Context from "!!raw-loader!@site/../private-demos/snippets/convex/actionsContext.ts";
+import ContextRunQuery from "!!raw-loader!@site/../private-demos/snippets/convex/myFunctions.ts";
+import ContextRunMutation from "!!raw-loader!@site/../private-demos/snippets/convex/actionsContextRunMutation.ts";
+import NPM from "!!raw-loader!@site/../private-demos/snippets/convex/actionsNPM.ts";
+import Node from "!!raw-loader!@site/../private-demos/snippets/convex/actionsNode.ts";
+import Call from "!!raw-loader!@site/../private-demos/snippets/src/actionsCall.tsx";
+
+Actions can call third party services to do things such as processing a payment
+with [Stripe](https://stripe.com). They can be run in Convex's JavaScript
+environment or in Node.js. They can interact with the database indirectly by
+calling [queries](/docs/functions/query-functions.mdx) and
+[mutations](/docs/functions/mutation-functions.mdx).
+
+**Example:**
+[GIPHY Action](https://github.com/get-convex/convex-demos/tree/main/giphy-action)
+
+## Action names
+
+Actions follow the same naming rules as queries, see
+[Query names](/docs/functions/query-functions.mdx#query-names).
+
+## The `action` constructor
+
+To declare an action in Convex you use the action constructor function. Pass it
+an object with a `handler` function, which performs the action:
+
+<TSAndJSSnippet
+  sourceTS={Constructor}
+  sourceJS={Constructor}
+  title="convex/myFunctions.ts"
+/>
+
+Unlike a query, an action can but does not have to return a value.
+
+### Action arguments and responses
+
+Action arguments and responses follow the same rules as
+[mutations](/docs/functions/mutation-functions.mdx#mutation-arguments-and_responses):
+
+<TSAndJSSnippet
+  sourceTS={ArgsWithValidation}
+  sourceJS={ArgsWithValidation}
+  title="convex/myFunctions.ts"
+/>
+
+The first argument to the handler function is reserved for the action context.
+
+### Action context
+
+The `action` constructor enables interacting with the database, and other Convex
+features by passing an [ActionCtx](/api/interfaces/server.ActionCtx) object to
+the handler function as the first argument:
+
+<TSAndJSSnippet
+  sourceTS={Context}
+  sourceJS={Context}
+  title="convex/myFunctions.ts"
+/>
+
+Which part of that action context is used depends on what your action needs to
+do:
+
+- To read data from the database use the `runQuery` field, and call a query that
+  performs the read:
+
+  <TSAndJSSnippet
+    sourceTS={ContextRunQuery}
+    sourceJS={ContextRunQuery}
+    snippet="action"
+    title="convex/myFunctions.ts"
+  />
+
+  Here `readData` is an [internal query](/docs/functions/internal-functions.mdx)
+  because we don't want to expose it to the client directly. Actions, mutations
+  and queries can be defined in the same file.
+
+- To write data to the database use the `runMutation` field, and call a mutation
+  that performs the write:
+
+  <TSAndJSSnippet
+    sourceTS={ContextRunMutation}
+    sourceJS={ContextRunMutation}
+    title="convex/myFunctions.ts"
+  />
+
+  Use an [internal mutation](/docs/functions/internal-functions.mdx) when you
+  want to prevent users from calling the mutation directly.
+
+  As with queries, it's often convenient to define actions and mutations in the
+  same file.
+
+- To generate upload URLs for storing files use the `storage` field. Read on
+  about [File Storage](/docs/file-storage.mdx).
+- To check user authentication use the `auth` field. Auth is propagated
+  automatically when calling queries and mutations from the action. Read on
+  about [Authentication](/docs/auth.mdx).
+- To schedule functions to run in the future, use the `scheduler` field. Read on
+  about [Scheduled Functions](/docs/scheduling/scheduled-functions.mdx).
+- To search a vector index, use the `vectorSearch` field. Read on about
+  [Vector Search](/docs/vector-search.mdx).
+
+## Calling third-party APIs and using NPM packages
+
+Actions can run in Convex's custom JavaScript environment or in Node.js.
+
+By default, actions run in Convex's environment. This environment supports
+`fetch`, so actions that simply want to call a third-party API using `fetch` can
+be run in this environment:
+
+<TSAndJSSnippet sourceTS={NPM} sourceJS={NPM} title="convex/myFunctions.ts" />
+
+Actions running in Convex's environment are faster compared to Node.js, since
+they don't require extra time to start up before running your action (cold
+starts). They can also be defined in the same file as other Convex functions.
+Like queries and mutations they can import NPM packages, but not all are
+supported.
+
+Actions needing unsupported NPM packages or Node.js APIs can be configured to
+run in Node.js by adding the `"use node"` directive at the top of the file. Note
+that other Convex functions cannot be defined in files with the `"use node";`
+directive.
+
+<TSAndJSSnippet
+  sourceTS={Node}
+  sourceJS={Node}
+  highlightPatterns={["use node"]}
+  title="convex/myAction.ts"
+/>
+
+Learn more about the two [Convex Runtimes](/docs/functions/runtimes.mdx).
+
+## Calling actions from clients
+
+To call an action from [React](/docs/client/react.mdx) use the
+[`useAction`](/api/modules/react#useaction) hook along with the generated
+[`api`](/generated-api/api) object.
+
+<TSAndJSSnippet sourceTS={Call} sourceJS={Call} title="src/myApp.tsx" />
+
+See the [React](/docs/client/react.mdx) client documentation for all the ways
+queries can be called.
+
+Unlike
+[mutations](/docs/functions/mutation-functions.mdx#calling-mutations-from-clients),
+actions from a single client are parallelized. Each action will be executed as
+soon as it reaches the server (even if other actions and mutations from the same
+client are running).
+
+If your app relies on actions running after other actions or mutations make sure
+to only trigger the action after the relevant previous function completes.
+
+## Limits
+
+Actions time out after 10 minutes.
+[Node.js](/docs/functions/runtimes.mdx#nodejs-runtime) and
+[Convex runtime](/docs/functions/runtimes.mdx#default-convex-runtime) have 512MB
+and 64MB memory limit respectively. Please
+[contact us](/docs/production/contact.md) if you have a use case that requires
+configuring higher limits.
+
+Actions can do up to 1000 concurrent operations, such as executing queries,
+mutations or performing fetch requests.
+
+For information on other limits, see [here](/docs/production/state/limits.mdx).
+
+## Error handling
+
+Unlike queries and mutations, actions may have side-effects and therefore can't
+be automatically retried by Convex when errors occur. For example, say your
+action calls Stripe to send a customer invoice. If the HTTP request fails,
+Convex has no way of knowing if the invoice was already sent. Like in normal
+backend code, it is the responsibility of the caller to handle errors raised by
+actions and retry the action call if appropriate.
+
+## Dangling promises
+
+Make sure to await all promises created within an action. Async tasks still
+running when the function returns might or might not complete. In addition,
+since the Node.js execution environment might be reused between action calls,
+dangling promises might result in errors in subsequent action invocations.

@@ -1,0 +1,34 @@
+---
+title: Authentication
+sidebar_position: 30
+description: Add authentication to your Convex app.
+pagination_prev: file-storage
+---
+
+Authentication allows you to identify users and restrict what data they can see
+and edit.
+
+Your product will need a way for users to sign up, log in, log out and, if
+passwords are used, a way to recover access after losing a password. This is a
+complicated feature set to implement, especially given that any bugs impact
+security.
+
+You can implement all of this using Convex, but we currently recommend that you
+instead leverage a Convex integration with an existing third-party auth
+provider. This will be much less work and a more secure solution. Choose from
+one of the following integrations, which both provide login via passwords,
+social identity providers and one-time email or SMS access codes:
+
+- [Clerk](/docs/auth/clerk.mdx) is newer and has better Next.js and React Native
+  support
+- [Auth0](/docs/auth/auth0.mdx) is more established with more bells and whistles
+
+You could also leverage social identity providers directly, such as Google,
+Facebook, Apple or GitHub. Each provider has a different way to integrate their
+service though, and in general this is more complicated than using the
+integrations above.
+
+[Custom Auth Integration](/docs/auth/custom-auth.mdx) describes how you can
+integrate an identity provider on your own.
+
+<StackPosts query="sessions" />

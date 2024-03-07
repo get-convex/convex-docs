@@ -1,0 +1,63 @@
+import ExpoLogo from "@site/static/img/expo-logo.svg";
+import NextJSLogo from "@site/static/img/nextjs-logo.svg";
+import HtmlLogo from "@site/static/img/html-logo.svg";
+import NodeLogo from "@site/static/img/node-logo.svg";
+import PythonLogo from "@site/static/img/python-logo.svg";
+import ReactLogo from "@site/static/img/react-logo.svg";
+import RustLogo from "@site/static/img/rust-logo.svg";
+import React from "react";
+import { DocCardList } from "./DocCardList";
+
+export function QuickstartsList() {
+  return (
+    <DocCardList
+      items={[
+        {
+          icon: <ReactLogo height={40} />,
+          href: "/quickstart/react",
+          docId: "quickstart/react",
+          label: "React",
+        },
+        {
+          icon: <NextJSLogo height={40} />,
+          invertIcon: true,
+          href: "/quickstart/nextjs",
+          docId: "quickstart/nextjs",
+          label: "Next.js",
+        },
+        {
+          icon: <ExpoLogo height={40} />,
+          invertIcon: true,
+          href: "/quickstart/react-native",
+          docId: "quickstart/react-native",
+          label: "React Native",
+        },
+        {
+          icon: <NodeLogo height={40} />,
+          href: "/quickstart/nodejs",
+          docId: "quickstart/nodejs",
+          label: "Node.js",
+        },
+        {
+          icon: <HtmlLogo height={40} />,
+          invertIcon: true,
+          href: "/quickstart/script-tag",
+          docId: "quickstart/script-tag",
+          label: "Script tag",
+        },
+        {
+          icon: <PythonLogo height={40} />,
+          href: "/quickstart/python",
+          docId: "quickstart/python",
+          label: "Python",
+        },
+        {
+          icon: <RustLogo height={40} width={40} />,
+          href: "/quickstart/rust",
+          docId: "quickstart/rust",
+          label: "Rust",
+        },
+      ]}
+    />
+  );
+}

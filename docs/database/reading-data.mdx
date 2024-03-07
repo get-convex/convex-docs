@@ -1,0 +1,350 @@
+---
+title: "Reading Data"
+sidebar_position: 1
+---
+
+import getExample from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataDbGet.ts";
+import queryExample from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataDbQuery.ts";
+import averageExample from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataAverage.ts";
+import groupByExampleTS from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataGroupByTS.ts";
+import groupByExampleJS from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataGroupByJS.js";
+import joinExample from "!!raw-loader!@site/../private-demos/snippets/convex/readingDataJoin.ts";
+
+[Query](/docs/functions/query-functions.mdx) and
+[mutation](/docs/functions/mutation-functions.mdx) functions can read data from
+database tables using _document ids_ and _document queries_.
+
+## Reading a single document
+
+Given a single document's id you can read its data with the
+[`db.get`](/api/interfaces/server.DatabaseReader#get) method:
+
+<TSAndJSSnippet
+  title="convex/tasks.ts"
+  sourceTS={getExample}
+  sourceJS={getExample}
+  highlightPatterns={["db.get"]}
+/>
+
+**Note**: You should use the `v.id` validator like in the example above to make
+sure you are not exposing data from tables other than the ones you intended.
+
+## Querying documents
+
+Document queries always begin by choosing the table to query with the
+[`db.query`](/api/interfaces/server.DatabaseReader#query) method:
+
+<TSAndJSSnippet
+  title="convex/tasks.ts"
+  sourceTS={queryExample}
+  sourceJS={queryExample}
+  highlightPatterns={["db.query"]}
+/>
+
+Then you can:
+
+1. filter
+2. order
+3. and `await` the results
+
+We'll see how this works in the examples below.
+
+## Filtering
+
+The [`filter`](/api/interfaces/server.Query#filter) method allows you to
+restrict the documents that your document query returns. This method takes a
+filter constructed by [`FilterBuilder`](/api/interfaces/server.FilterBuilder)
+and will only select documents that match.
+
+The examples below demonstrate some of the common uses of `filter`. You can see
+the full list of available filtering methods
+[in the reference docs](/api/interfaces/server.FilterBuilder).
+
+If you need to filter to documents containing some keywords, use a
+[search query](/docs/search.mdx).
+
+### Equality conditions
+
+This document query finds documents in the `users` table where
+`doc.name === "Alex"`:
+
+```ts
+// Get all users named "Alex".
+const usersNamedAlex = await ctx.db
+  .query("users")
+  .filter((q) => q.eq(q.field("name"), "Alex"))
+  .collect();
+```
+
+Here `q` is the [`FilterBuilder`](/api/interfaces/server.FilterBuilder) utility
+object. It contains methods for all of our supported filter operators.
+
+This filter will run on all documents in the table. For each document,
+`q.field("name")` evaluates to the `name` property. Then `q.eq` checks if this
+property is equal to `"Alex"`.
+
+If your query references a field that is missing from a given document then that
+field will be considered to have the value `undefined`.
+
+### Comparisons
+
+Filters can also be used to compare fields against values. This document query
+finds documents where `doc.age >= 18`:
+
+```ts
+// Get all users with an age of 18 or higher.
+const adults = await ctx.db
+  .query("users")
+  .filter((q) => q.gte(q.field("age"), 18))
+  .collect();
+```
+
+Here the `q.gte` operator checks if the first argument (`doc.age`) is greater
+than or equal to the second (`18`).
+
+Here's the full list of comparisons:
+
+| Operator      | Equivalent TypeScript |
+| ------------- | --------------------- |
+| `q.eq(l, r)`  | `l === r`             |
+| `q.neq(l, r)` | `l !== r`             |
+| `q.lt(l, r)`  | `l < r`               |
+| `q.lte(l, r)` | `l <= r`              |
+| `q.gt(l, r)`  | `l > r`               |
+| `q.gte(l, r)` | `l >= r`              |
+
+### Arithmetic
+
+You can also include basic arithmetic in your queries. This document query finds
+documents in the `carpets` table where `doc.height * doc.width > 100`:
+
+```ts
+// Get all carpets that have an area of over 100.
+const largeCarpets = await ctx.db
+  .query("carpets")
+  .filter((q) => q.gt(q.mul(q.field("height"), q.field("width")), 100))
+  .collect();
+```
+
+Here's the full list of arithmetic operators:
+
+| Operator      | Equivalent TypeScript |
+| ------------- | --------------------- |
+| `q.add(l, r)` | `l + r`               |
+| `q.sub(l, r)` | `l - r`               |
+| `q.mul(l, r)` | `l * r`               |
+| `q.div(l, r)` | `l / r`               |
+| `q.mod(l, r)` | `l % r`               |
+| `q.neg(x)`    | `-x`                  |
+
+### Combining operators
+
+You can construct more complex filters using methods like `q.and`, `q.or`, and
+`q.not`. This document query finds documents where
+`doc.name === "Alex" && doc.age >= 18`:
+
+```ts
+// Get all users named "Alex" whose age is at least 18.
+const adultAlexes = await ctx.db
+  .query("users")
+  .filter((q) =>
+    q.and(q.eq(q.field("name"), "Alex"), q.gte(q.field("age"), 18)),
+  )
+  .collect();
+```
+
+Here is a query that finds all users where
+`doc.name === "Alex" || doc.name === "Emma"`:
+
+```ts
+// Get all users named "Alex" or "Emma".
+const usersNamedAlexOrEmma = await ctx.db
+  .query("users")
+  .filter((q) =>
+    q.or(q.eq(q.field("name"), "Alex"), q.eq(q.field("name"), "Emma")),
+  )
+  .collect();
+```
+
+## Ordering
+
+By default Convex always returns documents ordered by
+[`_creationTime`](/docs/database/types.md#system-fields).
+
+You can use [`.order("asc" | "desc")`](/api/interfaces/server.Query#order) to
+pick whether the order is ascending or descending. If the order isn't specified,
+it defaults to ascending.
+
+```ts
+// Get all messages, oldest to newest.
+const messages = await ctx.db.query("messages").order("asc").collect();
+```
+
+```ts
+// Get all messages, newest to oldest.
+const messages = await ctx.db.query("messages").order("desc").collect();
+```
+
+If you need to sort on a field other than `_creationTime` and your document
+query returns a small number of documents (on the order of hundreds rather than
+thousands of documents), consider sorting in Javascript:
+
+```ts
+// Get top 10 most liked messages, assuming messages is a fairly small table:
+const messages = await ctx.db.query("messages").collect();
+const topTenMostLikedMessages = recentMessages
+  .sort((a, b) => b.likes - a.likes)
+  .slice(0, 10);
+```
+
+For document queries that return larger numbers of documents, you'll want to use
+an [index](/docs/database/indexes/indexes.md) to improve the performance.
+Document queries that use indexes will be
+[ordered based on the columns in the index](/docs/database/indexes/indexes.md#indexes-and-query-order)
+and can avoid slow table scans.
+
+```ts
+// Get the top 20 most liked messages of all time, using the "by_likes" index.
+const messages = await ctx.db
+  .query("messages")
+  .withIndex("by_likes")
+  .order("desc")
+  .take(20);
+```
+
+See
+[Limit expressions with indexes](/docs/database/indexes/indexes.md#limit-expressions-with-indexes)
+for details.
+
+### Ordering of different types of values
+
+A single field can have values of any [Convex type](/docs/database/types.md).
+When there are values of different types in an indexed field, their ascending
+order is as follows:
+
+No value set&nbsp;(`undefined`) < Null&nbsp;(`null`) < Int64&nbsp;(`bigint`) <
+Float64 (`number`) < Boolean&nbsp;(`boolean`) < String&nbsp;(`string`) <
+Bytes&nbsp;(`ArrayBuffer`) < Array&nbsp;(`Array`) < Object&nbsp;(`Object`)
+
+The same ordering is used by the filtering comparison operators `q.lt()`,
+`q.lte()`, `q.gt()` and `q.gte()`.
+
+## Retrieving results
+
+Most of our previous examples have ended the document query with the
+[`.collect()`](/api/interfaces/server.Query#collect) method, which returns all
+the documents that match your filters. Here are the other options for retrieving
+results.
+
+### Taking `n` results
+
+[`.take(n)`](/api/interfaces/server.Query#take) selects only the first `n`
+results that match your query.
+
+```ts
+const users = await ctx.db.query("users").take(5);
+```
+
+### Finding the first result
+
+[`.first()`](/api/interfaces/server.Query#first) selects the first document that
+matches your query and returns `null` if no documents were found.
+
+```ts
+// We expect only one user with that email address.
+const userOrNull = await ctx.db
+  .query("users")
+  .filter((q) => q.eq(q.field("email"), "test@example.com"))
+  .first();
+```
+
+### Using a unique result
+
+[`.unique()`](/api/interfaces/server.Query#unique) selects the single document
+from your query or returns `null` if no documents were found. If there are
+multiple results it will throw an exception.
+
+```ts
+// Our counter table only has one document.
+const counterOrNull = await ctx.db.query("counter").unique();
+```
+
+### Loading a page of results
+
+[`.paginate(opts)`](/api/interfaces/server.OrderedQuery#paginate) loads a page
+of results and returns a [`Cursor`](/api/modules/server#cursor) for loading
+additional results.
+
+See [Paginated Queries](/docs/database/pagination.mdx) to learn more.
+
+## More complex queries
+
+Convex prefers to have a few, simple ways to walk through and select documents
+from tables. In Convex, there is no specific query language for complex logic
+like a join, an aggregation, or a group by.
+
+Instead, you can write the complex logic in Javascript! Convex guarantees that
+the results will be consistent.
+
+### Join
+
+Table join might look like:
+
+<TSAndJSSnippet
+  title="convex/events.ts"
+  sourceTS={joinExample}
+  sourceJS={joinExample}
+/>
+
+### Aggregation
+
+Here's an example of computing an average:
+
+<TSAndJSSnippet
+  title="convex/purchases.ts"
+  sourceTS={averageExample}
+  sourceJS={averageExample}
+/>
+
+### Group by
+
+Here's an example of grouping and counting:
+
+<TSAndJSSnippet
+  title="convex/purchases.ts"
+  sourceTS={groupByExampleTS}
+  sourceJS={groupByExampleJS}
+/>
+
+## Querying performance and limits
+
+Most of the example document queries above can lead to a _full table scan_. That
+is, for the document query to return the requested results, it might need to
+walk over every single document in the table.
+
+Take this simple example:
+
+```ts
+const tasks = await ctx.db.query("tasks").take(5);
+```
+
+This document query will not scan more than 5 documents.
+
+On the other hand, this document query:
+
+```ts
+const tasks = await ctx.db
+  .query("tasks")
+  .filter((q) => q.eq(q.field("isCompleted"), true))
+  .first();
+```
+
+might need to walk over every single document in the `"tasks"` table just to
+find the first one with `isCompleted: true`.
+
+If a table has more than a few thousand documents, you should use
+[indexes](/docs/database/indexes/indexes.md) to improve your document query
+performance. Otherwise, you may run into our enforced limits, detailed
+[here](/docs/functions/error-handling/error-handling.mdx#readwrite-limit-errors).
+
+For information on other limits, see [here](/docs/production/state/limits.mdx).
