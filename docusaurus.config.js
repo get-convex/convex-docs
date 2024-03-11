@@ -90,7 +90,7 @@ const config = {
             position: "right",
           },
           {
-            href: "https://github.com/get-convex/convex-demos",
+            href: "https://github.com/get-convex",
             label: "Examples",
             position: "right",
             className: "convex-github-logo convex-icon-link",
