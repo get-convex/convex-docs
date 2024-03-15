@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
 import { useSearchBox } from "react-instantsearch-hooks-web";
 import KeyboardLegend from "./KeyboardLegend";
 import Results from "./Results";
@@ -12,13 +13,20 @@ type Props = {
 const Dialog = ({ open, onClose }: Props) => {
   const { refine } = useSearchBox();
   const [query, setQuery] = useState("");
+  const [container] = useState(() => document.createElement("div"));
 
-  // Prevent scrolling on the body when the dialog is open.
-  if (open) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "auto";
-  }
+  // Append the container to the body, outside of the current component tree.
+  useEffect(() => {
+    document.body.appendChild(container);
+    return () => {
+      document.body.removeChild(container);
+    };
+  }, [container]);
+
+  // Toggle scrolling on the body to avoid scrolling away from the dialog.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
+  }, [open]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -45,40 +53,40 @@ const Dialog = ({ open, onClose }: Props) => {
     };
   }, [onClose]);
 
-  return (
-    open && (
-      <div className="cs-dialog">
-        <div
-          className={`cs-dialog-content ${
-            query === "" ? "cs-dialog-content--empty" : ""
-          }`}
-        >
-          <div className="cs-dialog-header">
-            <SearchBox
-              className="cs-dialog-searchBox"
-              value={query}
-              onChange={handleChange}
-              onClear={handleClear}
-            />
-            <button className="cs-dialog-closeButton" onClick={onClose}>
-              Cancel
-            </button>
-          </div>
-          {query !== "" && (
-            <>
-              <Results />
-              <KeyboardLegend />
-            </>
-          )}
+  const dialogContent = open && (
+    <div className="cs-root cs-dialog">
+      <div
+        className={`cs-dialog-content ${
+          query === "" ? "cs-dialog-content--empty" : ""
+        }`}
+      >
+        <div className="cs-dialog-header">
+          <SearchBox
+            className="cs-dialog-searchBox"
+            value={query}
+            onChange={handleChange}
+            onClear={handleClear}
+          />
+          <button className="cs-dialog-closeButton" onClick={onClose}>
+            Cancel
+          </button>
         </div>
-        <button
-          className="cs-dialog-backdrop"
-          aria-label="Close search"
-          onClick={onClose}
-        />
+        {query !== "" && (
+          <>
+            <Results />
+            <KeyboardLegend />
+          </>
+        )}
       </div>
-    )
+      <button
+        className="cs-dialog-backdrop"
+        aria-label="Close search"
+        onClick={onClose}
+      />
+    </div>
   );
+
+  return ReactDOM.createPortal(dialogContent, container);
 };
 
 export default Dialog;
