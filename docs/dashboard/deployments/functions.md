@@ -33,6 +33,13 @@ what changed when you ran your function, see the
 
 ![Running a function](/screenshots/run_function.png)
 
+You can also
+[write a custom query function](/docs/dashboard/deployments/data.md#writing-custom-queries)
+by choosing the “Custom test query“ option.
+
+If you're not on the functions page, you can still open this UI via the
+persistent _fn_ button shown on the bottom right of all deployment pages.
+
 ### Querying a paginated function
 
 When querying a paginated function in the dashboard, the UI will expect the

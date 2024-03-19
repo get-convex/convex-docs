@@ -52,6 +52,32 @@ adding two filter conditions for `creationTime >= $time` and
 
 </Admonition>
 
+## Writing custom queries
+
+You can write a [query](/docs/database/reading-data.mdx) directly in the
+dashboard. This allows you to perform arbitrary filtering and transformation of
+the data, including sorting, joins, grouping and aggregations.
+
+In the `⋮` overflow menu at the top of the data page click on the “Custom query”
+option.
+
+<img
+    src="/screenshots/data_custom_query.png"
+    alt="Custom query button"
+    width={250}
+/>
+
+This opens the same UI used for
+[running your deployed functions](/docs/dashboard/deployments/functions.md#running-functions),
+but with the “Custom test query” option selected, which lets you edit the source
+code for the query. This source code will be sent to your deployment and
+executed when you click on the “Run Custom Query“ button.
+
+![Running a custom test query](/screenshots/data_custom_query_runner.png)
+
+If you're not on the data page, you can still open this UI via the persistent
+_fn_ button shown on the bottom right of all deployment pages.
+
 ## Creating tables
 
 You may create a table from the dashboard by clicking the "Create Table" button
@@ -128,9 +154,9 @@ dialog will appear before the documents are deleted.
 
 ## Clear a table
 
-You can also delete all documents by clicking on the overflow menu at the top of
-the data page and clicking "Clear Table". This action will delete all documents
-in the table, without deleting the table itself.
+You can also delete all documents by clicking on the `⋮` overflow menu at the
+top of the data page and clicking "Clear Table". This action will delete all
+documents in the table, without deleting the table itself.
 
 In production environments, the Convex dashboard will have you type in the name
 of the table before deletion.
@@ -148,12 +174,12 @@ dashboard will have you type in the name of the table before deletion.
 
 ![Delete table](/screenshots/data_delete_table.png)
 
-The "Delete table" button can be found by clicking on the overflow menu at the
-top of the data page. This action will delete all documents and indexes for this
-table, and remove the table from your list of tables. If this table had indexes,
-you will need to redeploy your convex functions (by running `npx convex deploy`
-or `npx convex dev` for production or development, respectively) to recreate the
-indexes.
+The "Delete table" button can be found by clicking on the `⋮` overflow menu at
+the top of the data page. This action will delete all documents and indexes for
+this table, and remove the table from your list of tables. If this table had
+indexes, you will need to redeploy your convex functions (by running
+`npx convex deploy` or `npx convex dev` for production or development,
+respectively) to recreate the indexes.
 
 ## Generating a schema
 
@@ -165,8 +191,8 @@ documents within this table.
 
 ## Table Schema and Indexes
 
-The "Schema Indexes" button can be found by clicking on the overflow menu at the
-top of the data page.
+The "Schema Indexes" button can be found by clicking on the `⋮` overflow menu at
+the top of the data page.
 
 ![Indexes button](/screenshots/schema_and_indexes_button.png)
 
