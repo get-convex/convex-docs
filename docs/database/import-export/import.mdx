@@ -112,10 +112,10 @@ npx convex import --replace --table <tableNameToClear> empty_file.jsonl
 
 ## Warnings
 
-- [Streaming Export](/docs/database/import-export/streaming.md) (Fivetran or
-  Airbyte) does not understand snapshot imports, similar to table deletion and
-  creation and some schema changes. We recommend resetting streaming export sync
-  after a snapshot import.
+- [Streaming Export](/docs/production/integrations/streaming-import-export.md)
+  (Fivetran or Airbyte) does not understand snapshot imports, similar to table
+  deletion and creation and some schema changes. We recommend resetting
+  streaming export sync after a snapshot import.
 - Avoid changing the ZIP file between downloading it from Snapshot Export and
   importing it with `npx convex import`. Some manual changes of the ZIP file may
   be possible, but remain undocumented. Please share your use case and check

@@ -19,7 +19,7 @@ shows:
 - The deployment's deploy key, used to
   [integrate with build tools such as Netlify and Vercel](/docs/production/hosting/hosting.mdx)
   and
-  [syncing data with Airbyte and Fivetran](/docs/database/import-export/streaming.md).
+  [syncing data with Fivetran and Airbyte](/docs/production/integrations/streaming-import-export.md).
 
 ![Deployment Settings Dashboard Page](/screenshots/deployment_settings.png)
 
@@ -55,7 +55,7 @@ data stored in your deployment's database
 The
 [streaming export page](https://dashboard.convex.dev/deployment/settings/streaming-export)
 points to instructions on how to setup
-[streaming export](/docs/database/import-export/streaming.md).
+[streaming export](/docs/production/integrations/streaming-import-export.md).
 
 The
 [integrations page](https://dashboard.convex.dev/deployment/settings/integrations)

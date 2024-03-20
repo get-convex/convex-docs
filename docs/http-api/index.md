@@ -77,12 +77,12 @@ curl https://acoustic-panther-728.convex.cloud/api/query -d '{"path": "messages:
 ## Streaming export API
 
 Convex supports streaming export. Convex provides connector implementations for
-[Fivetran and Airbyte](/docs/database/import-export/streaming.md). Those
-connectors use the following APIs.
+[Fivetran and Airbyte](/docs/production/integrations/streaming-import-export.md).
+Those connectors use the following APIs.
 
 Sign up for a [Professional plan](https://www.convex.dev/plans) for streaming
 export support. You can also read the
-[documentation on streaming export](/docs/database/import-export/streaming.md).
+[documentation on streaming export](/docs/production/integrations/streaming-import-export.md).
 
 <BetaAdmonition feature="Streaming Export HTTP APIs" verb="are" />
 
@@ -184,8 +184,8 @@ def delta_sync(delta_cursor):
 ## Streaming import API
 
 Convex supports streaming import. Convex provides a connector implementation for
-[Airbyte](/docs/database/import-export/streaming.md). Those connectors use the
-following APIs.
+[Airbyte](/docs/production/integrations/streaming-import-export.md). Those
+connectors use the following APIs.
 
 Streaming import support is automatically enabled for all Convex projects.
 

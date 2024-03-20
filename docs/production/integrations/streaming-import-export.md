@@ -2,7 +2,7 @@
 title: "Streaming Data in and out of Convex"
 sidebar_label: "Streaming Import/Export"
 description: "Streaming Data in and out of Convex"
-sidebar_position: 150
+sidebar_position: 4
 ---
 
 [Fivetran](https://www.fivetran.com) and [Airbyte](https://airbyte.com) are data
@@ -36,11 +36,11 @@ Convex directly. Some use cases include:
      [Snowflake](https://www.snowflake.com/) is more appropriate.
 2. Flexible querying
    - While Convex has powerful
-     [database queries](../reading-data.mdx#querying-documents) and built-in
-     [full text search](/docs/search.mdx) support, there are still some queries
-     that are difficult to write within Convex. If you need very dynamic sorting
-     and filtering for something like an "advanced search" view, databases like
-     [ElasticSearch](https://www.elastic.co) can be helpful.
+     [database queries](/database/reading-data.mdx#querying-documents) and
+     built-in [full text search](/docs/search.mdx) support, there are still some
+     queries that are difficult to write within Convex. If you need very dynamic
+     sorting and filtering for something like an "advanced search" view,
+     databases like [ElasticSearch](https://www.elastic.co) can be helpful.
 3. Machine learning training
    - Convex isn't optimized for queries running computationally intensive
      machine learning algorithms.
