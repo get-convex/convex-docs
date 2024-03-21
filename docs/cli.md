@@ -184,6 +184,16 @@ manage on the dashboard
 npx convex deploy
 ```
 
+The target deployment to push to is determined like this:
+
+1. If the `CONVEX_DEPLOY_KEY` environment variable is set (typical in CI), then
+   it is the deployment associated with that key.
+2. If the `CONVEX_DEPLOYMENT` environment variable is set (typical during local
+   development), then the target deployment is the production deployment of the
+   project that the deployment specified by `CONVEX_DEPLOYMENT` belongs to. This
+   allows you to deploy to your prod deployment while developing against your
+   dev deployment.
+
 This command will:
 
 1. Run a command if specified with `--cmd`. The command will have CONVEX_URL (or
