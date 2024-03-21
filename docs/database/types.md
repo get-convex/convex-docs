@@ -40,3 +40,33 @@ For information on other limits, see [here](/docs/production/state/limits.mdx).
 
 If any of these limits don't work for you,
 [let us know](https://convex.dev/community)!
+
+## Working with dates and times
+
+Convex does not have a special data type for working with dates and times. How
+you store dates depends on the needs of your application:
+
+1. If you only care about a point in time, you can store a
+   [UTC timestamp](https://en.wikipedia.org/wiki/Unix_time). We recommend
+   following the `_creationTime` field example, which stores the timestamp as a
+   `number` in milliseconds. In your functions and on the client you can create
+   a JavaScript `Date` by passing the timestamp to its constructor:
+   `new Date(timeInMsSinceEpoch)`. You can then print the date and time in the
+   desired time zone (such as your user's machine's configured time zone).
+   - To get the current UTC timestamp in your function and store it in the
+     database, use `Date.now()`
+2. If you care about a calendar date or a specific clock time, such as when
+   implementing a booking app, you should store the actual date and/or time as a
+   string. If your app supports multiple timezones you should store the timezone
+   as well. [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) is a common format
+   for storing dates and times together in a single string like
+   `"2024-03-21T14:37:15Z"`. If your users can choose a specific time zone you
+   should probably store it in a separate `string` field, usually using the
+   [IANA time zone name](https://en.wikipedia.org/wiki/Tz_database#Names_of_time_zones)
+   (although you could concatenate the two fields with unique character like
+   `"|"`).
+
+For more sophisticated printing (formatting) and manipulation of dates and times
+use one of the popular JavaScript libraries: [date-fns](https://date-fns.org/),
+[Day.js](https://day.js.org/), [Luxon](https://moment.github.io/luxon/) or
+[Moment.js](https://momentjs.com/).
