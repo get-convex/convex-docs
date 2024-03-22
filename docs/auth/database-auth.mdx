@@ -48,12 +48,12 @@ You can then use this hook in the top level component which needs the user ID:
 ```tsx title="src/App.tsx"
 import useStoreUserEffect from "./useStoreUserEffect.js";
 
-export function App {
-   const userId = useStoreUserEffect();
-   if (userId === null) {
-      return <div>Storing user...</div>;
-   }
-   return <div>Stored user ID: {userId}</div>;
+export function App() {
+  const userId = useStoreUserEffect();
+  if (userId === null) {
+    return <div>Storing user...</div>;
+  }
+  return <div>Stored user ID: {userId}</div>;
 }
 ```
 
