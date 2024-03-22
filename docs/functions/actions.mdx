@@ -8,10 +8,12 @@ import ArgsWithValidation from "!!raw-loader!@site/../private-demos/snippets/con
 import Context from "!!raw-loader!@site/../private-demos/snippets/convex/actionsContext.ts";
 import ContextRunQuery from "!!raw-loader!@site/../private-demos/snippets/convex/myFunctions.ts";
 import ContextRunMutation from "!!raw-loader!@site/../private-demos/snippets/convex/actionsContextRunMutation.ts";
+import CircularError from "!!raw-loader!@site/../private-demos/snippets/convex/actionsCircularError.ts";
+import CircularErrorFixed from "!!raw-loader!@site/../private-demos/snippets/convex/actionsCircularErrorFixed.ts";
 import NPM from "!!raw-loader!@site/../private-demos/snippets/convex/actionsNPM.ts";
 import Node from "!!raw-loader!@site/../private-demos/snippets/convex/actionsNode.ts";
 import Call from "!!raw-loader!@site/../private-demos/snippets/src/actionsCall.tsx";
-import ActionCircularError from "!!raw-loader!@site/../private-demos/snippets/convex/actionCircularError.ts";
+import ScheduleFromMutation from "!!raw-loader!@site/../private-demos/snippets/convex/actionsScheduleFromMutation.ts";
 
 Actions can call third party services to do things such as processing a payment
 with [Stripe](https://stripe.com). They can be run in Convex's JavaScript
@@ -121,7 +123,7 @@ infer the return type of the action. This is a minimal example of the issue:
 
 <Snippet
   title="convex/myFunctions.ts"
-  source={ContextRunQuery}
+  source={CircularError}
   snippet="tsError"
 />
 
@@ -130,7 +132,7 @@ To work around this, you should store the result of the `ctx.runQuery` or
 
 <Snippet
   title="convex/myFunctions.ts"
-  source={ActionCircularError}
+  source={CircularErrorFixed}
   snippet="fixed"
 />
 
@@ -181,17 +183,28 @@ To call an action from [React](/docs/client/react.mdx) use the
 
 <TSAndJSSnippet sourceTS={Call} sourceJS={Call} title="src/myApp.tsx" />
 
-See the [React](/docs/client/react.mdx) client documentation for all the ways
-queries can be called.
-
 Unlike
 [mutations](/docs/functions/mutation-functions.mdx#calling-mutations-from-clients),
 actions from a single client are parallelized. Each action will be executed as
 soon as it reaches the server (even if other actions and mutations from the same
-client are running).
+client are running). If your app relies on actions running after other actions
+or mutations, make sure to only trigger the action after the relevant previous
+function completes.
 
-If your app relies on actions running after other actions or mutations make sure
-to only trigger the action after the relevant previous function completes.
+**Note:** In most cases calling an action directly from a client **is an
+anti-pattern**. Instead, have the client call a
+[mutation](/docs/functions/mutation-functions.mdx) which captures the user
+intent by writing into the database and then
+[schedules](/docs/scheduling/scheduled-functions.mdx) an action:
+
+<TSAndJSSnippet
+  sourceTS={ScheduleFromMutation}
+  sourceJS={ScheduleFromMutation}
+  title="convex/myFunctions.ts"
+/>
+
+This way the mutation can enforce invariants, such as preventing the user from
+executing the same action twice.
 
 ## Limits
 
