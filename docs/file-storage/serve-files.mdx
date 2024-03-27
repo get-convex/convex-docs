@@ -22,8 +22,9 @@ by your app from [queries](/docs/functions/query-functions.mdx) and
 
 A file URL can be generated from a storage ID by the
 [`storage.getUrl`](/api/interfaces/server.StorageReader#geturl) function of the
-[`QueryCtx`](/api/interfaces/server.QueryCtx) or
-[`MutationCtx`](/api/interfaces/server.MutationCtx) object:
+[`QueryCtx`](/api/interfaces/server.GenericQueryCtx),
+[`MutationCtx`](/api/interfaces/server.GenericMutationCtx), or
+[`ActionCtx`](/api/interfaces/server.GenericActionCtx) object:
 
 <TSAndJSSnippet
   title="convex/listMessages.ts"
@@ -62,8 +63,8 @@ files you need to use file URLs as described
 A file [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) object
 can be generated from a storage ID by the
 [`storage.get`](/api/interfaces/server.StorageActionWriter#get) function of the
-[`ActionCtx`](/api/interfaces/server.ActionCtx) object, which can be returned in
-a `Response`:
+[`ActionCtx`](/api/interfaces/server.GenericActionCtx) object, which can be
+returned in a `Response`:
 
 <TSAndJSSnippet title="convex/http.ts" sourceTS={Http} sourceJS={Http} snippet="getImage"
 highlightPatterns={["storage.get"]} prefix={

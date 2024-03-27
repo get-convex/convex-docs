@@ -14,7 +14,7 @@ remove data from database tables.
 ## Inserting new documents
 
 You can create new documents in the database with the
-[`db.insert`](/api/interfaces/server.DatabaseWriter#insert) method:
+[`db.insert`](/api/interfaces/server.GenericDatabaseWriter#insert) method:
 
 <TSAndJSSnippet
   title="convex/tasks.ts"
@@ -40,8 +40,8 @@ document.
 Given an existing document ID the document can be updated using the following
 methods:
 
-1. The [`db.patch`](/api/interfaces/server.DatabaseWriter#patch) method will
-   patch an existing document, shallow merging it with the given partial
+1. The [`db.patch`](/api/interfaces/server.GenericDatabaseWriter#patch) method
+   will patch an existing document, shallow merging it with the given partial
    document. New fields are added. Existing fields are overwritten. Fields set
    to `undefined` are removed.
 
@@ -52,8 +52,9 @@ methods:
   highlightPatterns={["db.patch"]}
 />
 
-2. The [`db.replace`](/api/interfaces/server.DatabaseWriter#replace) method will
-   replace the existing document entirely, potentially removing existing fields:
+2. The [`db.replace`](/api/interfaces/server.GenericDatabaseWriter#replace)
+   method will replace the existing document entirely, potentially removing
+   existing fields:
 
 <TSAndJSSnippet
   title="convex/tasks.ts"
@@ -65,7 +66,7 @@ methods:
 ## Deleting documents
 
 Given an existing document ID the document can be removed from the table with
-the [`db.delete`](/api/interfaces/server.DatabaseWriter#delete) method.
+the [`db.delete`](/api/interfaces/server.GenericDatabaseWriter#delete) method.
 
 <TSAndJSSnippet
   title="convex/tasks.ts"

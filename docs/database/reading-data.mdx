@@ -17,7 +17,7 @@ database tables using _document ids_ and _document queries_.
 ## Reading a single document
 
 Given a single document's id you can read its data with the
-[`db.get`](/api/interfaces/server.DatabaseReader#get) method:
+[`db.get`](/api/interfaces/server.GenericDatabaseReader#get) method:
 
 <TSAndJSSnippet
   title="convex/tasks.ts"
@@ -32,7 +32,7 @@ sure you are not exposing data from tables other than the ones you intended.
 ## Querying documents
 
 Document queries always begin by choosing the table to query with the
-[`db.query`](/api/interfaces/server.DatabaseReader#query) method:
+[`db.query`](/api/interfaces/server.GenericDatabaseReader#query) method:
 
 <TSAndJSSnippet
   title="convex/tasks.ts"

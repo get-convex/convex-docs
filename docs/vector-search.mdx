@@ -75,8 +75,8 @@ performed in a [Convex action](/docs/functions/actions.mdx).
 They generally involve three steps:
 
 1. Generate a vector from provided input (e.g. using OpenAI)
-1. Use [`ctx.vectorSearch`](api/interfaces/server.ActionCtx#vectorsearch) to
-   fetch the IDs of similar documents
+1. Use [`ctx.vectorSearch`](api/interfaces/server.GenericActionCtx#vectorsearch)
+   to fetch the IDs of similar documents
 1. Load the desired information for the documents
 
 Here's an example of the first two steps for searching for similar French foods

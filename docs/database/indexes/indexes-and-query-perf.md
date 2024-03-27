@@ -22,8 +22,8 @@ can jump straight to the reference documentation instead:
 
 You can imagine that Convex is a physical library storing documents as physical
 books. In this world, every time you add a document to Convex with
-[`db.insert("books", {...})`](/api/interfaces/server.DatabaseWriter#insert) a
-librarian places the book on a shelf.
+[`db.insert("books", {...})`](/api/interfaces/server.GenericDatabaseWriter#insert)
+a librarian places the book on a shelf.
 
 By default, Convex organizes your documents in the order they were inserted. You
 can imagine the librarian inserting documents left to right on a shelf.

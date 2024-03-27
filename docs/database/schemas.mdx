@@ -335,8 +335,8 @@ The [`query`](/generated-api/server#query) and
 [`mutation`](/generated-api/server#mutation) functions in
 [`server.js`](/generated-api/server) have the same API as before but now provide
 a `db` with more precise types. Functions like
-[`db.insert(table, document)`](/api/interfaces/server.DatabaseWriter#insert) now
-understand your schema. Additionally
+[`db.insert(table, document)`](/api/interfaces/server.GenericDatabaseWriter#insert)
+now understand your schema. Additionally
 [database queries](/docs/database/reading-data.mdx) will now return the correct
 document type (not `any`).
 

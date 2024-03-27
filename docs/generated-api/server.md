@@ -222,8 +222,8 @@ run on the server.
 This differs from the [MutationCtx](#mutationctx) because all of the services
 are read-only.
 
-This is an alias of [`QueryCtx`](/api/interfaces/server.QueryCtx) that is typed
-for your app's data model.
+This is an alias of [`GenericQueryCtx`](/api/interfaces/server.GenericQueryCtx)
+that is typed for your app's data model.
 
 #### Type declaration
 
@@ -244,8 +244,9 @@ A set of services for use within Convex mutation functions.
 The mutation context is passed as the first argument to any Convex mutation
 function run on the server.
 
-This is an alias of [`MutationCtx`](/api/interfaces/server.MutationCtx) that is
-typed for your app's data model.
+This is an alias of
+[`GenericMutationCtx`](/api/interfaces/server.GenericMutationCtx) that is typed
+for your app's data model.
 
 #### Type declaration
 
@@ -288,8 +289,9 @@ for your app's data model.
 
 An interface to read from the database within Convex query functions.
 
-This is an alias of [`DatabaseReader`](/api/interfaces/server.DatabaseReader)
-that is typed for your app's data model.
+This is an alias of
+[`GenericDatabaseReader`](/api/interfaces/server.GenericDatabaseReader) that is
+typed for your app's data model.
 
 ---
 
@@ -298,5 +300,6 @@ that is typed for your app's data model.
 An interface to read from and write to the database within Convex mutation
 functions.
 
-This is an alias of [`DatabaseWriter`](/api/interfaces/server.DatabaseWriter)
-that is typed for your app's data model.
+This is an alias of
+[`GenericDatabaseWriter`](/api/interfaces/server.GenericDatabaseWriter) that is
+typed for your app's data model.

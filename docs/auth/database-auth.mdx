@@ -16,7 +16,7 @@ users who have previously signed up or logged in to your app. To do this you
 can:
 
 1. Add a [mutation](/docs/functions/mutation-functions.mdx) that reads user
-   information from [`MutationCtx`](/api/interfaces/server.MutationCtx)'s
+   information from [`MutationCtx`](/api/interfaces/server.GenericMutationCtx)'s
    [`auth`](/api/interfaces/server.Auth) and stores it in a table.
 2. Call this mutation from your client.
 3. Optionally [define a schema](/docs/database/schemas.mdx) and an index for
