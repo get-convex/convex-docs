@@ -92,6 +92,7 @@
   position: fixed;
   top: 0;
   width: 100vw;
+  z-index: var(--cs-dialog-zIndex);
 }
 
 .cs-dialog-content {
@@ -129,7 +130,6 @@
   .cs-dialog {
     display: flex;
     justify-content: center;
-    z-index: var(--cs-dialog-zIndex);
   }
 
   .cs-dialog-content {
