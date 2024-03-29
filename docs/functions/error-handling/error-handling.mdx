@@ -190,19 +190,5 @@ For information on other limits, see [here](/docs/production/state/limits.mdx).
 
 ## Debugging Errors
 
-You Convex dashboard or error reporting service will have the most useful
-information about any error you or your users encounter. In development you can
-also see stack traces directly in your browser console. In production though,
-errors in the browser console are
-[redacted](#differences-in-error-reporting-between-dev-and-prod).
-
-To find the appropriate logs for an error you or your users experience, Convex
-includes a Request ID in all exception messages in both dev and prod in this
-format: `[Request ID: <request_id>]`. These messages can be found in exceptions
-in your browser console, exception reporting service or
-[log stream](/docs/production/integrations/log-streams.mdx).
-
-You can copy and paste a Request ID into your Convex dashboard to view the logs
-for functions started by that request. See the
-[Dashboard logs page](/docs/dashboard/deployments/logs.md#filter-logs) for
-details.
+See [Debugging](/docs/functions/debugging.mdx) and specifically
+[Finding relevant logs by Request ID](/docs/functions/debugging.mdx#finding-relevant-logs-by-request-id).

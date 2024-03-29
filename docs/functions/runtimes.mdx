@@ -147,7 +147,8 @@ database, you need to call the Node.js library from an action, and use
 [`runMutation`](/docs/functions/actions.mdx#action-context) helper to call a
 query or mutation.
 
-Every .ts/.js file in the convex directory is bundled either for the default
-Convex JavaScript runtime or Node.js, even if it contains no Convex functions.
-So a `convex/utils.ts` file that used Node.js-specific libraries would also need
-to have `"use node"` at the top to avoid warnings at bundle time.
+Every `.ts` and `.js` file in the convex directory
+[is bundled](/docs/functions/bundling.mdx) either for the default Convex
+JavaScript runtime or Node.js, even if it contains no Convex functions. So a
+`convex/utils.ts` file that used Node.js-specific libraries would also need to
+have `"use node"` at the top to avoid warnings at bundle time.
