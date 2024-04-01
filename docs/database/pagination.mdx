@@ -77,6 +77,20 @@ You can define paginated query functions that take arguments in addition to
   title="convex/messages.ts"
 />
 
+### Transforming results
+
+You can apply arbitrary
+[transformations](/docs/database/reading-data.mdx#more-complex-queries) to the
+`page` property of the object returned by `paginate`, which contains the array
+of documents:
+
+<TSAndJSSnippet
+  sourceTS={Messages}
+  sourceJS={Messages}
+  snippet="listWithTransformation"
+  title="convex/messages.ts"
+/>
+
 ## Paginating within React Components
 
 To paginate within a React component, use the
