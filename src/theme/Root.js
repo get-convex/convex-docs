@@ -6,6 +6,25 @@ function Root({ children }) {
     logEvent("view doc load", { path: location.pathname });
   }, []);
 
+  // Scroll the active sidebar item into view in case
+  // it's below fold.
+  useEffect(() => {
+    document.querySelectorAll(".menu__link--active").forEach((activeLink) => {
+      // scrollIntoViewIfNeeded works great so use
+      // it by default (Chrome, Safari)
+      if (activeLink.scrollIntoViewIfNeeded) {
+        activeLink.scrollIntoViewIfNeeded?.();
+      } else {
+        // If we used block: "center" it would
+        // shift the whole page after page load
+        activeLink.scrollIntoView({
+          behavior: "instant",
+          block: "nearest",
+        });
+      }
+    });
+  }, []);
+
   const [lang, setLang] = useState("TS");
 
   return (
