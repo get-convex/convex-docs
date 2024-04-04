@@ -75,4 +75,4 @@
 /client/react/nextjs/pages          /client/react/nextjs-pages-router
 /client/react/nextjs/pages-quickstart    /client/react/nextjs-pages-router/quickstart
 /deployments                        /dashboard/deployments
-/database/import-export/streaming.md /production/integrations/streaming-import-export.md
+/database/import-export/streaming /production/integrations/streaming-import-export
