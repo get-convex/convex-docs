@@ -84,7 +84,7 @@ If you're not familiar with Vitest or Jest read the
 The `convex-test` library provides a community-maintained mock implementation of
 the Convex backend in TypeScript.
 
-The library includes a
+**Example:** The library includes a
 [test suite](https://github.com/get-convex/convex-test/tree/main/convex) which
 you can browse to see examples of using it.
 
@@ -276,6 +276,25 @@ See Vitest's [Expect](https://vitest.dev/api/expect.html) reference.
 particularly helpful when asserting the shape of results without needing to list
 every object field.
 
+#### Asserting errors
+
+To assert that a function throws, use
+[`.rejects.toThrowError()`](https://vitest.dev/api/expect.html#tothrowerror):
+
+```ts
+import { convexTest } from "convex-test";
+import { expect, test } from "vitest";
+import { api } from "./_generated/api";
+import schema from "./schema";
+
+test("messages validation", async () => {
+  const t = convexTest(schema);
+  expect(async () => {
+    await t.mutation(api.messages.send, { body: "", author: "James" });
+  }).rejects.toThrowError("Empty message body is not allowed");
+});
+```
+
 ### Debugging tests
 
 You can attach a debugger to the running tests. Read the Vitest
@@ -334,5 +353,30 @@ Note that testing against the local backend also has some drawbacks:
 - No way to mock dependencies or parts of the codebase.
 - No way to control randomness (tests may not be deterministic).
 - No way to set environment variable values from within tests.
+
+## Testing in GitHub Actions
+
+It's easy if you're using [GitHub](https://docs.github.com/en/actions) to set up
+CI
+([continuous integration](https://docs.github.com/en/actions/automating-builds-and-tests/about-continuous-integration))
+workflow for running your test suite:
+
+```yaml title=".github/workflows/test.yml"
+name: Run Tests
+
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - run: npm run test
+```
+
+After you commit and push this file to your repository, GitHub will run
+`npm run test` every time you create a pull request or push a new commit.
 
 {/* todo: testing against preview deployments */}
