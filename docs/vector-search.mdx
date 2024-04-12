@@ -44,12 +44,10 @@ table's schema. Every vector index has a unique name and a definition with:
 
 1. `vectorField` string
    - The name of the field indexed for vector search.
-   - The field must be of type `v.array(v.float64())` (or a union in which one
-     of the possible types is `v.array(v.float64())`)
 1. `dimensions` number
    - The fixed size of the vectors index. If you're using embeddings, this
      dimension should match the size of your embeddings (e.g. `1536` for
-     OpenAI). `dimensions` must be between `2` and `2048`.
+     OpenAI).
 1. [Optional] `filterFields` array
    - The names of additional fields that are indexed for fast filtering within
      your vector index.
@@ -261,6 +259,8 @@ will continue to scale this offering out with the rest of Convex.
 Vector indexes must have:
 
 - Exactly 1 vector index field.
+  - The field must be of type `v.array(v.float64())` (or a union in which one of
+    the possible types is `v.array(v.float64())`)
 - Exactly 1 dimension field with a value between 2 and 4096.
 - Up to 16 filter fields.
 
