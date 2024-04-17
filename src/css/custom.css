@@ -598,6 +598,10 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/vector.svg");
 }
 
+.convex-sidebar-open-source {
+  --convex-icon: url("../../static/img/github-logo.svg");
+}
+
 .convex-sidebar-typescript {
   --convex-icon: url("../../static/img/sidebar-icons/typescript.svg");
 }

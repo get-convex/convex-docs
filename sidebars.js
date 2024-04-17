@@ -123,6 +123,11 @@ const sidebars = {
       className: "convex-sidebar-production",
     },
     {
+      type: "doc",
+      id: "open-source",
+      className: "convex-sidebar-open-source",
+    },
+    {
       type: "html",
       value: '<hr class="convex-menu-divider" />',
       defaultStyle: false,
