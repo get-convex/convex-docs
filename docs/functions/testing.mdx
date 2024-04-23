@@ -13,7 +13,7 @@ Automating the testing of your Convex functions is easy.
     Install [Vitest](https://vitest.dev/) and the [`convex-test`](https://www.npmjs.com/package/convex-test) library.
 
     ```sh
-    npm install --save-dev vitest convex-test
+    npm install --save-dev convex-test vitest @edge-runtime/vm
     ```
 
   </Step>
@@ -28,6 +28,23 @@ Automating the testing of your Convex functions is easy.
       "test:once": "vitest run",
       "test:debug": "vitest --inspect-brk --no-file-parallelism"
     }
+    ```
+
+  </Step>
+
+  <Step title="Configure Vitest">
+    
+    Add <JSDialectFileName name="vitest.config.mts" /> file to configure the test
+    environment to better match the Convex runtime.
+
+    ```ts title="vitest.config.mts"
+    import { defineConfig } from "vitest/config";
+
+    export default defineConfig({
+      test: {
+        environment: "edge-runtime",
+      },
+    });
     ```
 
   </Step>
@@ -317,9 +334,10 @@ Some of the ways the mock differs:
   [limits](/docs/production/state/limits.mdx).
 - ID format. Your code should not depend on the document or storage ID format.
 - Runtime built-ins. Most of your functions are written for the
-  [Convex default runtime](/docs/functions/runtimes.mdx), while Vitest runs your
-  tests in your local Node.js runtime. You should always test new code manually
-  to make sure it doesn't use built-ins not available in the Convex runtime.
+  [Convex default runtime](/docs/functions/runtimes.mdx), while Vitest uses a
+  mock of Vercel's Edge Runtime, which is similar but might differ from the
+  Convex runtime. You should always test new code manually to make sure it
+  doesn't use built-ins not available in the Convex runtime.
 - Some features have only simplified semantics, namely:
   - [Text search](/docs/search.mdx) returns all documents that include a word
     for which at least one word in the searched string is a prefix. It does not
