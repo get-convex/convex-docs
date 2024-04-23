@@ -54,6 +54,40 @@ particularly if they are not effectively
 [aws-sdk](https://www.npmjs.com/package/aws-sdk) or
 [snowflake-sdk](https://www.npmjs.com/package/snowflake-sdk))
 
+You can follow these steps to debug bundle size:
+
+<StepByStep>
+  <Step title="Make sure you're using the most recent version of convex">
+    ```sh
+    npm install convex@latest
+    ```
+  </Step>
+  <Step title="Generate the bundle">
+   Note that this will not push code, and just generated a bundle for debugging purposes.
+
+    ```sh
+    npx convex dev --once --debug-bundle-path /tmp/myBundle
+    ```
+
+  </Step>
+  <Step title="Visualize the bundle">
+  Use
+   [source-map-explorer](https://github.com/danvk/source-map-explorer/tree/master)
+   to visualize your bundle.
+
+    ```sh
+    npx source-map-explorer /tmp/myBundle/**/*.js
+    ```
+
+  </Step>
+</StepByStep>
+
+Code bundled for the Convex runtime will be in the `isolate` directory while
+code bundled for node actions will be in the `node` directory.
+
+Large node dependencies can be eliminated from the bundle by marking them as
+[external packages](/docs/functions/bundling.mdx#external-packages).
+
 ### Dynamic dependencies
 
 Some libraries rely on dynamic imports (via `import`/`require` calls) to avoid
@@ -85,8 +119,7 @@ Consider the following examples of packages relying on dynamic dependencies:
 ## External packages
 
 As a workaround for the bundling limitations above, Convex provides an escape
-hatch within your project's `convex.json` file: **external packages**. This
-feature is currently exclusive to Convex's
+hatch: **external packages**. This feature is currently exclusive to Convex's
 [Node.js runtime](/docs/functions/runtimes.mdx#nodejs-runtime).
 
 External packages use
@@ -112,8 +145,10 @@ pushes!
 
 ### Specifying external packages
 
-You can set the `node.externalPackages = ["*"]` field of your `convex.json` to
-mark all used dependencies within your Node actions as external:
+Create a [`convex.json`](/docs/production/project-configuration.mdx#convex.json)
+file in the same directory as your `package.json` if it does not exist already.
+Set the `node.externalPackages` field to `["*"]` to mark all dependencies used
+within your Node actions as external:
 
 ```json
 {
@@ -123,8 +158,7 @@ mark all used dependencies within your Node actions as external:
 }
 ```
 
-Alternatively, you can explicitly specify which packages to install on the
-server:
+Alternatively, you can explicitly specify which packages to mark as external:
 
 ```json
 {
@@ -138,14 +172,33 @@ The package identifiers should match the string used in `import`/`require` in
 your
 [Node.js action](/docs/functions/actions.mdx#calling-third-party-apis-and-using-npm-packages).
 
-<Details summary="Troubleshooting External Package versions">
-    In order for an exact version for an external package to be found, the Convex CLI searches for the
-    installed package version within your local `node_modules` directory.
+### Troubleshooting external packages
 
-    Thus, if you change an external dependency version in your project, the change will only will only be
-    pushed to the server after you've updated the package version installed in your local `node_modules` folder.
+#### Incorrect package versions
 
-</Details>
+The Convex CLI searches for external packages within your local `node_modules`
+directory. Thus, changing version of a package in the `package.json` will not
+affect the version used on the server until you've updated the package version
+installed in your local `node_modules` folder (e.g. running `npm install`).
+
+#### Import errors
+
+Marking a dependency as external may result in errors like this:
+
+> The requested module "some-module" is a CommonJs module, which may not support
+> all module.exports as named exports. CommonJs modules can always be imported
+> via the default export
+
+This requires rewriting any imports for this module as follows:
+
+```ts
+// ❌ old
+import { Foo } from "some-module";
+
+// ✅ new
+import SomeModule from "some-module";
+const { Foo } = SomeModule;
+```
 
 ### Limitations
 

@@ -31,17 +31,34 @@ You can also deploy your backend from your local machine. `npx convex deploy`
 will ask for a confirmation and then deploy to the production deployment in the
 same project as your configured development `CONVEX_DEPLOYMENT`.
 
-## Changing the `convex/` folder name or location
+## `convex.json`
 
-If you need to change the name or location of the `convex/` folder for any
-reason, you can do so using the `convex.json` file at the root of your project.
+Additional project configuration can be specified in the `convex.json` file in
+the root of your project (in the same directory as your `package.json`).
 
-For example, Create React App doesn't allow importing from outside the `src/`
-directory, so if you're using Create React App you should have the following
-config:
+The file supports the following configuration options:
+
+### Changing the `convex/` folder name or location
+
+You can choose a different name or location for the `convex/` folder via the
+`functions` field. For example, Create React App doesn't allow importing from
+outside the `src/` directory, so if you're using Create React App you should
+have the following config:
 
 ```json title="convex.json"
 {
   "functions": "src/convex/"
 }
 ```
+
+### Installing packages on the server
+
+You can specify which packages used by Node actions should be installed on the
+server, instead of being bundled, via the `node.externalPackages` field.
+[Read more](/docs/functions/bundling.mdx#external-packages).
+
+### Importing the generated functions API via `require()` syntax
+
+The Convex code generation can be configured to generate a CommonJS-version of
+the `_generated/api.js` file via the `generateCommonJSApi` field.
+[Read more](/docs/client/javascript/node.mdx#javascript-with-commonjs-require-syntax).
