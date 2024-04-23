@@ -3,6 +3,11 @@ title: "Best Practices"
 sidebar_position: 170
 ---
 
+import UserHelpers from "!!raw-loader!@site/../private-demos/snippets/convex/userHelpers.ts";
+import UserHelpersJS from "!!raw-loader!@site/../private-demos/snippets/convex/userHelpersJS.js";
+import Teams from "!!raw-loader!@site/../private-demos/snippets/convex/bestPracticesHelpersTeams.ts";
+import TeamsJS from "!!raw-loader!@site/../private-demos/snippets/convex/bestPracticesHelpersTeamsJS.js";
+
 Here's a collection of our recommendations on how best to use Convex to build
 your application. If you want guidance specific to your app's needs or have
 discovered other ways of using Convex,
@@ -42,9 +47,25 @@ traces.
 
 ### Use helper functions to write shared code.
 
-You can feel free to write additional helper functions in your `/convex`
-directory and use them within your Convex functions. Helpers can be a powerful
-way to share business logic, authorization code, and more.
+Write helper functions in your `convex/` directory and use them within your
+Convex functions. Helpers can be a powerful way to share business logic,
+authorization code, and more.
+
+Helper functions allow sharing code while still executing the entire query or
+mutation in a single transaction. For actions, sharing code via helper functions
+instead of using `ctx.runAction` reduces function calls and resource usage.
+
+See the [TypeScript page](/docs/typescript.mdx) for useful types.
+
+<TSAndJSSnippet sourceTS={Teams} sourceJS={TeamsJS} title="convex/teams.js" />
+
+<TSAndJSSnippet
+  sourceTS={UserHelpers}
+  sourceJS={UserHelpersJS}
+  title="convex/userHelpers.js"
+  snippet="userHelpers"
+  suffix={`}`}
+/>
 
 ### Prefer queries and mutations over actions
 
