@@ -10,7 +10,25 @@ You have followed one of our authentication guides but something is not working.
 You have double checked that you followed all the steps, and that you used the
 correct secrets, but you are still stuck.
 
-Follow the steps on this page to resolve the issue.
+## Frequently encountered issues
+
+### `ctx.auth.getUserIdentity()` returns `null` in a query
+
+This often happens when subscribing to queries via `useQuery` in React, without
+waiting for the client to be authenticated. Even if the user has been logged-in
+previously, it takes some time for the client to authenticate with the Convex
+backend. Therefore on page load, `ctx.auth.getUserIdentity()` called within a
+query returns `null`.
+
+To handle this, you can either:
+
+1. Use the `Authenticated` component from `convex/react` to wrap the component
+   that includes the `useQuery` call (see the last two steps in the
+   [Clerk guide](/docs/auth/clerk.mdx#get-started))
+2. Or return `null` or some other "sentinel" value from the query and handle it
+   on the client
+
+If this hasn't helped, follow the steps below to resolve your issue.
 
 ## Step 1: Check whether authentication works on the backend
 
@@ -203,8 +221,8 @@ Great, let's check they match the JWT token.
          that's the name `ConvexProviderWithClerk` uses to fetch the token!
 
      - Auth0: You have the wrong `domain` configured (on the client!). The
-       domain must belong to the the Auth0 instance that you used to configure
-       your <JSDialectFileName name="auth.config.ts" />.
+       domain must belong to the Auth0 instance that you used to configure your
+       <JSDialectFileName name="auth.config.ts" />.
      - Custom: Make sure that your client is correctly configured to match your
        <JSDialectFileName name="auth.config.ts" />.
 

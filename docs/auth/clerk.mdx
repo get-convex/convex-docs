@@ -1,5 +1,5 @@
 ---
-title: "Convex Clerk"
+title: "Convex & Clerk"
 sidebar_label: "Clerk"
 sidebar_position: 1
 ---
@@ -9,6 +9,8 @@ import ConfigTS from "!!raw-loader!@site/../private-demos/quickstarts/react-vite
 import ConfigJS from "!!raw-loader!@site/../private-demos/quickstarts/react-vite/src/_mainClerk.jsx";
 import ConfigEnvTS from "!!raw-loader!@site/../private-demos/quickstarts/react-vite-ts/src/_mainClerkEnv.tsx";
 import ConfigEnvJS from "!!raw-loader!@site/../private-demos/quickstarts/react-vite/src/_mainClerkEnv.jsx";
+import App from "!!raw-loader!@site/../private-demos/snippets/src/clerkApp.tsx";
+import Messages from "!!raw-loader!@site/../private-demos/snippets/convex/clerkMessages.ts";
 
 [Clerk](https://clerk.com) is an authentication platform providing login via
 passwords, social identity providers, one-time email or SMS access codes, and
@@ -115,6 +117,41 @@ follow the [Convex React Quickstart](/docs/quickstart/react.mdx) first. Then:
     />
 
   </Step>
+
+  <Step title="Show UI based on authentication state">
+    You can control which UI is shown when the user is signed in or signed out
+    with the provided components from `"convex/react"` and `"@clerk/clerk-react"`.
+
+    To get started create a shell that will let the user sign in and sign out.
+
+    Because the `Content` component is a child of `Authenticated`, within it and
+    any of its children authentication is guaranteed and Convex queries can
+    require it.
+
+    <TSAndJSSnippet
+      title="src/App.tsx"
+      sourceTS={App}
+      sourceJS={App}
+    />
+
+  </Step>
+
+  <Step title="Use authentication state in your Convex functions">
+    If the client is authenticated, you can access the information
+    stored in the JWT via `ctx.auth.getUserIdentity`.
+
+    If the client isn't authenticated, `ctx.auth.getUserIdentity` will return `null`.
+
+    **Make sure that the component calling this query is a child of `Authenticated` from
+    `"convex/react"`**, otherwise it will throw on page load.
+
+    <TSAndJSSnippet
+      title="convex/messages.ts"
+      sourceTS={Messages}
+      sourceJS={Messages}
+    />
+
+  </Step>
 </StepByStep>
 
 ## Login and logout Flows
@@ -137,17 +174,18 @@ function App() {
 }
 ```
 
-To enable a logout flow you can use the `SignOutButton` from
-`@clerk/clerk-react` or the
-[`UserButton`](https://clerk.com/docs/components/user/user-button) which opens a
-dialog that includes a sign out button.
+To enable a logout flow you can use the
+[`SignOutButton`](https://clerk.com/docs/components/unstyled/sign-out-button) or
+the [`UserButton`](https://clerk.com/docs/components/user/user-button) which
+opens a dialog that includes a sign out button.
 
 ## Logged-in and logged-out views
 
 Use the [`useConvexAuth()`](/api/modules/react#useconvexauth) hook instead of
 Clerk's `useAuth` hook when you need to check whether the user is logged in or
 not. The `useConvexAuth` hook makes sure that the browser has fetched the auth
-token needed to make authenticated requests to your Convex backend:
+token needed to make authenticated requests to your Convex backend, and that the
+Convex backend has validated it:
 
 ```tsx title="src/App.ts"
 import { useConvexAuth } from "convex/react";
@@ -181,6 +219,15 @@ function App() {
 }
 ```
 
+## User information in functions
+
+See [Auth in Functions](/docs/auth/functions-auth.mdx) to learn about how to
+access information about the authenticated user in your queries, mutations and
+actions.
+
+See [Storing Users in the Convex Database](/docs/auth/database-auth.mdx) to
+learn about how to store user information in the Convex database.
+
 ## User information in React
 
 You can access information about the authenticated user like their name from
@@ -196,15 +243,6 @@ export default function Badge() {
   return <span>Logged in as {user.fullName}</span>;
 }
 ```
-
-## User information in functions
-
-See [Auth in Functions](/docs/auth/functions-auth.mdx) to learn about how to
-access information about the authenticated user in your queries, mutations and
-actions.
-
-See [Storing Users in the Convex Database](/docs/auth/database-auth.mdx) to
-learn about how to store user information in the Convex database.
 
 ## Next.js, React Native Expo, Gatsby
 

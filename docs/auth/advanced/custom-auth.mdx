@@ -1,17 +1,21 @@
 ---
 title: "Custom Auth Integration"
-sidebar_label: "Custom"
+sidebar_label: "Custom Integration"
 sidebar_position: 3
 ---
+
+**Note: This is an advanced feature!** We recommend sticking with the
+[supported third-party authentication providers](/docs/auth.mdx).
 
 Convex can be integrated with any identity provider supporting the
 [OpenID Connect](https://openid.net/connect/) protocol. At minimum this means
 that the provider can issue
 [ID tokens](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) and
-verify them. The ID token is passed from the client to your Convex backend which
-ensures that the token is valid and enables you to query the user information
-embedded in the token, as described in
-[Auth in Functions](/docs/auth/functions-auth.mdx).
+exposes the corresponding
+[JWKS](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-key-sets).
+The ID token is passed from the client to your Convex backend which ensures that
+the token is valid and enables you to query the user information embedded in the
+token, as described in [Auth in Functions](/docs/auth/functions-auth.mdx).
 
 ## Server-side integration
 

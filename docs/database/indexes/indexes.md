@@ -231,8 +231,7 @@ first by channel, then by user within each channel, and finally by the creation
 time.
 
 Sorting with indexes allows you to satisfy use cases like displaying the top `N`
-scoring users, the most recent `N` transactions, or the the most `N` liked
-messages.
+scoring users, the most recent `N` transactions, or the most `N` liked messages.
 
 For example, to get the top 10 highest scoring players in your game, you might
 define an index on the player's highest score:

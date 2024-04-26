@@ -9,8 +9,12 @@ The authentication flow looks like this under the hood:
 5. The {props.integrationProvider} fetches an auth token from {props.provider}.
 6. The `ConvexReactClient` passes this token down to your Convex backend to
    validate
-7. Your Convex backend passes the token to {props.provider} to check that it is
-   valid.
+7. Your Convex backend retrieves the public key from {props.provider} to check
+   that the token's signature is valid.
+8. The `ConvexReactClient` is notified of successful authentication, and
+   {props.integrationProvider} now knows that the user is authenticated with
+   Convex. `useConvexAuth` returns `isAuthenticated: true` and the
+   `Authenticated` component renders its children.
 
 {props.integrationProvider} takes care of refetching the token when needed to
 make sure the user stays authenticated with your backend.

@@ -5,85 +5,116 @@ sidebar_position: 5
 ---
 
 import Schema from "!!raw-loader!@site/../demos/users-and-clerk/convex/schema.ts";
-import AppJSX from "!!raw-loader!@site/../demos/users-and-clerk/src/App.tsx";
 import useStoreUserEffectTS from "!!raw-loader!@site/../demos/users-and-clerk/src/useStoreUserEffect.ts";
 import useStoreUserEffectJS from "!!raw-loader!@site/../js_demos/users-and-clerk/src/useStoreUserEffect.js";
 import MessagesTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/messages.ts";
+import MessagesJS from "!!raw-loader!@site/../js_demos/users-and-clerk/convex/messages.js";
 import UsersTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/users.ts";
+import App from "!!raw-loader!@site/../private-demos/snippets/src/clerkStoreUserApp.tsx";
 
-You might want to have a centralized place that stores information about the
-users who have previously signed up or logged in to your app. To do this you
-can:
+You might want to store user information directly in your Convex database, for
+the following reasons:
 
-1. Add a [mutation](/docs/functions/mutation-functions.mdx) that reads user
-   information from [`MutationCtx`](/api/interfaces/server.GenericMutationCtx)'s
-   [`auth`](/api/interfaces/server.Auth) and stores it in a table.
-2. Call this mutation from your client.
-3. Optionally [define a schema](/docs/database/schemas.mdx) and an index for
-   this table
+- Your functions need information about other users, not just about the
+  currently logged-in user
+- Your functions need access to information other than the fields available in
+  the [Open ID Connect JWT](/docs/auth/functions-auth.mdx)
 
-## `storeUser` mutation
+There are two ways you can choose from for storing user information in your
+database:
+
+1. Have your app's [client call a mutation](#call-a-mutation-from-the-client)
+   that stores the information from the JWT available on
+   [`ctx.auth`](/api/interfaces/server.Auth)
+2. [Implement a webhook](#webhook) and have your identity provider call it
+   whenever user information changes
+
+## Call a mutation from the client
+
+**Example:**
+[Convex Authentication with Clerk](https://github.com/get-convex/convex-demos/tree/main/users-and-clerk)
+
+### (optional) Users table schema
+
+You can define a `"users"` table, optionally with an
+[index](/docs/database/indexes/indexes.md) for efficient looking up the users in
+the database.
+
+In all the examples below we will use the `tokenIdentifier` from the
+`ctx.auth.getUserIdentity()` to identify the user, but you could use the
+`subject` field (which is usually set to the unique user ID from your auth
+provider) or even `email`, if your authentication provider provides email
+verification and you have it enabled.
+
+Which field you use will determine how multiple providers interact, and how hard
+it will be to migrate to a different provider.
+
+<Snippet source={Schema} snippet="user" title="convex/schema.ts" />
+
+### Mutation for storing current user
 
 This is an example of a mutation that stores the user's `name` and
 `tokenIdentifier`:
 
 <TSAndJSSnippet sourceTS={UsersTS} sourceJS={UsersTS} title="convex/users.js" />
 
-## Calling `storeUser` from React
+### Calling the store user mutation from React
 
-You can call this mutation when the user logs in from a `useEffect` hook. Once
-the mutation succeeds we store the Convex document ID representing the user in
-the component state.
+You can call this mutation when the user logs in from a `useEffect` hook. After
+the mutation succeeds you can update local state to reflect that the user has
+been stored.
 
-Here we created a helper hook that does this job:
+This helper hook that does the job:
 
 <TSAndJSSnippet
   sourceTS={useStoreUserEffectTS}
   sourceJS={useStoreUserEffectJS}
-  title="src/useStoreUserEffect.js"
+  title="src/useStoreUserEffect.ts"
 />
 
-You can then use this hook in the top level component which needs the user ID:
+You can use this hook in your top-level component. If your queries need the user
+document to be present, make sure that you only render the components that call
+them after the user has been stored:
 
-```tsx title="src/App.tsx"
-import useStoreUserEffect from "./useStoreUserEffect.js";
+<TSAndJSSnippet sourceTS={App} sourceJS={App} title="src/App.tsx" />
 
-export function App() {
-  const userId = useStoreUserEffect();
-  if (userId === null) {
-    return <div>Storing user...</div>;
-  }
-  return <div>Stored user ID: {userId}</div>;
-}
-```
+In this way the `useStoreUserEffect` hook replaces the `useConvexAuth` hook.
 
-Note that you can simplify the hook based on your needs. You can remove the
-`isAuthenticated` check if you only call the hook from a component wrapped in
-`Authenticated` from `convex/react`. You can remove the `useState` if your
-client doesn't need to know the user ID, but you need to make sure that a
-mutation which requires that the user is stored doesn't get called before the
-`useEffect` finishes.
+### Using the current user's document ID
 
-## `users` table schema
+Similarly to the store user mutation, you can retrieve the current user's ID, or
+throw an error if the user hasn't been stored.
 
-We can define a `users` table, optionally with an
-[index](/docs/database/indexes/indexes.md) for efficient document queries:
-
-<Snippet source={Schema} snippet="user" title="convex/schema.ts" />
-
-## Reading from `users` table
-
-You can now load user documents from queries and mutations. This can be useful
-for referencing the user's [document ID](/docs/database/document-ids.mdx) in
-other documents. Note that using the "by_token" index requires you to
-[define that index](/docs/database/indexes/indexes.md).
+Now that you have users stored as documents in your Convex database, you can use
+their IDs as foreign keys in other documents:
 
 <TSAndJSSnippet
   sourceTS={MessagesTS}
   sourceJS={MessagesTS}
   snippet="load-user"
-  title="convex/myMutation.ts"
+  title="convex/messages.ts"
   suffix={`    // do something with \`user\`...
   }
 });`}
 />
+
+### Loading users by their ID
+
+The information about other users can be retrieved via their IDs:
+
+<TSAndJSSnippet
+  sourceTS={MessagesTS}
+  sourceJS={MessagesJS}
+  snippet="use-users"
+  title="convex/messages.ts"
+  prefix={`import { query } from "./_generated/server";
+`}
+/>
+
+## Set up webhooks
+
+This guide will use Clerk, but Auth0 can be set up similarly via
+[Auth0 Actions](https://auth0.com/docs/customize/actions/actions-overview).
+
+Follow this template:
+[https://github.com/thomasballinger/convex-clerk-users-table](https://github.com/thomasballinger/convex-clerk-users-table).
