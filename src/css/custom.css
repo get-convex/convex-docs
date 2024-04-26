@@ -630,6 +630,10 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/javascript.svg");
 }
 
+.convex-sidebar-svelte {
+  --convex-icon: url("../../static/img/sidebar-icons/svelte.svg");
+}
+
 .convex-sidebar-python {
   --convex-icon: url("../../static/img/sidebar-icons/python.svg");
 }

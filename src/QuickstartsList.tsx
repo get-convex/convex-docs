@@ -5,6 +5,7 @@ import NodeLogo from "@site/static/img/node-logo.svg";
 import PythonLogo from "@site/static/img/python-logo.svg";
 import ReactLogo from "@site/static/img/react-logo.svg";
 import RustLogo from "@site/static/img/rust-logo.svg";
+import SvelteLogo from "@site/static/img/svelte-logo.svg";
 import React from "react";
 import { DocCardList } from "./DocCardList";
 
@@ -31,6 +32,12 @@ export function QuickstartsList() {
           href: "/quickstart/react-native",
           docId: "quickstart/react-native",
           label: "React Native",
+        },
+        {
+          icon: <SvelteLogo height={40} />,
+          href: "/quickstart/svelte",
+          docId: "quickstart/svelte",
+          label: "Svelte",
         },
         {
           icon: <NodeLogo height={40} />,

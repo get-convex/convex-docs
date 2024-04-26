@@ -151,6 +151,12 @@ const sidebars = {
       className: "convex-sidebar-react-native",
     },
     {
+      type: "doc",
+      id: "client/svelte",
+      label: "Svelte",
+      className: "convex-sidebar-svelte",
+    },
+    {
       type: "category",
       label: "JavaScript",
       link: { type: "doc", id: "client/javascript" },
