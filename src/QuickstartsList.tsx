@@ -2,6 +2,7 @@ import ExpoLogo from "@site/static/img/expo-logo.svg";
 import NextJSLogo from "@site/static/img/nextjs-logo.svg";
 import HtmlLogo from "@site/static/img/html-logo.svg";
 import NodeLogo from "@site/static/img/node-logo.svg";
+import BunLogo from "@site/static/img/bun-logo.svg";
 import PythonLogo from "@site/static/img/python-logo.svg";
 import ReactLogo from "@site/static/img/react-logo.svg";
 import RustLogo from "@site/static/img/rust-logo.svg";
@@ -44,6 +45,12 @@ export function QuickstartsList() {
           href: "/quickstart/nodejs",
           docId: "quickstart/nodejs",
           label: "Node.js",
+        },
+        {
+          icon: <BunLogo height={40} />,
+          href: "/quickstart/bun",
+          docId: "quickstart/bun",
+          label: "Bun",
         },
         {
           icon: <HtmlLogo height={40} />,
