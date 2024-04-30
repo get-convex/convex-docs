@@ -22,6 +22,7 @@ const ConvexSearch = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === "k") {
         setDialogOpen(true);
+        event.preventDefault();
       }
     };
 
