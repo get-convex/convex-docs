@@ -33,6 +33,7 @@
     "leaderboard",
     "libvips",
     "localstorage",
+    "loicpennequin",
     "Luxon",
     "Macartney",
     "Michal",
@@ -80,6 +81,7 @@
     "webapps",
     "yourclientid",
     "runtimes",
+    "vueuse",
     "webm"
   ],
   "ignoreRegExpList": ["/#[\\w-]+/", "/\\w+.png/"],

@@ -630,6 +630,26 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/javascript.svg");
 }
 
+.convex-sidebar-vue {
+  --convex-icon: url("../../static/img/sidebar-icons/vue.svg");
+}
+
+.convex-sidebar-vue a:after {
+  font-weight: 400;
+  font-size: 0.6em;
+  margin-left: 1em;
+  content: "Community";
+  border-radius: 10px;
+  border: solid 1px gray;
+  padding: 2px 8px;
+  float: right;
+}
+
+.convex-sidebar-vue .menu__link--active:after {
+  /* shift left to compensate for text to the left being bold */
+  margin-left: 0.85em;
+}
+
 .convex-sidebar-svelte {
   --convex-icon: url("../../static/img/sidebar-icons/svelte.svg");
 }

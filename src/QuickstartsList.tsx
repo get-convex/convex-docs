@@ -8,6 +8,7 @@ import ReactLogo from "@site/static/img/react-logo.svg";
 import RemixLogo from "@site/static/img/remix-logo.svg";
 import RustLogo from "@site/static/img/rust-logo.svg";
 import SvelteLogo from "@site/static/img/svelte-logo.svg";
+import VueLogo from "@site/static/img/vue-logo.svg";
 import React from "react";
 import { DocCardList } from "./DocCardList";
 
@@ -41,6 +42,12 @@ export function QuickstartsList() {
           href: "/quickstart/react-native",
           docId: "quickstart/react-native",
           label: "React Native",
+        },
+        {
+          icon: <VueLogo height={40} />,
+          href: "/quickstart/vue",
+          docId: "quickstart/vue",
+          label: "Vue",
         },
         {
           icon: <SvelteLogo height={40} />,
