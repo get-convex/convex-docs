@@ -183,7 +183,7 @@ books as they add them to the library.
 If you are defining a few indexes there is no need to worry about the
 maintenance cost. As you define more indexes, the cost to maintain them grows
 because every `insert` needs to update every index. This is why Convex has a
-limit of 32 indexes per table. In practice most applications define a handle of
+limit of 32 indexes per table. In practice most applications define a handful of
 indexes per table to make their important queries efficient.
 
 ## Indexing Multiple Fields
