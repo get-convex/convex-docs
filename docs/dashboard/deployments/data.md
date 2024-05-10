@@ -85,13 +85,6 @@ and entering a new name for the table.
 
 ## Creating documents
 
-<Admonition type="note">
-
-The dashboard currently supports editing all
-[Convex types](/docs/database/types.md) except Bytes.
-
-</Admonition>
-
 You may add individual documents to the table using the “Add Documents” button
 located in the data table's toolbar.
 
