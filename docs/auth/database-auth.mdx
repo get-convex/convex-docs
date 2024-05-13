@@ -135,11 +135,11 @@ endpoint any time a user signs up, updates or deletes their account.
 On your Clerk dashboard, go to _Webhooks_, click on _+ Add Endpoint_.
 
 Set _Endpoint URL_ to
-`https://<your deployment name>.convex.site/clerk-users-webhook`. You can see
-your deployment name in the `.env.local` file in your project directory, or on
-your Convex dashboard as part of the
-[Deployment URL](/docs/dashboard/deployments/settings.md). For example, the
-endpoint URL could be:
+`https://<your deployment name>.convex.site/clerk-users-webhook` (note the
+domain ends in **`.site`**, not `.cloud`). You can see your deployment name in
+the `.env.local` file in your project directory, or on your Convex dashboard as
+part of the [Deployment URL](/docs/dashboard/deployments/settings.md). For
+example, the endpoint URL could be:
 `https://happy-horse-123.convex.site/clerk-users-webhook`.
 
 In _Message Filtering_, select **user** for all user events (scroll down or use
