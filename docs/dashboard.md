@@ -5,6 +5,6 @@ id: "dashboard"
 
 ![Dashboard Projects View](/screenshots/projects.png)
 
-[The dashboard](https://dashboard.convex.dev/) shows all of your Convex teams
-and projects, allowing you to manage your teams, projects, and Convex
-deployments.
+[The dashboard](https://dashboard.convex.dev/) is the central hub for managing
+your Convex projects. Here you can create and manage your Convex teams,
+projects, and deployments.

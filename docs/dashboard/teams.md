@@ -11,8 +11,10 @@ dashboard.
 
 ![Team switcher](/screenshots/team_selector.png)
 
+The team switcher also allows you to search for projects within a specific team.
+
 You may change the name of a team or invite new members to a team by clicking on
-the Settings navigation button while on the dashboard landing page.
+the "Team Settings" button located on the top of the project list page.
 
 ## Team Settings
 
@@ -22,6 +24,11 @@ the Settings navigation button while on the dashboard landing page.
 team name.
 
 ![General team settings page](/screenshots/teams_general.png)
+
+### Deleting a Team
+
+Currently, it is not possible to delete a team yourself. If you need to remove a
+team, please contact support@convex.dev for assistance.
 
 ### Members
 
@@ -36,6 +43,9 @@ invite or remove members from your team.
 Use the [billing page](https://dashboard.convex.dev/team/settings/billing) to
 upgrade your Convex subscription to a higher tier, or manage your existing
 subscription.
+
+On paid plans, you can also update your billing contact details, payment method,
+and view your invoices.
 
 [Learn more about Convex pricing](https://www.convex.dev/plans).
 

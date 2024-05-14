@@ -26,11 +26,30 @@ on each Project card on the Projects page.
 ![Project card menu](/screenshots/project_menu.png)
 
 On the [Project Settings page](https://dashboard.convex.dev/project/settings),
-you'll find:
+you can:
 
-- A form to update your project's name and slug.
-- Instructions to regain access to your project, should you lose track of your
-  `CONVEX_DEPLOYMENT` config.
-- A button to permanently delete the project.
+- Update your project's name and slug.
+- View the amount of [usage metrics](/docs/dashboard/teams.md#usage) your
+  project has consumed.
+- Generate deploy keys for your production and preview deployments.
+- Create and edit
+  [default environment variables](/docs/production/environment-variables.mdx#project-environment-variable-defaults).
+- View instructions to regain access to your project, should you lose track of
+  your `CONVEX_DEPLOYMENT` config.
+- Permanently delete the project.
 
 ![Project settings](/screenshots/project_settings.png)
+
+## Deleting projects
+
+To delete a project, click on the triple-dot `⋮` button on the Project card and
+select "Delete". You may also delete your project from the Project Settings
+page.
+
+Once a project is deleted, it cannot be recovered. All deployments and data
+associated with the project will be permanently removed. When deleting a project
+from the dashboard, you will be asked to confirm the deletion. Projects with
+activity in the production deployment will have additional confirmation steps to
+prevent accidental deletion.
+
+![Delete project](/screenshots/project_delete.png)
