@@ -26,7 +26,8 @@ Automating the testing of your Convex functions is easy.
     "scripts": {
       "test": "vitest",
       "test:once": "vitest run",
-      "test:debug": "vitest --inspect-brk --no-file-parallelism"
+      "test:debug": "vitest --inspect-brk --no-file-parallelism",
+      "test:coverage": "vitest run --coverage --coverage.reporter=text",
     }
     ```
 
@@ -35,7 +36,8 @@ Automating the testing of your Convex functions is easy.
   <Step title="Configure Vitest">
     
     Add <JSDialectFileName name="vitest.config.mts" /> file to configure the test
-    environment to better match the Convex runtime.
+    environment to better match the Convex runtime, and to inline the test library
+    for better dependency tracking.
 
     ```ts title="vitest.config.mts"
     import { defineConfig } from "vitest/config";
@@ -43,6 +45,7 @@ Automating the testing of your Convex functions is easy.
     export default defineConfig({
       test: {
         environment: "edge-runtime",
+        server: { deps: { inline: ["convex-test"] } },
       },
     });
     ```
@@ -79,11 +82,8 @@ Automating the testing of your Convex functions is easy.
 
   <Step title="Run tests">
 
-    Start the tests with `npm run test`. When you change the test file the tests will rerun
-    automatically.
-
-    You might need to hit `Enter` or the `R` key to rerun the tests when
-    you change your functions.
+    Start the tests with `npm run test`. When you change the test file or your
+    functions the tests will rerun automatically.
 
     ```sh
     npm run test
@@ -185,7 +185,7 @@ implementations relying on
 [Vitest's fake timers](https://vitest.dev/guide/mocking.html#timers) in
 combination with `t.finishInProgressScheduledFunctions`:
 
-```ts title="scheduling.test.ts"
+```ts title="convex/scheduling.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test, vi } from "vitest";
 import { api, internal } from "./_generated/api";
@@ -232,7 +232,7 @@ schedules an action that schedules another action, you can use
 `t.finishAllScheduledFunctions` to wait for all scheduled functions, including
 recursively scheduled functions, to finish:
 
-```ts title="chainedScheduling.test.ts"
+```ts title="convex/chainedScheduling.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test, vi } from "vitest";
 import { api, internal } from "./_generated/api";
@@ -274,7 +274,7 @@ user identity you can create a version of the `t` accessor with given
 provide them, `issuer`, `subject` and `tokenIdentifier` will be generated
 automatically:
 
-```ts title="tasks.test.ts"
+```ts title="convex/tasks.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test } from "vitest";
 import { api } from "./_generated/api";
@@ -300,7 +300,7 @@ test("authenticated functions", async () => {
 You can use Vitest's
 [vi.stubGlobal](https://vitest.dev/guide/mocking.html#globals) method:
 
-```ts title="ai.test.ts"
+```ts title="convex/ai.test.ts"
 import { expect, test, vi } from "vitest";
 import { convexTest } from "../index";
 import { api } from "./_generated/api";
@@ -334,7 +334,7 @@ every object field.
 To assert that a function throws, use
 [`.rejects.toThrowError()`](https://vitest.dev/api/expect.html#tothrowerror):
 
-```ts
+```ts title="convex/messages.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test } from "vitest";
 import { api } from "./_generated/api";
@@ -348,11 +348,64 @@ test("messages validation", async () => {
 });
 ```
 
+### Measuring test coverage
+
+You can get a printout of the code coverage provided by your tests. Besides
+answering the question "how much of my code is covered by tests" it is also
+helpful to check that your test is actually exercising the code that you want it
+to exercise.
+
+Run <CodeWithCopyButton text="npm run test:coverage" />. It will ask you to
+install a required dependency the first time you run it.
+
+<p style={{ textAlign: "center" }}>
+  <img
+    src="/screenshots/testing_coverage.png"
+    alt="example coverage printout"
+    width={700}
+  />
+</p>
+
 ### Debugging tests
 
 You can attach a debugger to the running tests. Read the Vitest
-[Debugging docs](https://vitest.dev/guide/debugging.html) and then use
-`npm run test:debug`.
+[Debugging docs](https://vitest.dev/guide/debugging.html) and then
+use&#32;<CodeWithCopyButton text="npm run test:debug" />.
+
+### Custom `convex/` folder name or location
+
+If your project has a
+[different name or location configured](/docs/production/project-configuration.mdx#changing-the-convex-folder-name-or-location)
+for the `convex/` folder in `convex.json`, you need to call
+[`import.meta.glob`](https://vitejs.dev/guide/features#glob-import) and pass the
+result as the second argument to `convexTest`.
+
+The argument to `import.meta.glob` must be a glob pattern matching all the files
+containing your Convex functions. The paths are relative to the test file in
+which `import.meta.glob` is called. It's best to do this in one place in your
+custom functions folder:
+
+```ts title="src/convex/test.setup.ts"
+/// <reference types="vite/client" />
+export const modules = import.meta.glob("./**/!(*.*.*)*.*s");
+```
+
+This example glob pattern includes all files with a single extension ending in
+`s` (like `js` or `ts`) in the `src/convex` folder and any of its children.
+
+Use the result in your tests:
+
+```ts title="src/convex/messages.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+import schema from "./schema";
+import { modules } from "./test.setup";
+
+test("some behavior", async () => {
+  const t = convexTest(schema, modules);
+  // use `t`...
+});
+```
 
 ### Limitations
 
