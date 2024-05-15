@@ -16,6 +16,7 @@ shows:
 
 - The URL this deployment is hosted at. Some Convex integrations may require the
   deployment URL for configuration.
+- The URL that HTTP Actions for this deployment should be sent to.
 - The deployment's deploy key, used to
   [integrate with build tools such as Netlify and Vercel](/docs/production/hosting/hosting.mdx)
   and
@@ -39,8 +40,6 @@ The
 shows the values configured in your `auth.config.js` for user
 [authentication](/docs/auth.mdx) implementation.
 
-![deployment settings authentication page](/screenshots/deployment_settings_auth.png)
-
 ## Snapshot Export
 
 The
@@ -50,17 +49,13 @@ data stored in your deployment's database
 
 ![deployment settings export page](/screenshots/deployment_settings_snapshot_export.png)
 
-## Streaming Export and Integrations
+## Integrations
 
-The
-[streaming export page](https://dashboard.convex.dev/deployment/settings/streaming-export)
-points to instructions on how to setup
-[streaming export](/docs/production/integrations/streaming-import-export.md).
-
-The
-[integrations page](https://dashboard.convex.dev/deployment/settings/integrations)
-lets you configure
-[log streaming and exception reporting](/docs/production/integrations/integrations.mdx).
+The integrations page allows you to configure
+[log streaming](/docs/production/integrations/integrations.mdx),
+[exception reporting](/docs/production/integrations/integrations.mdx), and
+[streaming export](/docs/production/integrations/streaming-import-export.md)
+integrations.
 
 ## Pause Deployment
 

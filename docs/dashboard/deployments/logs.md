@@ -12,6 +12,7 @@ of all activity that occurs within your deployment.
 Function activity includes:
 
 - The time of function execution.
+- The request ID of the function execution.
 - The outcome of the function execution (success or failure).
 - The name of the invoked function.
 - The output of the function, including any log lines logged by the function (ex
@@ -19,15 +20,22 @@ Function activity includes:
 - The duration of function execution, in milliseconds (does not include network
   latency).
 
-In addition to function activity, [deployment events](#history-view) describing
+In addition to function activity,
+[deployment events](/docs/dashboard/deployments/history.md) describing
 configuration changes will be present here.
 
-You can use controls on the left-hand side of this page to filter logs by text,
-function name, execution status, and log severity.
+Clicking on log will open a view for all logs associated with the same Request
+ID as the selected log. This can be useful for debugging errors and
+understanding the context of a function execution.
+
+![Request ID Logs](/screenshots/request_logs.png)
+
+You can use controls on the top of this page to filter logs by text, function
+name, execution status, and log severity.
 
 ### Filter logs
 
-Use the “Filter logs” text box on the top of the controls to filter log text.
+Use the "Search logs..." text box on the top of the page to filter log text.
 
 You can use the “Functions” drop-down list to include or exclude functions from
 the results.
@@ -39,23 +47,16 @@ For example if you see this `Error` in your browser console:
 ![Browser Error](/screenshots/console_error_requestid.png)
 
 You can view the logs for that function in your dashboard by pasting that
-Request ID into the 'Filter logs' search bar on the
-[Logs](/docs/dashboard/deployments/logs.md) page of your Convex dashboard:
-
-![Dashboard Filter by Request ID](/screenshots/logs_filtered_by_requestid.png)
+Request ID into the 'Search logs...' search bar on the
+[Logs](/docs/dashboard/deployments/logs.md) page of your Convex dashboard.
 
 Most error reporting services and log sinks should also be searchable by Request
 ID.
 
-### Status
+### Log Types
 
-The status of a log entry indicates whether the Convex function succeeded or
-failed. All failed executions will include a reason, which will usually be a
-JavaScript exception.
+Logs can also be filtered by type. Types include function outcomes (success or
+failure) and severity levels (info, warn, debug, error).
 
-### Log Severity
-
-The log severity filter will control which log lines are included in the logs
-page. If a Convex function execution does not contain a log line matching the
-severity filter, it will be omitted from the results. The "No log lines" filter
-controls whether executions with no console output are included in the results.
+All failed executions will include a reason, which will usually be a JavaScript
+exception.

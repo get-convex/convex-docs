@@ -6,13 +6,14 @@ sidebar_position: 10
 
 ![Data Dashboard Page](/screenshots/data.png)
 
-The [data page](https://dashboard.convex.dev/deployment/data) provides insight
-into your current tables and the documents contained within each of those
-tables.
+The [data page](https://dashboard.convex.dev/deployment/data) allows you to view
+and manage all of your tables and documents.
 
-On the left side of the window is a list of your tables. Clicking on an
-individual table will drill down into a layout that allows you to create, view,
-update, and delete documents in that table.
+On the left side of the page is a list of your tables. Clicking on a table will
+allows you to create, view, update, and delete documents in that table.
+
+You may drag-and-drop the column headers in each table to visually re-order the
+data.
 
 A readonly view of the data page is available in the
 [command line](/docs/cli.md#display-data-from-tables).
@@ -34,8 +35,8 @@ and [Comparison](/docs/database/reading-data.mdx#comparisons) when filtering in
 the dashboard share the same rules as a query using the Convex client. You may
 also filter based on the type of the field.
 
-To add a filter, click "Add condition" in the filter selection menu. If you add
-more than one condition, they will be evaluated using the `and` operation.
+To add a filter, click the `+` next to an existing filter. If you add more than
+one condition, they will be evaluated using the `and` operation.
 
 For each filter, you must select a field to filter by, operation, and comparison
 value. In the third input box (selecting a value), you may enter a valid Convex
@@ -76,7 +77,8 @@ executed when you click on the “Run Custom Query“ button.
 ![Running a custom test query](/screenshots/data_custom_query_runner.png)
 
 If you're not on the data page, you can still open this UI via the persistent
-_fn_ button shown on the bottom right of all deployment pages.
+_fn_ button shown on the bottom right of all deployment pages. The keyboard
+shortcut to open the function runner is Ctrl + ` (backtick).
 
 ## Creating tables
 
@@ -93,6 +95,14 @@ documents to your table using JavaScript syntax. To add more than one document
 add a time, add new objects to the array in the editor.
 
 ![Add document](/screenshots/data_add_document.png)
+
+## Quick actions (context menu)
+
+You can right-click on a document or value to open a context menu with quick
+actions, like copying values, quickly filtering by the selected value, and
+deleting documents.
+
+![Quick actions context menu](/screenshots/data_context_menu.png)
 
 ## Editing a cell
 
@@ -113,10 +123,11 @@ You can even edit the type of your value here, as long as it satisfies your
 
 ## Editing a document
 
-To edit multiple fields in a document at the same time, hover over the row and
-click the button that appears on the right hand side.
+To edit multiple fields in a document at the same time, hover over the document
+and right-click to open the context menu. From there you can click on "Edit
+Document".
 
-![Edit entire document](/screenshots/data_edit_document.gif)
+![Edit entire document](/screenshots/data_edit_document.png)
 
 ## Adding references to other documents
 
@@ -154,8 +165,6 @@ documents in the table, without deleting the table itself.
 In production environments, the Convex dashboard will have you type in the name
 of the table before deletion.
 
-![Clear table](/screenshots/data_clear_table.png)
-
 ## Delete a table
 
 <Admonition type="caution" title="This is a permanent action">
@@ -165,14 +174,12 @@ dashboard will have you type in the name of the table before deletion.
 
 </Admonition>
 
-![Delete table](/screenshots/data_delete_table.png)
-
 The "Delete table" button can be found by clicking on the `⋮` overflow menu at
-the top of the data page. This action will delete all documents and indexes for
-this table, and remove the table from your list of tables. If this table had
-indexes, you will need to redeploy your convex functions (by running
-`npx convex deploy` or `npx convex dev` for production or development,
-respectively) to recreate the indexes.
+the top of the data page. This action will delete all documents this table, and
+remove the table from your list of tables. If this table had indexes, you will
+need to redeploy your convex functions (by running `npx convex deploy` or
+`npx convex dev` for production or development, respectively) to recreate the
+indexes.
 
 ## Generating a schema
 
@@ -180,14 +187,12 @@ At the bottom-left of the page is a "Generate Schema" button which you can click
 to have Convex generate a [schema](/docs/database/schemas.mdx) of all your
 documents within this table.
 
-![Generate Schema button](/screenshots/generate_schema.png)
+![Generate Schema button](/screenshots/data_generate_schema.png)
 
 ## Table Schema and Indexes
 
-The "Schema Indexes" button can be found by clicking on the `⋮` overflow menu at
-the top of the data page.
-
-![Indexes button](/screenshots/schema_and_indexes_button.png)
+The "Schema and Indexes" button can be found by clicking on the `⋮` overflow
+menu at the top of the data page.
 
 This button will open a panel showing the saved
 [schema](/docs/database/schemas.mdx) and
@@ -196,4 +201,4 @@ This button will open a panel showing the saved
 Indexes that have not completed backfilling will be accompanied by a loading
 spinner next to their name.
 
-![Table indexes](/screenshots/indexes.png)
+![Table indexes](/screenshots/data_indexes.png)

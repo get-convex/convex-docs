@@ -20,25 +20,27 @@ To run a Convex function in the dashboard, select a function from the list on
 the left-hand side of the page, and click the "Run Function" button that appears
 next to the function's name.
 
-This screen allows you to fill out the arguments for your function, as well as
-view the results of your function.
+If you're not on the functions page, you can still open this UI via the
+persistent _fn_ button shown on the bottom right of all deployment pages. The
+keyboard shortcut to open the function runner is Ctrl + ` (backtick).
+
+This view allows you to fill out the arguments for your function and run it.
 
 Query results will update automatically as you modify function arguments and
 data changes.
 
 Mutation and action results will be visible once you click the "Run" button.
-Note that these results will show the value returned from the function. To see
-what changed when you ran your function, see the
+
+Note that these results will show the logs and value returned from the function.
+To see what changed when you ran your function, see the
 [data page](/docs/dashboard/deployments/data.md).
 
 ![Running a function](/screenshots/run_function.png)
 
 You can also
 [write a custom query function](/docs/dashboard/deployments/data.md#writing-custom-queries)
-by choosing the “Custom test query“ option.
-
-If you're not on the functions page, you can still open this UI via the
-persistent _fn_ button shown on the bottom right of all deployment pages.
+by choosing the “Custom test query“ option instead of one of your deployed
+functions.
 
 ### Querying a paginated function
 
@@ -53,8 +55,6 @@ function.
 - `cursor` can be left blank to begin pagination. Once you receive results, you
   may set `cursor` to the result's `continueCursor` field to proceed to the next
   page.
-
-![Running a paginated query](/screenshots/run_paginated_query.png)
 
 ### Assuming a user identity
 
