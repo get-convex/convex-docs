@@ -31,7 +31,7 @@ These are all valid Convex documents:
 ```json
 {}
 {"name": "Jamie"}
-{"name": {"first": "Arnold", "second": "Cole"}, "age": 60}
+{"name": {"first": "Ari", "second": "Cole"}, "age": 60}
 ```
 
 They can also contain references to other documents in other tables. See
