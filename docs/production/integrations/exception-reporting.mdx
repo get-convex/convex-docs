@@ -27,12 +27,28 @@ Click on the Sentry card and follow the setup directions. You will need your
 
 ![Configure sentry](/screenshots/configure_sentry.png)
 
-## Sentry Notes
+## Supported Tags
 
-- If the function is [authenticated](/auth), then the
+Convex automatically tags exception events on their way to sentry with the
+following tags
+
+- `func`: The name of the running function in
+  [string format](/functions/query-functions#query-names)
+- `func_type`: One of `["query", "mutation", "action", "http_action"]`
+- `func_runtime`: One of the [function runtimes](/functions/runtimes) -
+  `["default", "node"]`
+- `request_id`: The
+  [request id](/functions/debugging#finding-relevant-logs-by-request-id) of the
+  function that errored.
+- `server_name`: The name of the deployment. e.g. `happy-animal-123`
+- `environment`: One of `["prod", "dev", "preview"]`
+- `user`: If the function is [authenticated](/auth), then the
   [tokenIdentifier](/api/interfaces/server.UserIdentity#tokenidentifier) is used
   as the user id on Sentry. The `tokenIdentifier` is a stable and globally
   unique string representing the authenticated user.
+
+## Sentry Notes
+
 - Sentry Exceptions may take a minute or two to propagate to Sentry.
 - Convex's built-in sentry support does not yet support the advanced
   customization provided by the sentry SDK.
