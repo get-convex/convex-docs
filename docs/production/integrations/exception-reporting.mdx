@@ -35,14 +35,14 @@ following tags
 - `func`: The name of the running function in
   [string format](/functions/query-functions#query-names)
 - `func_type`: One of `["query", "mutation", "action", "http_action"]`
-- `func_runtime`: One of the [function runtimes](/functions/runtimes) -
+- `func_runtime`: One of the [function runtimes](/docs/functions/runtimes.mdx) -
   `["default", "node"]`
 - `request_id`: The
-  [request id](/functions/debugging#finding-relevant-logs-by-request-id) of the
-  function that errored.
+  [request id](/docs/functions/debugging.mdx#finding-relevant-logs-by-request-id)
+  of the function that errored.
 - `server_name`: The name of the deployment. e.g. `happy-animal-123`
 - `environment`: One of `["prod", "dev", "preview"]`
-- `user`: If the function is [authenticated](/auth), then the
+- `user`: If the function is [authenticated](/docs/auth.mdx), then the
   [tokenIdentifier](/api/interfaces/server.UserIdentity#tokenidentifier) is used
   as the user id on Sentry. The `tokenIdentifier` is a stable and globally
   unique string representing the authenticated user.
