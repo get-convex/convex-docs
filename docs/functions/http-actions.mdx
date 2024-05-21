@@ -113,6 +113,57 @@ mutations and actions over HTTP if you control the caller, since you can use use
 the JavaScript [`ConvexHttpClient`](/api/classes/browser.ConvexHttpClient) or
 the [Python client](/docs/client/python.md) to call these functions directly.
 
+## Debugging
+
+### Step 1: Check that your HTTP actions were deployed.
+
+Check the [functions page](https://dashboard.convex.dev/deployment/functions) in
+the dashboard and make sure there's an entry called `http`.
+
+If not, double check that you've defined your HTTP actions with the `httpRouter`
+in a file called `http.js` or `http.ts` (the name of the file must match
+exactly), and that `npx convex dev` has no errors.
+
+### Step 2: Check that you can access your endpoint using curl
+
+Get your URL from the dashboard under
+[Settings](https://dashboard.convex.dev/deployment/settings) > URL and Deploy
+Key.
+
+Make sure this is the URL that ends in **`.convex.site`**, and not
+`.convex.cloud`.
+
+Run a `curl` command to hit one of your defined endpoints, potentially defining
+a new endpoint specifically for testing
+
+```
+curl -X GET https://happy-animal-123.convex.site/test
+```
+
+Check the [logs page](https://dashboard.convex.dev/deployment/logs) in the
+dashboard to confirm that there's an entry for your HTTP action.
+
+### Step 3: Check the request being made by your browser
+
+If you've determined that your HTTP actions have been deployed and are
+accessible via curl, but there are still issues requesting them from your app,
+check the exact requests being made by your browser.
+
+Open the _Network_ tab in your browser's developer tools, and trigger your HTTP
+requests.
+
+Check that this URL matches what you tested earlier with curl -- it ends in
+`.convex.site` and has the right deployment name.
+
+You should be able to see these requests in the dashboard
+[logs page](https://dashboard.convex.dev/deployment/logs).
+
+If you see "CORS error" or messages in the browser console like
+`Access to fetch at '...' from origin '...' has been blocked by CORS policy`,
+you likely need to configure CORS headers and potentially add a handler for the
+pre-flight `OPTIONS` request. See
+[this section](/docs/functions/http-actions.mdx#cors) below.
+
 ## Common patterns
 
 ### File Storage
