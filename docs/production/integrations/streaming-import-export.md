@@ -14,8 +14,6 @@ Fivetran enables streaming export from Convex to any of their
 team maintains a Convex source connector, for streaming export. Streaming import
 into Convex via Fivetran is not supported at the moment.
 
-<BetaAdmonition feature="Fivetran Integration" verb="is" />
-
 Using Airbyte enables streaming import from any of their
 [supported sources](https://airbyte.com/connectors?connector-type=Sources) into
 Convex and streaming export from Convex into any of their
@@ -23,7 +21,7 @@ Convex and streaming export from Convex into any of their
 The Convex team maintains a Convex source connector for streaming export and a
 Convex destination connector for streaming import.
 
-<BetaAdmonition feature="Airbyte integration" verb="is" />
+<BetaAdmonition feature="Fivetran & Airbyte integrations" verb="are" />
 
 ## Streaming Export
 
@@ -49,7 +47,8 @@ Convex directly. Some use cases include:
 
 See the [Fivetran](https://fivetran.com/integrations/convex) or
 [Airbyte](https://docs.airbyte.com/integrations/sources/convex) docs to learn
-how to set up a streaming export.
+how to set up a streaming export. [Contact us](https://convex.dev/community) if
+you need help or have questions.
 
 ## Streaming Import
 
