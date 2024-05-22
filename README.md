@@ -63,81 +63,11 @@ served using any static contents hosting service.
 
 ## Deploying to production
 
-We generally try to only deploy docs alongside NPM releases to avoid
-split-braining our customers (see [here](/ops/services/npm/release.md)).
-
-If we want to deploy docs changes between NPM releases, we have two options:
-
-- Deploy docs off of `release` (following instructions
-  [here](/ops/services/npm/release.md#docs))
-- Cherry-pick the docs change
-
-To check if it's safe to deploy off of `release`, check for any changes between
-`docs-prod` (what's currently deployed) and `release`:
-
-```
-git pull
-git log --oneline origin/docs-prod...origin/release npm-packages/docs npm-packages/convex
-```
-
-Look out for docs changes that might cover yet to be released features, or
-changes to types or functions in the `convex` npm package, since we
-auto-generate documentation for those. (When in doubt, feel free to ask in the
-#docs slack channel).
-
-If the set of changes looks fine, follow the instructions
-[here](/ops/services/npm/release.md#docs).
-
-If the set of changes does not look fine, we can cherry-pick the change we want
-to deploy. Make sure the commit is on `release`, and then run the following
-commands to cherry-pick and push:
-
-```
-git pull
-git checkout docs-prod
-git cherry-pick <your commit>
-git log # verify this looks reasonable
-git push --force-with-lease origin docs-prod
-```
+See [here](/ops/services/docs/release.md).
 
 ## Preview Deployment
 
-We currently don't create a preview deployment if you open a PR against `main`.
-To get a preview deployment you can link from your PR manually, follow these
-steps:
-
-1. Checkout the branch you're developing on
-2. Create a new branch you will use for docs previews, like
-   "sshader/docs-preview":
-
-   ```
-   git checkout -b $USER/docs-preview
-   ```
-
-3. Amend your last commit:
-
-   ```
-   git commit --amend -C HEAD
-   ```
-
-4. Push the branch and open a PR against the `docs-prod` branch
-
-This PR will never get merged, and just exists for creating a preview
-deployment. See
-[this section](/npm-packages/docs/README.md#deploying-to-production) for how to
-actually deploy changes to production.
-
-If you make changes and you want to update the preview point the your preview
-branch at your current commit, amend it and push it:
-
-```
-git branch -f $USER/docs-preview
-git commit --amend -C HEAD
-git push
-```
-
-You should amend the commit because if you create two PRs with the same top
-commit mergify will complain and won't allow you to merge to `main`.
+See [here](/ops/services/docs/release.md#preview-deployment).
 
 # Dependency notes
 
