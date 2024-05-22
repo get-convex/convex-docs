@@ -45,9 +45,9 @@ Convex directly. Some use cases include:
    - Convex isn't optimized for queries running computationally intensive
      machine learning algorithms.
 
-Streaming export using the Convex source connector requires a
-[Convex Professional Plan](https://www.convex.dev/plans). See the
-[Fivetran](https://fivetran.com/integrations/convex) or
+<ProFeatureUpsell feature="Streaming export" verb="requires" />
+
+See the [Fivetran](https://fivetran.com/integrations/convex) or
 [Airbyte](https://docs.airbyte.com/integrations/sources/convex) docs to learn
 how to set up a streaming export.
 

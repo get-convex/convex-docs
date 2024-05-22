@@ -14,6 +14,7 @@ import { Details } from "@site/src/Details.tsx";
 import { StackPosts } from "@site/src/StackPosts.tsx";
 import BetaAdmonition from "@site/docs/_betaAdmonition.mdx";
 import BetaContactUsAdmonition from "@site/docs/_betaContactUsAdmonition.mdx";
+import ProFeatureUpsell from "@site/docs/_proFeatureUpsell.mdx";
 import { JSDialectVariants } from "../JSDialectVariants";
 import { JSDialectFileName } from "../JSDialectFileName";
 import { TSAndJSCode } from "../TSAndJSCode";
@@ -37,6 +38,7 @@ export default {
   JSDialectFileName,
   JSDialectVariants,
   LanguageSelector,
+  ProFeatureUpsell,
   StackPosts,
   StepByStep,
   Step,
