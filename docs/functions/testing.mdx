@@ -431,8 +431,9 @@ Some of the ways the mock differs:
   - [Text search](/docs/search.mdx) returns all documents that include a word
     for which at least one word in the searched string is a prefix. It does not
     implement fuzzy searching and doesn't sort the results by relevance.
-  - [Vector search](/docs/vector-search.mdx) returns results sorted by cosine
-    similarity, but doesn't use an efficient vector index in its implementation.
+  - [Vector search](/docs/search/vector-search.mdx) returns results sorted by
+    cosine similarity, but doesn't use an efficient vector index in its
+    implementation.
   - There is no support for [cron jobs](/docs/scheduling/cron-jobs.mdx), you
     should trigger your functions manually from the test.
 

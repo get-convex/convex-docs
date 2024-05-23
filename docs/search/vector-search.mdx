@@ -3,7 +3,6 @@ title: "Vector Search"
 sidebar_position: 106
 description: "Run vector search queries on embeddings"
 slug: "vector-search"
-pagination_prev: search
 ---
 
 import Schema from "!!raw-loader!@site/../demos/vector-search/convex/schema.ts";
@@ -73,8 +72,9 @@ performed in a [Convex action](/docs/functions/actions.mdx).
 They generally involve three steps:
 
 1. Generate a vector from provided input (e.g. using OpenAI)
-1. Use [`ctx.vectorSearch`](api/interfaces/server.GenericActionCtx#vectorsearch)
-   to fetch the IDs of similar documents
+1. Use
+   [`ctx.vectorSearch`](/api/interfaces/server.GenericActionCtx#vectorsearch) to
+   fetch the IDs of similar documents
 1. Load the desired information for the documents
 
 Here's an example of the first two steps for searching for similar French foods

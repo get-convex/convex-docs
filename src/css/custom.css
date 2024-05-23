@@ -496,7 +496,7 @@ h2.text--truncate {
 /* Active sidebar links have bold text color */
 .menu__list-item > .menu__link--active:not(.menu__link--sublist),
 .menu__list-item-collapsible--active > .menu__link--active {
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Active sidebar links have distinct background */

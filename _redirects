@@ -13,6 +13,7 @@
 /quick-start                        /get-started
 /quickstart                         /get-started
 /text_search                        /text-search
+/text-search                        /search/text-search
 /tutorial                           /get-started
 /tutorial/*                         /get-started
 /understanding                                       /
@@ -72,6 +73,7 @@
 /using/users-and-auth               /auth
 /using/writing-convex-functions     /functions
 /vector_search                      /vector-search
+/vector-search                      /search/vector-search
 /client/react/nextjs/pages          /client/react/nextjs-pages-router
 /client/react/nextjs/pages-quickstart    /client/react/nextjs-pages-router/quickstart
 /deployments                        /dashboard/deployments
