@@ -131,13 +131,13 @@ Get your URL from the dashboard under
 Key.
 
 Make sure this is the URL that ends in **`.convex.site`**, and not
-`.convex.cloud`.
+`.convex.cloud`. E.g. `https://happy-animal-123.convex.site`
 
 Run a `curl` command to hit one of your defined endpoints, potentially defining
 a new endpoint specifically for testing
 
 ```
-curl -X GET https://happy-animal-123.convex.site/test
+curl -X GET https://<deployment name>.convex.site/myEndpoint
 ```
 
 Check the [logs page](https://dashboard.convex.dev/deployment/logs) in the
