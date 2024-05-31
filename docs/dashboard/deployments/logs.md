@@ -9,6 +9,11 @@ sidebar_position: 40
 The [logs page](https://dashboard.convex.dev/deployment/logs) is a realtime view
 of all activity that occurs within your deployment.
 
+The logs page provides a short history of recent function logs, and will display
+new logs as they are generated. To store a longer history of logs, you may
+configure a
+[log stream](/docs/production/integrations/log-streams/log-streams.mdx).
+
 Function activity includes:
 
 - The time of function execution.
@@ -35,7 +40,7 @@ name, execution status, and log severity.
 
 ### Filter logs
 
-Use the "Search logs..." text box on the top of the page to filter log text.
+Use the "Filter logs..." text box on the top of the page to filter log text.
 
 You can use the “Functions” drop-down list to include or exclude functions from
 the results.
@@ -48,7 +53,9 @@ For example if you see this `Error` in your browser console:
 
 You can view the logs for that function in your dashboard by pasting that
 Request ID into the 'Search logs...' search bar on the
-[Logs](/docs/dashboard/deployments/logs.md) page of your Convex dashboard.
+[Logs](/docs/dashboard/deployments/logs.md) page of your Convex dashboard. Note
+that because this page is not a complete historical view of logs, you may not
+find logs for older requests.
 
 Most error reporting services and log sinks should also be searchable by Request
 ID.
