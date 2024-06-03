@@ -7,10 +7,9 @@ sidebar_position: 300
 ---
 
 import sampleData from "!!raw-loader!@site/../private-demos/quickstarts/expo/sampleData.jsonl";
-import babelConfig from "!!raw-loader!@site/../private-demos/quickstarts/expo/babel.config.js";
-import tasks from "!!raw-loader!@site/../private-demos/quickstarts/expo/convex/tasks.js";
-import App from "!!raw-loader!@site/../private-demos/quickstarts/expo/App.js";
-import Tasks from "!!raw-loader!@site/../private-demos/quickstarts/expo/Tasks.js";
+import tasks from "!!raw-loader!@site/../private-demos/quickstarts/expo/convex/tasks.ts";
+import layout from "!!raw-loader!@site/../private-demos/quickstarts/expo/app/_layout.tsx";
+import index from "!!raw-loader!@site/../private-demos/quickstarts/expo/app/index.tsx";
 
 Learn how to query data from Convex in a React Native app.
 
@@ -28,11 +27,10 @@ Learn how to query data from Convex in a React Native app.
     package which provides a convenient interface for working
     with Convex from a React app.
 
-    Navigate to your app and install `convex` and
-    its peer dependencies.
+    Navigate to your app and install `convex`.
 
     ```sh
-    cd my-app && npm install convex react-dom react-native-get-random-values
+    cd my-app && npm install convex
     ```
 
   </Step>
@@ -49,29 +47,6 @@ Learn how to query data from Convex in a React Native app.
     ```sh
     npx convex dev
     ```
-
-  </Step>
-
-  <Step title="Install .env helper tool">
-    To configure your Convex deployment URL
-    via `.env` files, in a new terminal window,
-    install `react-native-dotenv`.
-
-    ```
-    npm install --dev react-native-dotenv
-    ```
-
-  </Step>
-
-  <Step title="Configure Babel for .env files">
-    To use the deployment URL directly from
-    the `.env` files, configure babel.
-
-    <Snippet
-      source={babelConfig}
-      title="babel.config.js"
-      highlightPatterns={[ "react-native-dotenv" ]}
-    />
 
   </Step>
 
@@ -97,7 +72,7 @@ Learn how to query data from Convex in a React Native app.
   </Step>
 
   <Step title="Expose a database query">
-    Add a new file `tasks.js` in the `convex/` folder
+    Add a new file `tasks.ts` in the `convex/` folder
     with a query function that loads the data.
 
     Exporting a query function from this file
@@ -106,35 +81,41 @@ Learn how to query data from Convex in a React Native app.
 
     <Snippet
       source={tasks}
-      title="convex/tasks.js"
+      title="convex/tasks.ts"
     />
 
   </Step>
 
+  <Step title="Reset the Expo project">
+    If you haven't done so yet, reset the Expo project to get a fresh
+    `app` directory.
+
+    ```
+    npm run reset-project
+    ```
+
+  </Step>
+
   <Step title="Connect the app to your backend">
-    In `App.js`, create a `ConvexReactClient` and pass it to a `ConvexProvider`
+    In `_layout.tsx`, create a `ConvexReactClient` and pass it to a `ConvexProvider`
     wrapping your component tree.
 
-    Also import `'react-native-get-random-values'`.
-
-    Finally include the `Tasks` component which we'll add in the next step.
-
     <Snippet
-      source={App}
-      title="App.js"
+      source={layout}
+      title="app/_layout.tsx"
       highlightPatterns={[ "Convex", "get-random", "CONVEX", "unsaved", "}\\);", ]}
     />
 
   </Step>
 
   <Step title="Display the data in your app">
-    Add a new file `Tasks.js` with a component using the `useQuery` hook to fetch
+    In `index.tsx` use the `useQuery` hook to fetch
     from your `api.tasks.get` API.
 
     <Snippet
-      source={Tasks}
-      title="Tasks.js"
-      highlightPatterns={[ "useQuery", "tasks", "text", "\\)\\)}" ]}
+      source={index}
+      title="app/index.tsx"
+      highlightPatterns={[ "api", "useQuery", "tasks" ]}
     />
 
   </Step>
