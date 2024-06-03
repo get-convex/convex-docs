@@ -164,7 +164,6 @@ writing to the mock backend:
 ```ts title="convex/tasks.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test } from "vitest";
-import { api, internal } from "./_generated/api";
 
 test("functions", async () => {
   const t = convexTest();
@@ -175,6 +174,24 @@ test("functions", async () => {
   expect(firstTask).toMatchObject({ text: "Eat breakfast" });
 });
 ```
+
+### Testing HTTP actions with `t.fetch`
+
+Your test can call [HTTP actions](/docs/functions/http-actions.mdx) registered
+by your router:
+
+```ts title="convex/http.test.ts"
+import { convexTest } from "convex-test";
+import { test } from "vitest";
+
+test("functions", async () => {
+  const t = convexTest();
+  const response = await t.fetch("/some/path", { method: "POST" });
+});
+```
+
+Mocking the global `fetch` function doesn't affect `t.fetch`, but you can use
+`t.fetch` in a `fetch` mock to route to your HTTP actions.
 
 ### Testing scheduled functions
 
@@ -188,7 +205,7 @@ combination with `t.finishInProgressScheduledFunctions`:
 ```ts title="convex/scheduling.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test, vi } from "vitest";
-import { api, internal } from "./_generated/api";
+import { api } from "./_generated/api";
 import schema from "./schema";
 
 test("mutation scheduling action", async () => {
@@ -235,7 +252,7 @@ recursively scheduled functions, to finish:
 ```ts title="convex/chainedScheduling.test.ts"
 import { convexTest } from "convex-test";
 import { expect, test, vi } from "vitest";
-import { api, internal } from "./_generated/api";
+import { api } from "./_generated/api";
 import schema from "./schema";
 
 test("mutation scheduling action scheduling action", async () => {
