@@ -64,3 +64,20 @@ your plan's limits.
 All metrics are available in daily breakdowns:
 
 ![Team usage page graphs](/screenshots/teams_usage_2.png)
+
+### Audit Log
+
+<Admonition type="info">
+
+The Audit Log is only available for paid teams.
+
+</Admonition>
+
+The [audit log page](https://dashboard.convex.dev/team/settings/audit-log) shows
+all the actions taken by members within the team. This includes creating and
+managing projects and deployments, inviting and removing team members, and more.
+
+![Team audit log page](/screenshots/teams_audit_log.png)
+
+You may also view a history of deployment-related events on the
+[deployment history page](/docs/dashboard/deployments/history.md).
