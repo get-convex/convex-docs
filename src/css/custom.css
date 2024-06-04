@@ -496,7 +496,7 @@ h2.text--truncate {
 /* Active sidebar links have bold text color */
 .menu__list-item > .menu__link--active:not(.menu__link--sublist),
 .menu__list-item-collapsible--active > .menu__link--active {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Active sidebar links have distinct background */
@@ -594,20 +594,8 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/magnifying-glass.svg");
 }
 
-.convex-sidebar-vector {
-  --convex-icon: url("../../static/img/sidebar-icons/vector.svg");
-}
-
 .convex-sidebar-open-source {
   --convex-icon: url("../../static/img/github-logo.svg");
-}
-
-.convex-sidebar-typescript {
-  --convex-icon: url("../../static/img/sidebar-icons/typescript.svg");
-}
-
-.convex-sidebar-ai {
-  --convex-icon: url("../../static/img/sidebar-icons/magic-wand.svg");
 }
 
 .convex-sidebar-realtime {
@@ -616,6 +604,10 @@ html[data-theme="dark"] .convex-menu-header {
 
 .convex-sidebar-production {
   --convex-icon: url("../../static/img/sidebar-icons/paper-plane.svg");
+}
+
+.convex-sidebar-testing {
+  --convex-icon: url("../../static/img/sidebar-icons/list-bullet.svg");
 }
 
 .convex-sidebar-react {

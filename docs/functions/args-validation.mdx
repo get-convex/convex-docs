@@ -13,10 +13,10 @@ with the correct types of arguments.
 
 **This is important for security!** Without argument validation, a malicious
 user can call your public functions with unexpected arguments and cause
-surprising results. [TypeScript](/typescript) alone won't help because
-TypeScript types aren't present at runtime. We recommend adding argument
-validation for all public functions in production apps. For non-public functions
-that are not called by clients, we recommend
+surprising results. [TypeScript](/production/best-practices/typescript) alone
+won't help because TypeScript types aren't present at runtime. We recommend
+adding argument validation for all public functions in production apps. For
+non-public functions that are not called by clients, we recommend
 [internal functions](/docs/functions/internal-functions.mdx) and optionally
 validation.
 
@@ -36,8 +36,8 @@ To add argument validation to your functions, pass an object with `args` and
 />
 
 If you define your function with an argument validator, there is no need to
-include [TypeScript](/docs/typescript.mdx) type annotations! The type of your
-function will be inferred automatically.
+include [TypeScript](/docs/production/best-practices/typescript.mdx) type
+annotations! The type of your function will be inferred automatically.
 
 The validation will throw if the client supplies arguments not declared in
 `args`. This is helpful to prevent bugs caused by mistyped names of arguments.

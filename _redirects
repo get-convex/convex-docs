@@ -1,9 +1,11 @@
 # Redirects from what the browser requests to what we serve
 # THIS LIST IS NOT ALPHABETICAL! It mostly is, but order matters for wildcards.
+/ai                                 /search 
 /database/import-export/airbyte     /database/import-export/streaming
 /client/react/project-setup         /client/react/deployment-urls
 /contact                            /production/contact
 /functions/http-endpoints		    /functions/http-actions
+/functions/testing                  /testing/functions
 /getting-started                    /
 /getting-started/*                  /get-started
 /how-it-works                       /get-started
@@ -16,6 +18,7 @@
 /text-search                        /search/text-search
 /tutorial                           /get-started
 /tutorial/*                         /get-started
+/typescript                         /production/best-practices/typescript
 /understanding                                       /
 /understanding/convex-fundamentals/                  /
 /understanding/convex-fundamentals/client-libraries  /client/react/react
