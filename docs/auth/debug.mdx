@@ -28,6 +28,11 @@ To handle this, you can either:
 2. Or return `null` or some other "sentinel" value from the query and handle it
    on the client
 
+If you are using `fetchQuery` for
+[Next.js Server Rendering](/docs/client/react/nextjs/nextjs-server-rendering.mdx),
+make sure you are explicitly passing in a JWT token as documented
+[here](/docs/client/react/nextjs/nextjs-server-rendering.mdx#server-side-authentication).
+
 If this hasn't helped, follow the steps below to resolve your issue.
 
 ## Step 1: Check whether authentication works on the backend
