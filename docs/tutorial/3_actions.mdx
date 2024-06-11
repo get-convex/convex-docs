@@ -5,9 +5,9 @@ sidebar_position: 400
 hide_table_of_contents: true
 ---
 
-import OpenAIFinished from "!!raw-loader!@site/../demos/tour-chat/3-gpt/convex/openai.ts";
-import OpenAIImports from "!!raw-loader!@site/../private-demos/snippets/convex/tour3OpenAIImports.ts";
-import OpenAITODO from "!!raw-loader!@site/../private-demos/snippets/convex/openai.ts";
+import AIFinished from "!!raw-loader!@site/../demos/tour-chat/3-ai/convex/ai.ts";
+import AIImports from "!!raw-loader!@site/../private-demos/snippets/convex/tour3AIImports.ts";
+import AITODO from "!!raw-loader!@site/../private-demos/snippets/convex/tour3ai.ts";
 import Messages from "!!raw-loader!@site/../private-demos/snippets/convex/tour3Messages.ts";
 
 <TourGuide signPost="You are here" title="Convex Tour">
@@ -40,86 +40,79 @@ Convex? How do you call external APIs, access data stored elsewhere, or perform
 any other "side effects" your specific app might need?
 
 To find out, in this module you'll modify the chat app to integrate an AI chat
-agent powered by OpenAI's API! Along the way, you'll learn how to:
+agent powered by a third-party API! Along the way, you'll learn how to:
 
 - Write Convex **actions** to connect the Router to arbitrary external resources
-- Select the right **runtime environment** for an action and set needed env vars
+- Set needed **environment variables** to securely access e.g. API keys from
+  your Convex functions
 - Access an **API** from a Convex action
-- **Run mutations and queries** from actions to execute business logic
 - Use the Convex **scheduler** to invoke an action from a mutation
 
-Ready to get your GPT on? Let's go!
+Ready to get your AI on? Let's go!
 
 </div>
 
-<video autoPlay playsInline muted loop>
-  <source src="/img/tutorial/ConvexChatWithGPT.mp4" type="video/mp4" />
-  <p>
-    Screen recording of chat app with a GPT-powered AI agent embedded in the
-    chat
-  </p>
-</video>
+<figure>
+  <img
+    src="/img/tutorial/ConvexChatWithAI.png"
+    alt="Screenshot of chat app with the current user sending a message '@ai Can we use Convex Actions to create an AI chat agent?' and a user called 'AI Agent' responding with the message 'Yes, Convex Actions can be used to create a simple AI chat agent.'"
+    type="image/png"
+  />
+  <figcaption>
+    Screenshot of chat app with an AI agent embedded in the chat
+  </figcaption>
+</figure>
 
 </div>
 <br />
 
-<Details summary="Before you begin: Get an OpenAI Account and API Key">
+<Details summary="Before you begin: Get a TogetherAI Account & API Key">
 
 The AI agent in the chat will be powered by the
-[OpenAI](https://platform.openai.com/) API, which allows you to use OpenAI's
-state-of-the-art LLMs programmatically.
+[Together AI](https://together.ai) API.
 
 In order to access this API, you'll need to
-[create a free OpenAI account](https://platform.openai.com/signup) and create a
-new [API secret key](https://platform.openai.com/account/api-keys).
+[create a free Together AI account](https://api.together.ai/) and copy your
+[API key](https://api.together.xyz/settings/api-keys).
 
 </Details>
 
-## GPT API FTW!
+## AI API FTW!
 
-Let's use the now-famous GPT language model to create an AI agent that will be
-able to answer users' questions from the chat. We'll use OpenAI's
-[Chat Completions API](https://platform.openai.com/docs/guides/gpt/chat-completions-api)
-to request "completions" (responses) to user input.
+Let's create an AI agent that will be able to answer users' questions from the
+chat. We'll use Together's
+[Chat Completions API](https://docs.together.ai/reference/chat-completions) to
+request "completions" (responses) to user input, specifying one of the available
+[language models](https://api.together.xyz/models) to generate the response
+text.
 
-### Connect your project to OpenAI
+### Connect your project to Together AI
 
 <Admonition type="tip" title="Exercise 3.1">
-#### Install the OpenAI client
+#### Set your Together API key
 
-OpenAI provides an npm package for easy access to their APIs from JS/TS. Open a
-Terminal in the `convex-tour-chat` root directory and install the `openai`
-package as a project dependency:
+On the Convex dashboard (`npx convex dashboard`), navigate to your deployment
+_Settings_ page. The
+[_Environment Variables_](https://dashboard.convex.dev/deployment/settings/environment-variables)
+tab lets you add new variables to your environment, which is the safest way to
+access a secret like an API key from your functions.
 
-```shell
-npm install openai
-```
-
-#### Set your API key
-
-On the Convex dashboard (remember you can open it with `npx convex dashboard`),
-navigate to your deployment
-[_Settings_ page](https://dashboard.convex.dev/deployment/settings/environment-variables).
-There, you'll have the option to add new variables to your environment, which is
-the safest way to access a secret like an API key from your functions.
-
-Create an environment variable named OPENAI_API_KEY and set its value to the
-secret key you generated for your OpenAI account.
+Create an environment variable named `TOGETHER_API_KEY` and set its value to the
+key you copied earlier from your Together account.
 
 </Admonition>
 
-Now your Convex project has everything it needs to access the API. Time to make
-it happen with an action function!
+Now your Convex functions have secure access to your token, available in your
+function code as `process.env.TOGETHER_API_KEY`.
 
 ## Write your first action
 
-### Fire up OpenAI
+### Fire up Fetch
 
-Remember that queries and mutations run deterministically, enabling
-transactional guarantees that keep your data consistent, correct, and
-automatically reactive. For this reason they cannot call third-party APIs.
-**Actions** are the escape hatch for interacting with the outside world from
-Convex.
+Query and mutation functions run deterministically, enabling transactional
+guarantees that keep your data consistent, correct, and automatically reactive.
+For this reason they cannot call third-party APIs or otherwise interact with the
+outside world. **Actions** are the escape hatch you need for those use cases.
 
 Like queries and mutations, actions live in TypeScript modules within the
 `convex/` directory in your project's root.
@@ -127,37 +120,34 @@ Like queries and mutations, actions live in TypeScript modules within the
 <Admonition type="tip" title="Exercise 3.2">
 #### Create a module for your AI action
 
-Create a new file `convex/openai.ts` where you'll import the `openai` client
-library you installed earlier and instantiate a client with the API key from
-your project's environment.
+Create a new file `convex/ai.ts` where you'll eventually make a request to
+Together's API and parse the response to create a new message from the AI agent.
+To start, grab the API key from the environment variable you set in your
+project.
 
 <TSAndJSSnippet
-  title="convex/openai.ts"
-  sourceTS={OpenAIImports}
-  sourceJS={OpenAIImports}
+  title="convex/ai.ts"
+  sourceTS={AIImports}
+  sourceJS={AIImports}
 />
 
 </Admonition>
 
 Start up the development server with `npm run dev`, if it's not running already.
 
-### Get to node your runtime
-
-What's that little `"use node"` doing at the start of the file?
+<Details summary="What are the differences in how code runs in query/mutation functions vs. actions?">
 
 Actions run by default in the same
 [Default Convex Runtime](https://docs.convex.dev/functions/runtimes) as queries
-and mutations. This makes updating them and running them fast, but the runtime
-currently has a limited set of capabilities implemented {"\u2013"} not every NPM
-package works in it.
+and mutations.
 
 For cases where you need libraries or features the default runtime doesn't
-support, Convex actions can be configured to run in a "traditional" Node runtime
-by placing them in a file which starts with the `"use node"` directive.
+support, Convex actions can be configured to run in a Node runtime using the
+`"use node"` directive.
 
-<Details summary="What are the differences between the Convex and Node runtimes for actions?">
-  Read about the advantages and disadvantages of each runtime in detail here:
-  [Function Runtimes](https://docs.convex.dev/functions/runtimes)
+Read about the advantages and disadvantages of each runtime in detail here:
+[Function Runtimes](https://docs.convex.dev/functions/runtimes)
+
 </Details>
 
 ### A little less conversation, a little more action
@@ -171,7 +161,7 @@ the function's `args` and `handler`.
 <Admonition type="tip" title="Exercise 3.3">
 #### Get ready for action
 
-In `convex/openai.ts`, import the `action()` constructor and export a new action
+In `convex/ai.ts`, import the `action()` constructor and export a new action
 called `chat` that accepts a `messageBody` string as its argument. Similar to
 mutations, action handlers accept two arguments: an ActionContext `ctx` and an
 arguments object as defined in `args`.
@@ -179,9 +169,9 @@ arguments object as defined in `args`.
 <Details summary="Solution">
 
 <TSAndJSSnippet
-  title="convex/openai.ts"
-  sourceTS={OpenAITODO}
-  sourceJS={OpenAITODO}
+  title="convex/ai.ts"
+  sourceTS={AITODO}
+  sourceJS={AITODO}
   snippet="todo"
 />
 
@@ -189,41 +179,44 @@ arguments object as defined in `args`.
 
 </Admonition>
 
-Great, now you just need to draw the rest of the owl!
+In the action's `handler`, you'll write the body of your Action function to call
+TogetherAI's
+[Chat Completions API](https://docs.together.ai/reference/chat-completions) and
+send a new message with the AI-generated response.
 
-In the action's `handler`, you'll use the `openai` client instantiated earlier
-to call the OpenAI
-[Chat endpoint](https://platform.openai.com/docs/api-reference/chat/create?lang=node.js).
-
-Looking at the API documentation, it expects a language `model` name
-('gpt-3.5-turbo' works for this app) and a `messages` array that gives the model
-the context of the chat to be completed.
+Looking at the API documentation, in the request body it expects a language
+`model` name (see [here](https://api.together.xyz/models) for a list of models
+you can use with Together's API) and a `messages` array that gives the model the
+context of the chat to be completed.
 
 <Admonition type="tip" title="Exercise 3.4">
-#### Get GPT to complete the chat
+#### Complete the chat
 
-Complete the `handler` function body to get a response from
-`openai.chat.completions.create`.
+Complete the `handler` function body to get a response from Together's chat
+completions API.
 
-Pass `gpt-3.5-turbo` as the model name, and in the `messages` array provide two
-`messages`: one 'system' message that tells GPT how you want it to respond, and
-one 'user' message that passes on the message content to respond to.
+Pass `meta-llama/Llama-3-8b-chat-hf` as the model name (or another
+[available model](https://api.together.xyz/models), if you choose), and in the
+`messages` array provide two message objects:
 
-Then, grab the text content of GPT's answer from the response from OpenAI, which
-is a nested object of the form (simplified):
+- one 'system' message that tells the AI agent how to respond, and
+- one 'user' message that contains the message content to respond to.
+
+Then, extract the text content of the response, which is a nested object of the
+form (simplified):
 
 ```ts
 {
-  choices: [{ message: { content: "This is the response text from me, GPT" } }];
+  choices: [{ message: { content: "This is the magical AI response text" } }];
 }
 ```
 
 <Details summary="Solution">
 
 <TSAndJSSnippet
-  title="convex/openai.ts"
-  sourceTS={OpenAITODO}
-  sourceJS={OpenAITODO}
+  title="convex/ai.ts"
+  sourceTS={AITODO}
+  sourceJS={AITODO}
   snippet="handler"
 />
 
@@ -242,25 +235,25 @@ Convex function belonging to the `api` Convex generates from your codebase.
 
 <Admonition type="tip" title="Exercise 3.5">
 
-#### Send GPT's response as a new message
+#### Send the AI response as a new message
 
-Import the `api` into your `openai.ts` module:
+Import the generated Convex `api` into your `ai.ts` module:
 
-<Snippet source={OpenAITODO} snippet="import" />
+<Snippet source={AITODO} snippet="import" />
 
 In the action's handler, use `ctx.runMutation` to execute the existing
 `api.messages.send` mutation to add a new message to the chat, passing through
-the chat completion response you received from OpenAI (or a fallback string in
+the chat completion response you received from Together (or a fallback string in
 case the response didn't have any content, for whatever reason):
 
 <Details summary="Solution">
 
-Your `convex/openai.ts` module should now look something like this:
+Your `convex/ai.ts` module should now look something like this:
 
 <TSAndJSSnippet
-  title="convex/openai.ts"
-  sourceTS={OpenAIFinished}
-  sourceJS={OpenAIFinished}
+  title="convex/ai.ts"
+  sourceTS={AIFinished}
+  sourceJS={AIFinished}
   snippet="openai"
 />
 
@@ -274,13 +267,11 @@ Dashboard's "Functions" tab, or with the CLI using the `convex run` command
 (substituting in your own question, of course!):
 
 ```shell
-npx convex run openai:chat '{"messageBody":"What is a serverless function?"}'
+npx convex run ai:chat '{"messageBody":"What is a serverless function?"}'
 ```
 
 If all went well, you'll see a new document in the `messages` table, and in the
 chat itself!
-
-![A new message from the 'ChatGPT' agent responds to the given question](/img/tutorial/ConvexChatAnswerServerless.png)
 
 ## From mutation to action
 
@@ -289,10 +280,12 @@ trigger it from the chat. Time to fix that!
 
 ### Right on schedule
 
-As mentioned earlier, queries and mutations are deterministic functions that
-always run in the Convex Runtime, whereas actions can be nondeterministic and
-run in the Node runtime. If a deterministic mutation called a nondeterministic
-action directly, that determinism would be lost!
+As mentioned earlier, query and mutation functions always run deterministically
+thanks to the
+[Convex Runtime](https://docs.convex.dev/functions/runtimes#default-convex-runtime),
+whereas actions can be nondeterministic and interact with the outside world. If
+a deterministic mutation called a nondeterministic action directly, that
+determinism would be lost!
 
 However, the Convex **scheduler** provides a safe way for mutations to
 indirectly invoke other functions (whether queries, mutations, or actions).
@@ -302,14 +295,14 @@ mutation did not encounter errors before trying to run the action.
 
 <Admonition type="tip" title="Exercise 3.6">
 #### Schedule the Chat action after the send mutation
-In `convex/messages.ts`, edit the `send` mutation to schedule the `openai:chat`
+In `convex/messages.ts`, edit the `send` mutation to schedule the `ai:chat`
 action after sending the new message.
 
 To do this, you'll need to use the `scheduler` object from the `ctx`
 MutationContext that the handler receives as its first argument.
 
 Within the handler body, add a call to `ctx.scheduler.runAfter` to run the
-`api.openai.chat` action after the mutation has completed. The asynchronous
+`api.ai.chat` action after the mutation has completed. The asynchronous
 `runAfter` method takes 3 arguments:
 
 - duration in milliseconds the scheduler should wait to run the scheduled
@@ -320,7 +313,7 @@ Within the handler body, add a call to `ctx.scheduler.runAfter` to run the
 
 You probably don't want the AI agent to respond to _every_ message in the chat,
 so wrap the scheduled action in a conditional so that it will only respond to
-messages starting with `@gpt` and check the `author` so it won't respond to
+messages starting with `@ai` and check the `author` so it won't respond to
 itself.
 
 <Details summary="Solution">
@@ -336,36 +329,16 @@ itself.
 
 </Admonition>
 
-<div className="convex-side-by-side">
-<div>
-
-### Enjoy your new GPT BFF!
-
-Your AI chat agent is now ready to go! Try chatting with it using the `@gpt`
-tag.
-
-</div>
-
-<video autoPlay playsInline muted loop>
-  <source src="/img/tutorial/ConvexChatAICongrats.mp4" type="video/mp4" />
-  <p>
-    Screen recording of chat app with finished AI agent implementation
-    congratulating the user on building your first Convex app
-  </p>
-</video>
-
-</div>
-
 ## Recap
 
-- Convex **actions** let you access arbitrary external resources, such as
-  third-party libraries and APIs
-- **Environment Variables** can be added to your Convex project to save secrets
-  such as API keys
-- Unlike queries and mutations which always run in the **Convex Runtime**,
-  actions can optionally run in **Node** using the directive `"use node";`
+- Convex [**actions**](https://docs.convex.dev/functions/actions) let you access
+  arbitrary external resources, such as third-party libraries and APIs
+- [**Environment Variables**](https://docs.convex.dev/production/environment-variables)
+  can be added to your Convex project to securely save secrets (such as API
+  keys) which can be read by your functions
 - Deterministic mutation functions can't call actions directly, but they can
-  indirectly invoke them using the **scheduler**
+  indirectly invoke them using the
+  [**scheduler**](https://docs.convex.dev/scheduling)
 
 ## Go forth and Convex!
 
