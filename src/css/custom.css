@@ -1169,3 +1169,8 @@ html[data-theme="dark"] .StackPosts-title-image--dark {
 .StackPosts-post-content-author-name {
   font-size: 0.875rem;
 }
+
+/* Convex AI Chat */
+#convex-ai-chat {
+  z-index: 200;
+}
