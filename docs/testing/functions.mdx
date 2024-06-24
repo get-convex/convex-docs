@@ -389,6 +389,29 @@ You can attach a debugger to the running tests. Read the Vitest
 [Debugging docs](https://vitest.dev/guide/debugging.html) and then
 use&#32;<CodeWithCopyButton text="npm run test:debug" />.
 
+### Multiple environments
+
+If you want to use Vitest to test both your Convex functions and your React
+frontend, you might want to use multiple Vitest environments depending on the
+test file location via
+[environmentMatchGlobs](https://vitest.dev/config/#environmentmatchglobs):
+
+```ts title="vitest.config.mts"
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environmentMatchGlobs: [
+      // all tests in convex/ will run in edge-runtime
+      ["convex/**", "edge-runtime"],
+      // all other tests use jsdom
+      ["**", "jsdom"],
+    ],
+    server: { deps: { inline: ["convex-test"] } },
+  },
+});
+```
+
 ### Custom `convex/` folder name or location
 
 If your project has a
