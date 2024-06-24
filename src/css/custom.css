@@ -288,6 +288,11 @@ article .markdown a:hover {
   text-decoration-color: var(--convex-link-underline-color);
 }
 
+/* Article is the main container for most content. Use it for container queries */
+article {
+  container-type: inline-size;
+}
+
 /* Pushes the links underline lower, looks better */
 a {
   text-underline-position: under;
@@ -313,6 +318,37 @@ article code {
   background-color: var(--convex-code-block-header-background-color);
 }
 
+/* START: Youtube video list */
+.youtube-list {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0 0 2em;
+}
+
+.youtube-list .youtube-item h2 {
+  font-family: var(--ifm-font-family-base);
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: normal;
+
+  height: 2em;
+  line-height: 1.5em;
+}
+
+.youtube-list .youtube-video {
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  border-radius: var(--ifm-code-border-radius);
+}
+
+/* This magic number 743 is the size of the article div container as rendered */
+@container (width > 743px) {
+  .youtube-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* END: YouTube video list */
+
 /* START: Custom cards implementation */
 .cards {
   display: grid;
@@ -320,9 +356,10 @@ article code {
   margin: 2rem 0 3rem;
 }
 
-@media (min-width: 997px) {
+/* This magic number 743 is the size of the article div container as rendered */
+@container (width > 743px) {
   .cards {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
