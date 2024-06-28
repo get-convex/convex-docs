@@ -27,7 +27,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "throw",
-  favicon: "img/logomark.svg",
+  favicon: "img/favicon.ico",
   organizationName: "get-convex", // Usually your GitHub org/user name.
   projectName: "Convex", // Usually your repo name.
 
