@@ -28,8 +28,8 @@ complete them all.
 The first step to improving type support in a Convex project is to writing your
 Convex functions in TypeScript by using the `.ts` extension.
 
-If you are using [argument validation](/docs/functions/args-validation.mdx),
-Convex will infer the types of your functions arguments automatically:
+If you are using [argument validation](/docs/functions/validation.mdx), Convex
+will infer the types of your functions arguments automatically:
 
 <Snippet title="convex/sendMessage.ts" source={ArgValidation} />
 
@@ -85,7 +85,7 @@ on your schema and declared Convex functions:
 ### Inferring types from validators
 
 Validators can be reused between
-[argument validation](/docs/functions/args-validation.mdx) and
+[argument validation](/docs/functions/validation.mdx) and
 [schema validation](/docs/database/schemas.mdx). You can use the provided
 [`Infer`](/api/modules/values#infer) type to get a TypeScript type corresponding
 to a validator:

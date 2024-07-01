@@ -77,8 +77,8 @@ export default defineSchema({
 ```
 
 It additionally allows you to define unions, optional property, string literals,
-and more. [Argument validation](/docs/functions/args-validation.mdx) and schemas
-both use the same validator builder, `v`.
+and more. [Argument validation](/docs/functions/validation.mdx) and schemas both
+use the same validator builder, `v`.
 
 #### Optional fields
 
@@ -328,7 +328,7 @@ function MessageView(props: { message: Doc<"messages"> }) {
 ```
 
 If you need the type for a portion of a document, use the
-[`Infer` type helper](/functions/args-validation#extracting-typescript-types).
+[`Infer` type helper](/functions/validation#extracting-typescript-types).
 
 ### `query` and `mutation`
 
