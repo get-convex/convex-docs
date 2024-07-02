@@ -5,7 +5,7 @@
 /client/react/project-setup         /client/react/deployment-urls
 /contact                            /production/contact
 /functions/http-endpoints		    /functions/http-actions
-/functions/testing                  /testing/functions
+/functions/testing                  /testing
 /getting-started                    /
 /getting-started/*                  /get-started
 /how-it-works                       /get-started
@@ -38,6 +38,7 @@
 /using/best-practices               /production/best-practices
 /using/cli                          /cli
 /using/dashboard                    /dashboard
+/testing/functions                  /testing/convex-test
 /tools/cli                          /cli
 /tools/dashboard                    /dashboard
 /using/data-modeling                /database/document-ids

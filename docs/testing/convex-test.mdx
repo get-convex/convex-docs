@@ -1,9 +1,16 @@
 ---
-title: Testing Convex functions
+title: convex-test
+sidebar_label: convex-test
 sidebar_position: 100
 ---
 
-Automating the testing of your Convex functions is easy.
+The `convex-test` library provides a mock implementation of the Convex backend
+in JavaScript. It enables fast automated testing of the logic in your
+[functions](/docs/functions.mdx).
+
+**Example:** The library includes a
+[test suite](https://github.com/get-convex/convex-test/tree/main/convex) which
+you can browse to see examples of using it.
 
 ## Get Started
 
@@ -96,16 +103,7 @@ Automating the testing of your Convex functions is easy.
 If you're not familiar with Vitest or Jest read the
 [Vitest Getting Started docs](https://vitest.dev/guide) first.
 
-## `convex-test` library
-
-The `convex-test` library provides a community-maintained mock implementation of
-the Convex backend in TypeScript.
-
-**Example:** The library includes a
-[test suite](https://github.com/get-convex/convex-test/tree/main/convex) which
-you can browse to see examples of using it.
-
-### `convexTest`
+## `convexTest`
 
 The library exports a `convexTest` function which should be called at the start
 of each of your tests. The function returns an object which is by convention
@@ -132,7 +130,7 @@ validation and for correct typing of
 
 If you don't have a schema, call `convexTest()` with no argument.
 
-### Calling functions with `t.query`, `t.mutation` and `t.action`
+## Calling functions with `t.query`, `t.mutation` and `t.action`
 
 Your test can call public and internal Convex [functions](/docs/functions.mdx)
 in your project:
@@ -153,7 +151,7 @@ test("functions", async () => {
 });
 ```
 
-### Setting up and inspecting data and storage with `t.run`
+## Setting up and inspecting data and storage with `t.run`
 
 Sometimes you might want to directly [write](/docs/database/writing-data.mdx) to
 the mock database or [file storage](/docs/file-storage.mdx) from your test,
@@ -175,7 +173,7 @@ test("functions", async () => {
 });
 ```
 
-### Testing HTTP actions with `t.fetch`
+## Testing HTTP actions with `t.fetch`
 
 Your test can call [HTTP actions](/docs/functions/http-actions.mdx) registered
 by your router:
@@ -193,7 +191,7 @@ test("functions", async () => {
 Mocking the global `fetch` function doesn't affect `t.fetch`, but you can use
 `t.fetch` in a `fetch` mock to route to your HTTP actions.
 
-### Testing scheduled functions
+## Testing scheduled functions
 
 One advantage of using a mock implementation running purely in JavaScript is
 that you can control time in the Vitest test environment. To test
@@ -283,7 +281,7 @@ test("mutation scheduling action scheduling action", async () => {
 Check out more examples in
 [this file](https://github.com/get-convex/convex-test/blob/main/convex/scheduler.test.ts).
 
-### Testing authentication with `t.withIdentity`
+## Testing authentication with `t.withIdentity`
 
 To test functions which depend on the current [authenticated](/docs/auth.mdx)
 user identity you can create a version of the `t` accessor with given
@@ -312,7 +310,7 @@ test("authenticated functions", async () => {
 });
 ```
 
-### Mocking `fetch` calls
+## Mocking `fetch` calls
 
 You can use Vitest's
 [vi.stubGlobal](https://vitest.dev/guide/mocking.html#globals) method:
@@ -338,7 +336,7 @@ test("ai", async () => {
 });
 ```
 
-### Asserting results
+## Asserting results
 
 See Vitest's [Expect](https://vitest.dev/api/expect.html) reference.
 
@@ -346,7 +344,7 @@ See Vitest's [Expect](https://vitest.dev/api/expect.html) reference.
 particularly helpful when asserting the shape of results without needing to list
 every object field.
 
-#### Asserting errors
+### Asserting errors
 
 To assert that a function throws, use
 [`.rejects.toThrowError()`](https://vitest.dev/api/expect.html#tothrowerror):
@@ -365,7 +363,7 @@ test("messages validation", async () => {
 });
 ```
 
-### Measuring test coverage
+## Measuring test coverage
 
 You can get a printout of the code coverage provided by your tests. Besides
 answering the question "how much of my code is covered by tests" it is also
@@ -383,13 +381,13 @@ install a required dependency the first time you run it.
   />
 </p>
 
-### Debugging tests
+## Debugging tests
 
 You can attach a debugger to the running tests. Read the Vitest
 [Debugging docs](https://vitest.dev/guide/debugging.html) and then
 use&#32;<CodeWithCopyButton text="npm run test:debug" />.
 
-### Multiple environments
+## Multiple environments
 
 If you want to use Vitest to test both your Convex functions and your React
 frontend, you might want to use multiple Vitest environments depending on the
@@ -412,7 +410,7 @@ export default defineConfig({
 });
 ```
 
-### Custom `convex/` folder name or location
+## Custom `convex/` folder name or location
 
 If your project has a
 [different name or location configured](/docs/production/project-configuration.mdx#changing-the-convex-folder-name-or-location)
@@ -447,7 +445,7 @@ test("some behavior", async () => {
 });
 ```
 
-### Limitations
+## Limitations
 
 Since `convex-test` is only a mock implementation, it doesn't have many of the
 behaviors of the real Convex backend. Still, it should be helpful for testing
@@ -477,54 +475,10 @@ Some of the ways the mock differs:
   - There is no support for [cron jobs](/docs/scheduling/cron-jobs.mdx), you
     should trigger your functions manually from the test.
 
-## Testing using the local backend
+To test your functions running on a real Convex backend, check out
+[Testing Local Backend](/docs/testing/convex-backend.mdx).
 
-Alternatively to `convex-test` you can test your functions using the open-source
-version of Convex backend. Follow
-[this guide](https://stack.convex.dev/testing-with-local-oss-backend) for the
-instructions.
+## CI
 
-This method allows for an additional test coverage:
-
-- Your tests will run against the same code as your Convex production (as long
-  you keep the local backend up-to-date).
-- Limits on argument, data, query sizes are enforced.
-- You can bootstrap a large test dataset from a snapshot import.
-- You can test your client code in combination with your backend logic.
-
-Note that testing against the local backend also has some drawbacks:
-
-- It requires setting up the local backend, which is more involved.
-- No control over time and any scheduled functions will run as scheduled.
-- Crons will also run unless disabled via `IS_TEST`.
-- No way to mock `fetch` calls.
-- No way to mock dependencies or parts of the codebase.
-- No way to control randomness (tests may not be deterministic).
-- No way to set environment variable values from within tests.
-
-## Testing in GitHub Actions
-
-It's easy if you're using [GitHub](https://docs.github.com/en/actions) to set up
-CI
-([continuous integration](https://docs.github.com/en/actions/automating-builds-and-tests/about-continuous-integration))
-workflow for running your test suite:
-
-```yaml title=".github/workflows/test.yml"
-name: Run Tests
-
-on: [pull_request, push]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - run: npm ci
-      - run: npm run test
-```
-
-After you commit and push this file to your repository, GitHub will run
-`npm run test` every time you create a pull request or push a new commit.
-
-{/* todo: testing against preview deployments */}
+See [Continuous Integration](/docs/testing/ci.mdx) to run your tests on a shared
+remote machine.
