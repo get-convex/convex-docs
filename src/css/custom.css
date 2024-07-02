@@ -848,6 +848,11 @@ main article > div {
 }
 /* END: StepByStep styling */
 
+/* Ensure that content within the main column can overlap the table of contents. */
+main .container .col[class*="docItemCol"] {
+  z-index: 50;
+}
+
 .convex-inline-code-with-copy-button {
   display: inline-flex;
   line-height: 0.95rem;
