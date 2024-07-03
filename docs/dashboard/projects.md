@@ -29,6 +29,9 @@ On the [Project Settings page](https://dashboard.convex.dev/project/settings),
 you can:
 
 - Update your project's name and slug.
+- Manage the project's Admins. See
+  [Roles and Permissions](/docs/dashboard/teams.md#roles-and-permissions) for
+  more details.
 - View the amount of [usage metrics](/docs/dashboard/teams.md#usage) your
   project has consumed.
 - Generate deploy keys for your production and preview deployments.

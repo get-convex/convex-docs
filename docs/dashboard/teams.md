@@ -16,21 +16,19 @@ The team switcher also allows you to search for projects within a specific team.
 You may change the name of a team or invite new members to a team by clicking on
 the "Team Settings" button located on the top of the project list page.
 
-## Team Settings
-
-### General
+## General
 
 [General page](https://dashboard.convex.dev/team/settings) allows changing the
 team name.
 
 ![General team settings page](/screenshots/teams_general.png)
 
-### Deleting a Team
+## Deleting a Team
 
 Currently, it is not possible to delete a team yourself. If you need to remove a
 team, please contact support@convex.dev for assistance.
 
-### Members
+## Team Members
 
 Use the
 [members settings page](https://dashboard.convex.dev/team/settings/members) to
@@ -38,7 +36,62 @@ invite or remove members from your team.
 
 ![Team members page](/screenshots/teams_members.png)
 
-### Billing
+### Roles and permissions
+
+Convex has two levels of control for managing access to your team, projects, and
+deployments. Team-level roles control what a user can do within the team, while
+project-level permissions control what a user can do within a specific project.
+
+#### Team roles
+
+Your team members can have one of the following roles:
+
+- Admin
+- Developer
+
+The creator of the team is automatically assigned the Admin role. When inviting
+new team members, you may select a role for them. You may also change the role
+of a team member at any time.
+
+Developers can:
+
+- Create new projects and deployments. When a new project is created, the
+  creator of the project is automatically granted the
+  [Project Admin](#project-admins) role for that project.
+- View existing projects, and create development and preview deployments for
+  these projects. Developers may read data from production deployments, but
+  cannot write to them.
+- View the team's usage and billing status (such as previous and upcoming
+  invoices)
+
+Admins can do everything developers can, as well as:
+
+- Invite new team members
+- Remove members from the team
+- Change the role of other team members
+- Manage the team's Convex subscription and billing details.
+- Change the team name and slug
+- Team Admins are also implicitly granted project admin access to all projects
+  within the team. See [Project Admins](#project-admins) for more information.
+
+#### Project Admins
+
+In addition to team roles, you may also grant admin access to individual
+projects by granting team members the "Project Admin" role.
+
+If you are a Project Admin for a given project, you may:
+
+- Update the project name and slug
+- Update the project's default environment variables
+- Delete the project
+- Write to production deployments
+
+You may assign and remove the Project Admin role for multiple projects at the
+same time on the member settings page. To assign or remove the Project Admin
+role for multiple members at the same time, visit the
+[Project Settings](/docs/dashboard/projects.md#project-settings) page instead.
+
+## Billing
 
 Use the [billing page](https://dashboard.convex.dev/team/settings/billing) to
 upgrade your Convex subscription to a higher tier, or manage your existing
@@ -51,7 +104,7 @@ and view your invoices.
 
 ![Team billing page](/screenshots/teams_billing.png)
 
-### Usage
+## Usage
 
 On the [usage page](https://dashboard.convex.dev/team/settings/usage) you can
 see all the resources consumed by your team, and how you're tracking against
@@ -65,7 +118,7 @@ All metrics are available in daily breakdowns:
 
 ![Team usage page graphs](/screenshots/teams_usage_2.png)
 
-### Audit Log
+## Audit Log
 
 <Admonition type="info">
 
