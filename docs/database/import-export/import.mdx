@@ -119,15 +119,15 @@ npx convex import --replace --table <tableNameToClear> empty_file.jsonl
 - Avoid changing the ZIP file between downloading it from Snapshot Export and
   importing it with `npx convex import`. Some manual changes of the ZIP file may
   be possible, but remain undocumented. Please share your use case and check
-  with the Convex team in [Discord](http://convex.dev/community).
+  with the Convex team in [Discord](https://convex.dev/community).
 - Snapshot import is not always supported when importing into a deployment that
   was created before Convex version 1.7.
   - The import may work, especially when importing a ZIP snapshot from a
     deployment created around the same time as the target deployment. As a
     special case, snapshot import can always restore a deployment from its own
     backup.
-  - Reach out in [Discord](http://convex.dev/community) if you encounter issues,
-    as there may be a workaround.
+  - Reach out in [Discord](https://convex.dev/community) if you encounter
+    issues, as there may be a workaround.
 
 Snapshot import uses database bandwidth to write all documents, and file
 bandwidth if the export includes file storage. You can observe this bandwidth in
