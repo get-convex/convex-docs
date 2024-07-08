@@ -180,8 +180,9 @@
 }
 
 .cs-search-icon {
-  width: 28px;
+  color: var(--cs-searchButton-border);
   height: 28px;
+  width: 28px;
 }
 
 .cs-search-input {
@@ -204,6 +205,7 @@
 .cs-search-clearButton {
   border: none;
   background: none;
+  color: var(--cs-searchButton-border);
   padding: 0 0.25rem;
   display: flex;
   align-items: center;
@@ -246,6 +248,7 @@
 }
 
 .cs-results-container {
+  color-scheme: light;
   overflow-y: auto;
   flex-grow: 1;
 }
@@ -308,6 +311,7 @@
 }
 
 .cs-hit-message {
+  color: var(--cs-hit-content-text);
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
