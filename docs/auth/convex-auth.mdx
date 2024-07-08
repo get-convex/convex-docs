@@ -1,0 +1,48 @@
+---
+title: "Convex Auth"
+sidebar_label: "Convex Auth"
+sidebar_position: 1
+---
+
+Convex Auth is a library for implementing authentication directly within your
+Convex backend. This allows you to authenticate users without needing an
+authentication service or even a hosting server. Your application can be a React
+web app served from a CDN or a React Native mobile app.
+
+**Example:** [Live Demo](https://labs.convex.dev/auth-example)
+([Source](https://github.com/get-convex/convex-auth-example))
+
+## Get Started
+
+To start a new project from scratch with Convex and Convex Auth, run:
+
+```sh
+npm create convex@latest
+```
+
+and choose `React (Vite)` and `Convex Auth`.
+
+---
+
+To add Convex Auth to an existing project, follow the full
+[setup guide](https://labs.convex.dev/auth/setup).
+
+## Overview
+
+Convex Auth enables you to implement the following authentication methods:
+
+1. Magic Links & OTPs - send a link or code via email
+2. OAuth - sign in with Github / Google / Apple etc.
+3. Passwords - including password reset flow and optional email verification
+
+The library doesn't come with UI components, but you can copy code from the docs
+and example repo to quickly build a UI in React.
+
+Learn more in the [Convex Auth docs](https://labs.convex.dev/auth).
+
+## Status
+
+<BetaAdmonition feature="Convex Auth" verb="is" />
+
+We're working on supporting authentication for Next.js server-side and on OAuth
+for React Native. See [FAQ](https://labs.convex.dev/auth/faq).

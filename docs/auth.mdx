@@ -2,30 +2,36 @@
 title: Authentication
 sidebar_position: 30
 description: Add authentication to your Convex app.
+hide_table_of_contents: true
 pagination_prev: file-storage
 ---
 
 Authentication allows you to identify users and restrict what data they can see
 and edit.
 
-Your product will need a way for users to sign up, log in, log out and, if
-passwords are used, a way to recover access after losing a password. This is a
-complicated feature set to implement, especially given that any bugs impact
-security.
+## Convex Auth
 
-You can implement all of this using Convex, but we currently recommend that you
-instead leverage a Convex integration with an existing third-party auth
-provider. This will be much less work and a more secure solution. Choose from
-one of the following integrations, which both provide login via passwords,
-social identity providers and one-time email or SMS access codes:
+You can implement auth directly in Convex with the
+[Convex Auth](/docs/auth/convex-auth.mdx) library. It's an easy way to get up
+and running and build a custom sign-up/sign-in flow via social identity
+providers, one-time email or SMS access codes, or via passwords.
+
+## Third-party authentication platforms
+
+Alternatively, you can leverage a Convex integration with an existing
+third-party auth provider. Integrating another service is a bit more involved,
+but these platforms provide a ton of functionality on top of the authentication
+basics:
 
 - [Clerk](/docs/auth/clerk.mdx) is newer and has better Next.js and React Native
   support
 - [Auth0](/docs/auth/auth0.mdx) is more established with more bells and whistles
 
-After you're set up, learn more about accessing authentication information in
-[Functions](/docs/auth/functions-auth.mdx) and storing user information in the
-[Database](/docs/auth/database-auth.mdx).
+After you integrate one of these, learn more about accessing authentication
+information in [Functions](/docs/auth/functions-auth.mdx) and storing user
+information in the [Database](/docs/auth/database-auth.mdx).
+
+## Debugging
 
 If you run into issues consult the [Debugging](/docs/auth/debug.mdx) guide.
 
