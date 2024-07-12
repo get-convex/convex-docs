@@ -137,6 +137,12 @@ const sidebars = {
     },
     {
       type: "doc",
+      id: "client/tanstack-query",
+      label: "React Query",
+      className: "convex-sidebar-tanstack",
+    },
+    {
+      type: "doc",
       id: "client/react-native",
       label: "React Native",
       className: "convex-sidebar-react-native",

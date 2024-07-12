@@ -683,6 +683,10 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/svelte.svg");
 }
 
+.convex-sidebar-tanstack {
+  --convex-icon: url("../../static/img/sidebar-icons/tanstack.svg");
+}
+
 .convex-sidebar-python {
   --convex-icon: url("../../static/img/sidebar-icons/python.svg");
 }

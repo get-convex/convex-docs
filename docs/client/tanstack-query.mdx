@@ -1,0 +1,113 @@
+---
+title: "TanStack Query"
+sidebar_label: "TanStack Query"
+sidebar_position: 325
+---
+
+import Setup from "!!raw-loader!@site/../demos/react-query/src/main.tsx";
+import App from "!!raw-loader!@site/../demos/react-query/src/App.tsx";
+
+# Convex with TanStack Query
+
+If you already use [TanStack Query](https://tanstack.com/query/latest) the query
+options function `convexQuery` may be useful in addition to the standard
+[Convex React client](/client/react). This makes subscribing to a Convex query
+function using the TanStack Query `useQuery` hook look like this:
+
+```ts
+const { data, isPending, error } = useQuery(convexQuery(api.messages.list, {}));
+```
+
+Instead of the typical polling pattern for API endpoints used with TanStack
+Query, the code above receives updates for this `api.messages.list` query from
+the Convex server reactively. New results for all relevant subscriptions are
+pushed to the client where they update at the same time so data is never stale
+and there's no need to manually invalidate queries.
+
+<Admonition type="note" title="Support for other frameworks">
+  Currently only [React
+  Query](https://tanstack.com/query/latest/docs/framework/react/overview) is
+  supported. [Let us know](https://convex.dev/community) if you would find
+  support for vue-query, svelte-query, solid-query, or angular-query helpful.
+</Admonition>
+
+# Setup
+
+To get live updates in TanStack Query create a `ConvexQueryClient` and connect
+it to the TanStack Query
+[QueryClient](https://tanstack.com/query/latest/docs/reference/QueryClient).
+After installing the adapter library with
+
+```
+npm i @convex-dev/convex-react-query
+```
+
+wire up Convex to TanStack Query like this:
+
+<Snippet title="src/main.tsx" source={Setup} snippet={"full"} />
+
+Note that when your create your React tree you should both:
+
+- wrap your app in the TanStack Query
+  [`QueryClientProvider`](https://tanstack.com/query/latest/docs/framework/react/reference/QueryClientProvider)
+  so you can use
+  [TanStack Query hooks](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
+  and
+- wrap your app in the [`ConvexProvider`](/api/modules/react#convexprovider) so
+  you can also use normal [Convex React](/client/react) hooks
+
+# Queries
+
+A live-updating subscription to a Convex query is as simple as
+
+```ts
+const { data, isPending, error } = useQuery(
+  convexQuery(api.user.get, { id: 123 }),
+);
+```
+
+You can spread the object returned by `convexQuery` into an object specifying
+additional
+[arguments of `useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery).
+
+```ts
+const { data, isPending, error } = useQuery({
+  ...convexQuery(api.user.get, { id: 123 }),
+  initialData: [], // use an empty list if no data is available yet
+  gcTime: 10000, // stay subscribed for 10 seconds after this component unmounts
+});
+```
+
+# Mutations
+
+You can make mutations by using a
+[`useMutation`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
+hook for the `mutationFn` property.
+
+<Snippet title="src/App.tsx" source={App} snippet={"useMutation"} />
+
+For convenience `@convex-dev/convex-react-query` re-exports
+[Convex React](/client/react) hooks with the word `Convex` added when those
+hooks that have names that overlap TanStack Query hooks like
+[`useMutation`](https://docs.convex.dev/client/react#editing-data), e.g.
+`useConvexMutation()`.
+
+# Full `useQuery` and `useMutation` example
+
+<Snippet title="src/App.tsx" source={App} />
+
+# Differences from using `fetch` with React Query
+
+Convex provides stronger guarantees than other methods of fetching data with
+React Query, so some options and return value properties are no longer
+necessary.
+
+Subscriptions to Convex queries will remain active after the last `useQuery`
+subscribed to unmounts until `gcTime` elapses. This value is 5 minutes by
+default; if this results in unwanted function activity use a smaller value.
+
+Data provided by Convex is never stale, so the `isStale` property of the return
+value of `useQuery` will always be false. `retry`-related options are ignored,
+since Convex provides its own retry mechanism over its WebSocket protocol.
+`refetch`-related options are similarly ignored since Convex queries are always
+up to date.
