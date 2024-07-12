@@ -1,13 +1,11 @@
 ---
-title: "TanStack Query"
+title: "Convex with TanStack Query"
 sidebar_label: "TanStack Query"
 sidebar_position: 325
 ---
 
 import Setup from "!!raw-loader!@site/../demos/react-query/src/main.tsx";
 import App from "!!raw-loader!@site/../demos/react-query/src/App.tsx";
-
-# Convex with TanStack Query
 
 If you already use [TanStack Query](https://tanstack.com/query/latest) the query
 options function `convexQuery` may be useful in addition to the standard
@@ -27,11 +25,13 @@ and there's no need to manually invalidate queries.
 <Admonition type="note" title="Support for other frameworks">
   Currently only [React
   Query](https://tanstack.com/query/latest/docs/framework/react/overview) is
-  supported. [Let us know](https://convex.dev/community) if you would find
-  support for vue-query, svelte-query, solid-query, or angular-query helpful.
+  supported via
+  [`@convex-dev/convex-react-query`](https://www.npmjs.com/package/@convex-dev/convex-react-query).
+  [Let us know](https://convex.dev/community) if you would find support for
+  vue-query, svelte-query, solid-query, or angular-query helpful.
 </Admonition>
 
-# Setup
+## Setup
 
 To get live updates in TanStack Query create a `ConvexQueryClient` and connect
 it to the TanStack Query
@@ -44,7 +44,11 @@ npm i @convex-dev/convex-react-query
 
 wire up Convex to TanStack Query like this:
 
-<Snippet title="src/main.tsx" source={Setup} snippet={"full"} />
+<Snippet
+  title="src/main.tsx"
+  source={Setup}
+  highlightPatterns={["QueryClient", "convexQuery"]}
+/>
 
 Note that when your create your React tree you should both:
 
@@ -56,14 +60,24 @@ Note that when your create your React tree you should both:
 - wrap your app in the [`ConvexProvider`](/api/modules/react#convexprovider) so
   you can also use normal [Convex React](/client/react) hooks
 
-# Queries
+## Queries
 
-A live-updating subscription to a Convex query is as simple as
+A live-updating subscription to a Convex
+[query](/docs/functions/query-functions.mdx) is as simple as calling TanStack
+[`useQuery`](https://tanstack.com/query/latest/docs/framework/react/reference/useQuery)
+with `convexQuery`:
 
 ```ts
-const { data, isPending, error } = useQuery(
-  convexQuery(api.user.get, { id: 123 }),
-);
+import { useQuery } from "@tanstack/react-query";
+import { convexQuery } from "@convex-dev/convex-react-query";
+import { api } from "../convex/_generated/api";
+
+export function App() {
+  const { data, isPending, error } = useQuery(
+    convexQuery(api.functions.myQuery, { id: 123 }),
+  );
+  return isPending ? "Loading..." : data;
+}
 ```
 
 You can spread the object returned by `convexQuery` into an object specifying
@@ -72,39 +86,47 @@ additional
 
 ```ts
 const { data, isPending, error } = useQuery({
-  ...convexQuery(api.user.get, { id: 123 }),
+  ...convexQuery(api.functions.myQuery, { id: 123 }),
   initialData: [], // use an empty list if no data is available yet
   gcTime: 10000, // stay subscribed for 10 seconds after this component unmounts
 });
 ```
 
-# Mutations
+## Mutations
 
-You can make mutations by using a
+Your app can call Convex [mutations](/docs/functions/mutation-functions.mdx) by
+using the TanStack
 [`useMutation`](https://tanstack.com/query/latest/docs/framework/react/reference/useMutation)
-hook for the `mutationFn` property.
+hook, and setting the `mutationFn` property to the result of calling
+`useConvexMutation`:
 
-<Snippet title="src/App.tsx" source={App} snippet={"useMutation"} />
+```ts
+import { useMutation } from "@tanstack/react-query";
+import { useConvexMutation } from "@convex-dev/convex-react-query";
+import { api } from "../convex/_generated/api";
 
-For convenience `@convex-dev/convex-react-query` re-exports
-[Convex React](/client/react) hooks with the word `Convex` added when those
-hooks that have names that overlap TanStack Query hooks like
-[`useMutation`](https://docs.convex.dev/client/react#editing-data), e.g.
-`useConvexMutation()`.
+export function App() {
+  const { mutate, isPending } = useMutation({
+    mutationFn: useConvexMutation(api.functions.doSomething),
+  });
+  return <button onClick={() => mutate({a: "Hello"})}>Click me</button>;
+}
+```
 
-# Full `useQuery` and `useMutation` example
+`useConvexMutation` is just a re-export of the
+[`useMutation`](/client/react#editing-data) hook from
+[Convex React](/client/react).
 
-<Snippet title="src/App.tsx" source={App} />
-
-# Differences from using `fetch` with React Query
+## Differences from using `fetch` with TanStack Query
 
 Convex provides stronger guarantees than other methods of fetching data with
 React Query, so some options and return value properties are no longer
 necessary.
 
-Subscriptions to Convex queries will remain active after the last `useQuery`
-subscribed to unmounts until `gcTime` elapses. This value is 5 minutes by
-default; if this results in unwanted function activity use a smaller value.
+Subscriptions to Convex queries will remain active after the last component
+using `useQuery` for a given function unmounts for `gcTime` milliseconds. This
+value is 5 minutes by default; if this results in unwanted function activity use
+a smaller value.
 
 Data provided by Convex is never stale, so the `isStale` property of the return
 value of `useQuery` will always be false. `retry`-related options are ignored,
