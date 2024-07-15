@@ -9,8 +9,12 @@ import App from "!!raw-loader!@site/../demos/react-query/src/App.tsx";
 
 If you already use [TanStack Query](https://tanstack.com/query/latest) the query
 options function `convexQuery` may be useful in addition to the standard
-[Convex React client](/client/react). This makes subscribing to a Convex query
-function using the TanStack Query `useQuery` hook look like this:
+[Convex React client](/client/react).
+
+<BetaAdmonition feature="The TanStack Query adapter" verb="is" />
+
+This makes subscribing to a Convex query function using the TanStack Query
+`useQuery` hook look like this:
 
 ```ts
 const { data, isPending, error } = useQuery(convexQuery(api.messages.list, {}));
