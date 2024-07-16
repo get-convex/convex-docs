@@ -6,8 +6,12 @@ sidebar_position: 1
 import Example from "!!raw-loader!@site/../private-demos/snippets/convex/messages.ts";
 
 Convex allows you to schedule functions to run in the future. This allows you to
-build powerful workflows without the need to set up and maintain queues or other
-infrastructure.
+build powerful durable workflows without the need to set up and maintain queues
+or other infrastructure.
+
+Scheduled functions are stored in the database. This means you can schedule
+functions minutes, days, and even months in the future. Scheduling is resilient
+against unexpected downtime or system restarts.
 
 **Example:**
 [Scheduling](https://github.com/get-convex/convex-demos/tree/main/scheduling)
