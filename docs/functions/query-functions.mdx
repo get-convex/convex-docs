@@ -10,6 +10,8 @@ import ArgsWithoutValidationJS from "!!raw-loader!@site/../private-demos/snippet
 import ArgsWithValidation from "!!raw-loader!@site/../private-demos/snippets/convex/queriesArgsWithValidation.ts";
 import Context from "!!raw-loader!@site/../private-demos/snippets/convex/queriesContext.ts";
 import ContextDB from "!!raw-loader!@site/../private-demos/snippets/convex/queriesContextDB.ts";
+import Helper from "!!raw-loader!@site/../private-demos/snippets/convex/queriesHelper.ts";
+import HelperJS from "!!raw-loader!@site/../private-demos/snippets/convex/queriesHelperJS.js";
 import NPM from "!!raw-loader!@site/../private-demos/snippets/convex/queriesNPM.ts";
 import Call from "!!raw-loader!@site/../private-demos/snippets/src/queriesCall.tsx";
 
@@ -151,6 +153,25 @@ Which part of the query context is used depends on what your query needs to do:
 - To check user authentication use the `auth` field. Read more about
   [Authentication](/docs/auth.mdx).
 
+## Splitting up query code via helpers
+
+When you want to split up the code in your query or reuse logic across multiple
+Convex functions you can define and call helper <LanguageSelector verbose />
+functions:
+
+<TSAndJSSnippet
+  sourceTS={Helper}
+  sourceJS={HelperJS}
+  title="convex/myFunctions.ts"
+/>
+
+You can `export` helpers to use them across multiple files. They will not be
+callable from outside of your Convex functions.
+
+See
+[Type annotating server side helpers](/docs/production/best-practices/typescript.mdx#type-annotating-server-side-helpers)
+for more guidance on TypeScript types.
+
 ## Using NPM packages
 
 Queries can import NPM packages installed in `node_modules`. Not all NPM
@@ -189,8 +210,8 @@ To have these attributes the handler function must be _deterministic_, which
 means that given the same arguments (including the query context) it will return
 the same response.
 
-For this reason queries cannot call third party APIs. To call third party APIs,
-use [actions](/docs/functions/actions.mdx).
+For this reason queries cannot `fetch` from third party APIs. To call third
+party APIs, use [actions](/docs/functions/actions.mdx).
 
 You might wonder whether you can use non-deterministic language functionality
 like `Math.random()` or `Date.now()`. The short answer is that Convex takes care

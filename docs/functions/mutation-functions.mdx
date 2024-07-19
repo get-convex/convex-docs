@@ -10,6 +10,8 @@ import ArgsWithoutValidationJS from "!!raw-loader!@site/../private-demos/snippet
 import ArgsWithValidation from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsArgsWithValidation.ts";
 import Context from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsContext.ts";
 import ContextDB from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsContextDB.ts";
+import Helper from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsHelper.ts";
+import HelperJS from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsHelperJS.js";
 import NPM from "!!raw-loader!@site/../private-demos/snippets/convex/mutationsNPM.ts";
 import Call from "!!raw-loader!@site/../private-demos/snippets/src/mutationsCall.tsx";
 
@@ -120,6 +122,32 @@ to do:
   [Authentication](/docs/auth.mdx).
 - To schedule functions to run in the future, use the `scheduler` field. Read on
   about [Scheduled Functions](/docs/scheduling/scheduled-functions.mdx).
+
+## Splitting up mutation code via helpers
+
+<>
+  {/* Fragment for Prettier */}
+  When you want to split up the code in your mutation or reuse logic across multiple
+  Convex functions you can define and call helper
+  <LanguageSelector verbose /> functions:
+</>
+
+<TSAndJSSnippet
+  sourceTS={Helper}
+  sourceJS={HelperJS}
+  title="convex/myFunctions.ts"
+/>
+
+Mutations can call helpers that take a
+[QueryCtx](/docs/generated-api/server.md#queryctx) as argument, since the
+mutation context can do everything query context can.
+
+You can `export` helpers to use them across multiple files. They will not be
+callable from outside of your Convex functions.
+
+See
+[Type annotating server side helpers](/docs/production/best-practices/typescript.mdx#type-annotating-server-side-helpers)
+for more guidance on TypeScript types.
 
 ## Using NPM packages
 

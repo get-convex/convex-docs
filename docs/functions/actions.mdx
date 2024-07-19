@@ -175,6 +175,23 @@ directive.
 
 Learn more about the two [Convex Runtimes](/docs/functions/runtimes.mdx).
 
+## Splitting up action code via helpers
+
+<>
+  {/* Fragment for Prettier */}
+  Just like with [queries](/docs/functions/query-functions.mdx#splitting-up-query-code-via-helpers)
+  and [mutations](/docs/functions/mutation-functions.mdx#splitting-up-query-code-via-helpers)
+  you can define and call helper
+  <LanguageSelector verbose /> functions to split up the code in your actions or
+  reuse logic across multiple Convex functions.
+
+But note that the [ActionCtx](/api/interfaces/server.GenericActionCtx) only has
+the `auth` field in common with
+[QueryCtx](/docs/generated-api/server.md#queryctx) and
+[MutationCtx](/docs/generated-api/server.md#mutationctx).
+
+</>
+
 ## Calling actions from clients
 
 To call an action from [React](/docs/client/react.mdx) use the
