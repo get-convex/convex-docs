@@ -30,7 +30,7 @@ and there's no need to manually invalidate queries.
   Currently only [React
   Query](https://tanstack.com/query/latest/docs/framework/react/overview) is
   supported via
-  [`@convex-dev/convex-react-query`](https://www.npmjs.com/package/@convex-dev/convex-react-query).
+  [`@convex-dev/react-query`](https://www.npmjs.com/package/@convex-dev/react-query).
   [Let us know](https://convex.dev/community) if you would find support for
   vue-query, svelte-query, solid-query, or angular-query helpful.
 </Admonition>
@@ -43,7 +43,7 @@ it to the TanStack Query
 After installing the adapter library with
 
 ```
-npm i @convex-dev/convex-react-query
+npm i @convex-dev/react-query
 ```
 
 wire up Convex to TanStack Query like this:
@@ -73,7 +73,7 @@ with `convexQuery`:
 
 ```ts
 import { useQuery } from "@tanstack/react-query";
-import { convexQuery } from "@convex-dev/convex-react-query";
+import { convexQuery } from "@convex-dev/react-query";
 import { api } from "../convex/_generated/api";
 
 export function App() {
@@ -106,7 +106,7 @@ hook, and setting the `mutationFn` property to the result of calling
 
 ```ts
 import { useMutation } from "@tanstack/react-query";
-import { useConvexMutation } from "@convex-dev/convex-react-query";
+import { useConvexMutation } from "@convex-dev/react-query";
 import { api } from "../convex/_generated/api";
 
 export function App() {
