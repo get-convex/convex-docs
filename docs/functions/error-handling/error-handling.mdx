@@ -28,6 +28,10 @@ are to:
 1. Show the user some appropriate UI.
 2. Send the error to an exception reporting service using the
    [Exception Reporting Integration](/production/integrations/exception-reporting).
+3. Log the incident using `console.*` and set up reporting with
+   [Log Streaming](/docs/production/integrations/log-streams/log-streams.mdx).
+   This can be done in addition to the above options, and doesn't require an
+   exception to be thrown.
 
 Additionally, you might also want to send client-side errors to a service like
 [Sentry](https://sentry.io) to capture additional information for debugging and
