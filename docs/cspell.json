@@ -12,6 +12,7 @@
     "bytestrings",
     "Bytestrings",
     "cacheable",
+    "canonicalized",
     "chatbots",
     "codegen",
     "dall",
