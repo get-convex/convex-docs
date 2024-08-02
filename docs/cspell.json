@@ -7,6 +7,7 @@
     "asynciterable",
     "Authed",
     "bendrucker",
+    "birthdate",
     "bundleable",
     "bunx",
     "bytestrings",
@@ -43,6 +44,7 @@
     "myapp",
     "navigations",
     "nextjs",
+    "OIDC",
     "OLAP",
     "OLTP",
     "OpenAI",
@@ -90,7 +92,8 @@
     "webapps",
     "webm",
     "whsec",
-    "yourclientid"
+    "yourclientid",
+    "zoneinfo"
   ],
   "ignoreRegExpList": ["/#[\\w-]+/", "/\\w+.png/"],
   "enableFiletypes": ["mdx"]
