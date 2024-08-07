@@ -48,7 +48,7 @@
   margin-top: 0.25rem;
   padding: 0.25rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  background-color: var(--convex-active-background);
   max-height: 200px;
   overflow-y: auto;
   position: absolute;
