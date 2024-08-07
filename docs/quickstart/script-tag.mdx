@@ -107,7 +107,7 @@ Learn how to query data from Convex from script tags in HTML.
         [/https?:\/\/localhost:8000/g, 'CONVEX_URL_GOES_HERE'],
         [/messages:list/g, 'tasks:get'],
         [/\(messages\)/g, '(tasks)'],
-        [/messages.map\(\(msg\) \=\> msg\.body/g, 'tasks.map((task) => task.text)'],
+        [/messages.map\(\(msg\) \=\> msg\.body\)/g, 'tasks.map((task) => task.text)'],
       ]}
     />
 
