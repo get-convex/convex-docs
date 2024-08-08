@@ -70,10 +70,11 @@ returned in a `Response`:
 highlightPatterns={["storage.get"]} prefix={
     `import { httpRouter } from "convex/server";
 import { httpAction } from "./\_generated/server";
+import { Id } from "./\_generated/dataModel";
 
 const http = httpRouter();\
 
-`} />
+`} suffix={"\nexport default http;"} />
 
 The URL of such an action can be used directly in `img` elements to render
 images:
