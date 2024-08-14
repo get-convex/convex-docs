@@ -4,6 +4,8 @@ sidebar_label: "HTTP API"
 description: "Connecting to Convex directly with HTTP"
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
+
 # HTTP APIs
 
 HTTP APIs include:
@@ -45,9 +47,46 @@ You can find your backend deployment URL on the dashboard
 [Settings](/docs/dashboard/deployments/settings.md) page, then the API URL will
 be `<CONVEX_URL>/api/query` etc., for example:
 
+<Tabs>
+<TabItem value="shell" label="Shell">
+
 ```
-curl https://acoustic-panther-728.convex.cloud/api/query -d '{"path": "messages:list", "args": {}, "format": "json"}' -X POST -H "Content-Type: application/json"
+curl https://acoustic-panther-728.convex.cloud/api/query \
+   -d '{"path": "messages:list", "args": {}, "format": "json"}' \
+   -X POST -H "Content-Type: application/json"
 ```
+
+</TabItem>
+<TabItem value="js" label="NodeJS">
+
+```js
+const url = "https://acoustic-panther-728.convex.cloud/api/query";
+const request = { path: "messages:list", args: {}, format: "json" };
+
+const response = fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(request),
+});
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```py
+import requests
+
+url = "https://acoustic-panther-728.convex.cloud/api/query"
+headers = {"accept": "application/json"}
+body = {"path": "messages:list", "args": {}, "format": "json"}
+
+response = requests.post(url, headers=headers, json=body)
+```
+
+</TabItem>
+</Tabs>
 
 **JSON Body parameters**
 
@@ -56,6 +95,82 @@ curl https://acoustic-panther-728.convex.cloud/api/query -d '{"path": "messages:
 | path   | string | y        | Path to the Convex function formatted as a string as defined [here](/functions/query-functions#query-names). |
 | args   | object | y        | Named argument object to pass to the Convex function.                                                        |
 | format | string | y        | Output format for values. Valid values: [`json`]                                                             |
+
+**Result JSON on success**
+
+| Field Name | Type         | Description                                            |
+| ---------- | ------------ | ------------------------------------------------------ |
+| status     | string       | "success"                                              |
+| value      | object       | Result of the Convex function in the requested format. |
+| logLines   | list[string] | Log lines printed out during the function execution.   |
+
+**Result JSON on error**
+
+| Field Name   | Type         | Description                                                                                              |
+| ------------ | ------------ | -------------------------------------------------------------------------------------------------------- |
+| status       | string       | "error"                                                                                                  |
+| errorMessage | string       | The error message.                                                                                       |
+| errorData    | object       | Error data within an [application error](/functions/error-handling/application-errors) if it was thrown. |
+| logLines     | list[string] | Log lines printed out during the function execution.                                                     |
+
+### POST `/api/run/{functionIdentifier}`
+
+This HTTP endpoint allows you to call arbitrary Convex function types with the
+path in the request URL and get the result as a value. The function identifier
+is formatted as a string as defined
+[here](/functions/query-functions#query-names).
+
+You can find your backend deployment URL on the dashboard
+[Settings](/docs/dashboard/deployments/settings.md) page, then the API URL will
+be `<CONVEX_URL>/api/run/{functionIdentifier}` etc., for example:
+
+<Tabs>
+<TabItem value="shell" label="Shell">
+
+```
+curl https://acoustic-panther-728.convex.cloud/api/run/messages:list \
+   -d '{"args": {}, "format": "json"}' \
+   -X POST -H "Content-Type: application/json"
+```
+
+</TabItem>
+<TabItem value="js" label="NodeJS">
+
+```js
+const url = "https://acoustic-panther-728.convex.cloud/api/run/messages:list";
+const request = { args: {}, format: "json" };
+
+const response = fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(request),
+});
+```
+
+</TabItem>
+<TabItem value="py" label="Python">
+
+```py
+import requests
+
+url = "https://acoustic-panther-728.convex.cloud/api/run/messages:list"
+headers = {"accept": "application/json"}
+body = {"args": {}, "format": "json"}
+
+response = requests.get(url, headers=headers, body=json)
+```
+
+</TabItem>
+</Tabs>
+
+**JSON Body parameters**
+
+| Name   | Type   | Required | Description                                                          |
+| ------ | ------ | -------- | -------------------------------------------------------------------- |
+| args   | object | y        | Named argument object to pass to the Convex function.                |
+| format | string | n        | Output format for values. Defaults to `json`. Valid values: [`json`] |
 
 **Result JSON on success**
 
