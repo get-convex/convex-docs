@@ -6,14 +6,12 @@ sidebar_position: 50
 
 import Schema from "!!raw-loader!@site/../demos/users-and-clerk/convex/schema.ts";
 import useStoreUserEffectTS from "!!raw-loader!@site/../demos/users-and-clerk/src/useStoreUserEffect.ts";
-import useStoreUserEffectJS from "!!raw-loader!@site/../js_demos/users-and-clerk/src/useStoreUserEffect.js";
+import useStoreUserEffectJS from "!!raw-loader!@site/../private-demos/snippets/users-and-clerk/useStoreUserEffect.js";
 import MessagesTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/messages.ts";
-import MessagesJS from "!!raw-loader!@site/../js_demos/users-and-clerk/convex/messages.js";
 import UsersTS from "!!raw-loader!@site/../demos/users-and-clerk/convex/users.ts";
 import App from "!!raw-loader!@site/../private-demos/snippets/src/clerkStoreUserApp.tsx";
 import WebhooksSchema from "!!raw-loader!@site/../demos/users-and-clerk-webhooks/convex/schema.ts";
 import WebhookMutations from "!!raw-loader!@site/../demos/users-and-clerk-webhooks/convex/users.ts";
-import WebhookMutationsJS from "!!raw-loader!@site/../js_demos/users-and-clerk-webhooks/convex/users.js";
 import WebhookEndpoint from "!!raw-loader!@site/../demos/users-and-clerk-webhooks/convex/http.ts";
 import WebhookMessages from "!!raw-loader!@site/../demos/users-and-clerk-webhooks/convex/messages.ts";
 import WebhookHook from "!!raw-loader!@site/../demos/users-and-clerk-webhooks/src/useCurrentUser.ts";
@@ -115,7 +113,7 @@ The information about other users can be retrieved via their IDs:
 
 <TSAndJSSnippet
   sourceTS={MessagesTS}
-  sourceJS={MessagesJS}
+  sourceJS={MessagesTS}
   snippet="use-users"
   title="convex/messages.ts"
   prefix={`import { query } from "./_generated/server";
@@ -174,7 +172,7 @@ webhook:
 
 <TSAndJSSnippet
   sourceTS={WebhookMutations}
-  sourceJS={WebhookMutationsJS}
+  sourceJS={WebhookMutations}
   title="convex/users.ts"
 />
 
@@ -225,7 +223,7 @@ The information about other users can be retrieved via their IDs:
 
 <TSAndJSSnippet
   sourceTS={MessagesTS}
-  sourceJS={MessagesJS}
+  sourceJS={MessagesTS}
   snippet="use-users"
   title="convex/messages.ts"
 />
