@@ -1,7 +1,7 @@
 ---
 title: "Functions"
 slug: "functions"
-sidebar_position: 0
+sidebar_position: 10
 ---
 
 ![Functions Dashboard View](/screenshots/functions.png)

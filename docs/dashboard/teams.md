@@ -6,27 +6,25 @@ sidebar_position: 0
 
 In Convex, your projects are organized by team. Teams are used to share access
 to your projects with other people. You may switch between teams or create a new
-team by clicking on the team switcher located on the top of the Convex
-dashboard.
+team by clicking on the name of your team located on the top of the Convex
+dashboard. This will open the project selector, where you can switch teams by
+clicking on the team name once again.
 
 ![Team switcher](/screenshots/team_selector.png)
-
-The team switcher also allows you to search for projects within a specific team.
 
 You may change the name of a team or invite new members to a team by clicking on
 the "Team Settings" button located on the top of the project list page.
 
 ## General
 
-[General page](https://dashboard.convex.dev/team/settings) allows changing the
-team name.
+The [general page](https://dashboard.convex.dev/team/settings) allows changing
+the team name and slug.
+
+You may also delete the team from this page. You can only delete a team after
+deleting all of it's projects, and removing all other team members from your
+team. Deleting your team will automatically cancel your Convex subscription.
 
 ![General team settings page](/screenshots/teams_general.png)
-
-## Deleting a Team
-
-Currently, it is not possible to delete a team yourself. If you need to remove a
-team, please contact support@convex.dev for assistance.
 
 ## Team Members
 
