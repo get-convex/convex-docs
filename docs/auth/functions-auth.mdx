@@ -51,9 +51,8 @@ standard definition in the
 ### Clerk claims configuration
 
 If you're using Clerk, the fields returned by `getUserIdentity` are determined
-by your JWT template's _Claims_ config. Note that Convex currently only supports
-passing through a list of fields which are part of the
-[OpenId standard](https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims).
+by your JWT template's _Claims_ config. If you've set custom claims, they will
+be returned by `getUserIdentity` as well.
 
 ## HTTP Actions
 
