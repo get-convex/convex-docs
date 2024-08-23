@@ -196,15 +196,18 @@ To call a query from [React](/docs/client/react.mdx) use the
 See the [React](/docs/client/react.mdx) client documentation for all the ways
 queries can be called.
 
-## Caching & reactivity
+## Caching & reactivity & consistency
 
-Queries have two awesome attributes:
+Queries have three awesome attributes:
 
 1. **Caching**: Convex caches query results automatically. If many clients
    request the same query, with the same arguments, they will receive a cached
    response.
 2. **Reactivity**: clients can subscribe to queries to receive new results when
    the underlying data changes.
+3. **Consistency**: All database reads inside a single query call are performed
+   at the same logical timestamp. Concurrent writes do not affect the query
+   results.
 
 To have these attributes the handler function must be _deterministic_, which
 means that given the same arguments (including the query context) it will return
