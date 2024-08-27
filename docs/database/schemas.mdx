@@ -37,7 +37,7 @@ like:
 
 This schema (which is based on our
 [users and auth example](https://github.com/get-convex/convex-demos/tree/main/users-and-auth)),
-has 3 tables: channels, messages, and users. Each table is defined using the
+has 2 tables: messages and users. Each table is defined using the
 [`defineTable`](/api/modules/server#definetable) function. Within each table,
 the document type is defined using the validator builder,
 [`v`](/api/modules/values#v). In addition to the fields listed, Convex will also
@@ -203,8 +203,8 @@ match those types.
 Whether the TypeScript types should allow accessing tables not in the schema.
 
 By default, the TypeScript table name types produced by your schema are strict.
-That means that they will be a union of strings (ex. `"messages" | "channels"`)
-and only support accessing tables explicitly listed in your schema.
+That means that they will be a union of strings (ex. `"messages" | "users"`) and
+only support accessing tables explicitly listed in your schema.
 
 Sometimes it's useful to only define part of your schema. For example, if you
 are rapidly prototyping, it could be useful to try out a new table before adding
