@@ -179,6 +179,12 @@ const sidebars = {
       className: "convex-sidebar-rust",
     },
     {
+      type: "doc",
+      id: "client/open-api",
+      label: "Open API",
+      className: "convex-sidebar-open-api",
+    },
+    {
       type: "html",
       value: '<hr class="convex-menu-divider" />',
       defaultStyle: false,

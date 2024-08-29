@@ -663,6 +663,10 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/vue.svg");
 }
 
+.convex-sidebar-open-api {
+  --convex-icon: url("../../static/img/sidebar-icons/open-api.svg");
+}
+
 .convex-sidebar-vue a:after {
   font-weight: 400;
   font-size: 0.6em;
