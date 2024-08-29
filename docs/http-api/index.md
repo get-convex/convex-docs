@@ -94,7 +94,7 @@ response = requests.post(url, headers=headers, json=body)
 | ------ | ------ | -------- | ------------------------------------------------------------------------------------------------------------ |
 | path   | string | y        | Path to the Convex function formatted as a string as defined [here](/functions/query-functions#query-names). |
 | args   | object | y        | Named argument object to pass to the Convex function.                                                        |
-| format | string | y        | Output format for values. Valid values: [`json`]                                                             |
+| format | string | n        | Output format for values. Valid values: [`json`]                                                             |
 
 **Result JSON on success**
 
@@ -118,7 +118,7 @@ response = requests.post(url, headers=headers, json=body)
 This HTTP endpoint allows you to call arbitrary Convex function types with the
 path in the request URL and get the result as a value. The function identifier
 is formatted as a string as defined
-[here](/functions/query-functions#query-names).
+[here](/functions/query-functions#query-names) with a `/` replacing the `:`.
 
 You can find your backend deployment URL on the dashboard
 [Settings](/docs/dashboard/deployments/settings.md) page, then the API URL will
@@ -128,7 +128,7 @@ be `<CONVEX_URL>/api/run/{functionIdentifier}` etc., for example:
 <TabItem value="shell" label="Shell">
 
 ```
-curl https://acoustic-panther-728.convex.cloud/api/run/messages:list \
+curl https://acoustic-panther-728.convex.cloud/api/run/messages/list \
    -d '{"args": {}, "format": "json"}' \
    -X POST -H "Content-Type: application/json"
 ```
@@ -137,7 +137,7 @@ curl https://acoustic-panther-728.convex.cloud/api/run/messages:list \
 <TabItem value="js" label="NodeJS">
 
 ```js
-const url = "https://acoustic-panther-728.convex.cloud/api/run/messages:list";
+const url = "https://acoustic-panther-728.convex.cloud/api/run/messages/list";
 const request = { args: {}, format: "json" };
 
 const response = fetch(url, {
@@ -155,7 +155,7 @@ const response = fetch(url, {
 ```py
 import requests
 
-url = "https://acoustic-panther-728.convex.cloud/api/run/messages:list"
+url = "https://acoustic-panther-728.convex.cloud/api/run/messages/list"
 headers = {"accept": "application/json"}
 body = {"args": {}, "format": "json"}
 
