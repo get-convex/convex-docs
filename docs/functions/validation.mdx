@@ -114,6 +114,41 @@ export default mutation({
 });
 ```
 
+### Record objects
+
+You can describe objects that map arbitrary keys to values with `v.record`:
+
+```typescript
+import { mutation } from "./_generated/server";
+import { v } from "convex/values";
+
+export default mutation({
+  args: {
+    simpleMapping: v.record(v.string(), v.boolean()),
+  },
+  handler: async ({ db }, { simpleMapping }) => {
+    //...
+  },
+});
+```
+
+You can use other types of string validators for the keys:
+
+```typescript
+defineTable({
+  userIdToValue: v.record(v.id("users"), v.boolean()),
+});
+```
+
+Notes:
+
+- This type corresponds to the
+  [Record\<K,V\>](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)
+  type in TypeScript
+- You cannot use string literals as a `record` key
+- Using `v.string()` as a `record` key validator will only allow ASCII
+  characters
+
 ### Any
 
 Fields that could take on any value can be represented with `v.any()`:
