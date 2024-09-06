@@ -43,7 +43,7 @@ shows the values configured in your `auth.config.js` for user
 ## Snapshot Export
 
 The
-[snapshot export page](https://dashboard.convex.dev/deployment/settings/snapshot-export)
+[snapshot export page](https://dashboard.convex.dev/deployment/settings/snapshots)
 lets you [export a snapshot](/docs/database/import-export/export.mdx) of the
 data stored in your deployment's database
 
