@@ -126,7 +126,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ["rust"],
+        additionalLanguages: ["rust", "kotlin"],
       },
       image: "img/social.png",
       metadata: [

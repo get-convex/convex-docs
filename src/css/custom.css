@@ -699,6 +699,10 @@ html[data-theme="dark"] .convex-menu-header {
   --convex-icon: url("../../static/img/sidebar-icons/rust.svg");
 }
 
+.convex-sidebar-android {
+  --convex-icon: url("../../static/img/sidebar-icons/android.svg");
+}
+
 .convex-sidebar-dashboard {
   --convex-icon: url("../../static/img/sidebar-icons/dashboard.svg");
 }

@@ -9,6 +9,7 @@ import RemixLogo from "@site/static/img/remix-logo.svg";
 import RustLogo from "@site/static/img/rust-logo.svg";
 import SvelteLogo from "@site/static/img/svelte-logo.svg";
 import VueLogo from "@site/static/img/vue-logo.svg";
+import AndroidLog from "@site/static/img/android-logo.svg";
 import React from "react";
 import { DocCardList } from "./DocCardList";
 
@@ -79,6 +80,12 @@ export function QuickstartsList() {
           href: "/quickstart/python",
           docId: "quickstart/python",
           label: "Python",
+        },
+        {
+          icon: <AndroidLog height={40} />,
+          href: "/quickstart/android",
+          docId: "quickstart/android",
+          label: "Android Kotlin",
         },
         {
           icon: <RustLogo height={40} width={40} />,
