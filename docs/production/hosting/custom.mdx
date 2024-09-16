@@ -7,7 +7,7 @@ description:
 sidebar_position: 100
 ---
 
-## Domains
+## Custom Domains
 
 You can configure a custom domain, like `api.example.com`, to serve HTTP actions
 or Convex functions from your production Convex deployments. The settings for
@@ -29,7 +29,34 @@ Reach out to support@convex.dev if you have any questions about getting set up!
 
 <ProFeatureUpsell feature="Custom domains" verb="require" />
 
-## Hosting
+### Hosting with a Custom Domain
+
+To use a custom domain to serve your Convex functions, you'll need additional
+configuration in your hosting provider.
+
+The standard build command, `npx convex deploy --cmd 'npm run build'`, will
+automatically handle setting the `CONVEX_URL` environment variable (or similarly
+named) to the `.convex.cloud` URL for your production deployment, overriding any
+other value you have set.
+
+If you're using a custom domain, you'll want to set a different environment
+variable in your hosting provider to have the value of your custom domain in the
+production environment:
+![Vercel import project](/screenshots/vercel_custom_domain.png)
+
+Switch the code that instantiates your Convex client to prefer this new value:
+
+```tsx
+new ConvexReactClient(
+  import.meta.env.VITE_CUSTOM_DOMAIN_CONVEX_URL ??
+    import.meta.env.VITE_CONVEX_URL,
+);
+```
+
+You can confirm this works by checking the network tab in your browser's
+developer tools.
+
+## Custom Hosting
 
 If you're using only Convex for backend functionality you can host your web app
 on any static hosting provider. This guide will use
