@@ -25,6 +25,17 @@ that are specific to your app's [schema](/docs/database/schemas.mdx) and
 Code generation is run automatically by
 [`npx convex dev`](/docs/cli.md#run-the-convex-dev-server).
 
+## Check generated code into version control
+
+Inside the convex folder is a `_generated/` directory containing code customized
+to your convex functions. Check this in to your git repo. This way your code
+will typecheck without needing to run `npx convex codegen` or `npx convex dev`
+(which includes codegen) first.
+
+If someone needs to make changes to the frontend of an an app or website that
+uses they can run it against the production deployment by setting an environment
+variable, without ever needing to run the Convex CLI tool.
+
 ## Functions
 
 ### Use [argument validation](/docs/functions/validation.mdx) in all public functions.
