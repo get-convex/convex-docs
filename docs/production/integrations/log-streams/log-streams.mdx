@@ -20,8 +20,6 @@ with other tools (e.g. PagerDuty, Slack).
 
 <ProFeatureUpsell feature="Log streams" verb="require" />
 
-<BetaAdmonition feature="Log streams" verb="are" />
-
 ## Configuring log streams
 
 We currently support the following log streams, with plans to support many more:
@@ -68,7 +66,7 @@ set up this stream is the desired webhook URL.
 A request to this webhook contains as its body a JSON array of events in the
 schema defined below.
 
-## Log event schema (beta)
+## Log event schema
 
 <Admonition type="info">
   Log streams configured before May 23, 2024 will use the legacy format
@@ -79,8 +77,6 @@ schema defined below.
 
 Log events have a well-defined JSON schema that allow building complex,
 type-safe pipelines ingesting log events.
-
-This data model is currently in beta, so is subject to change.
 
 All events will have the following two fields:
 
