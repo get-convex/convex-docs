@@ -11,21 +11,34 @@ and edit.
 
 ## Convex Auth
 
-You can implement auth directly in Convex with the
-[Convex Auth](/docs/auth/convex-auth.mdx) library. It's an easy way to get up
-and running and build a custom sign-up/sign-in flow via social identity
-providers, one-time email or SMS access codes, or via passwords.
+For client-side React and React Native mobile apps you can implement auth
+directly in Convex with the [Convex Auth](/docs/auth/convex-auth.mdx) library.
+This [npm package](https://github.com/get-convex/convex-auth) runs on your
+Convex deployment and helps you build a custom sign-up/sign-in flow via social
+identity providers, one-time email or SMS access codes, or via passwords.
+
+Convex Auth is in beta (it isn't complete and may change in
+backward-incompatible ways) and doesn't provide as many features as third party
+auth integrations. Since it doesn't require signing up for another service it's
+the quickest way to get auth up and running.
+
+<BetaAdmonition feature="Convex Auth" verb="is" />
+
+Support for Next.js is under active development. If you'd like to help test this
+experimental support please [give it a try](https://labs.convex.dev/auth)!
 
 ## Third-party authentication platforms
 
-Alternatively, you can leverage a Convex integration with an existing
-third-party auth provider. Integrating another service is a bit more involved,
-but these platforms provide a ton of functionality on top of the authentication
-basics:
+Leveraging a Convex integration with a third-party auth provider provides the
+most comprehensive authentication solutions. Integrating another service
+provides a ton of functionality like passkeys, two-factor auth, spam protection,
+and more on top of the authentication basics.
 
 - [Clerk](/docs/auth/clerk.mdx) is newer and has better Next.js and React Native
   support
 - [Auth0](/docs/auth/auth0.mdx) is more established with more bells and whistles
+- [Custom Auth Integration](/docs/auth/advanced/custom-auth.mdx) allow any
+  OpenID Connect-compatible identity provider to be used for authentication
 
 After you integrate one of these, learn more about accessing authentication
 information in [Functions](/docs/auth/functions-auth.mdx) and storing user

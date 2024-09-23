@@ -6,11 +6,18 @@ sidebar_position: 1
 
 Convex Auth is a library for implementing authentication directly within your
 Convex backend. This allows you to authenticate users without needing an
-authentication service or even a hosting server. Your application can be a React
-web app served from a CDN or a React Native mobile app.
+authentication service or even a hosting server. Convex Auth currently supports
+client-side React web apps served from a CDN and React Native mobile apps.
 
 **Example:** [Live Demo](https://labs.convex.dev/auth-example)
 ([Source](https://github.com/get-convex/convex-auth-example))
+
+<BetaAdmonition feature="Convex Auth" verb="is" />
+
+Support for authentication in Next.js server components, API routes, middleware,
+SSR etc. is under active development. If you'd like to help test this
+experimental support please
+[let us know how it goes in Discord](https://convex.dev/community).
 
 ## Get Started
 
@@ -39,10 +46,3 @@ The library doesn't come with UI components, but you can copy code from the docs
 and example repo to quickly build a UI in React.
 
 Learn more in the [Convex Auth docs](https://labs.convex.dev/auth).
-
-## Status
-
-<BetaAdmonition feature="Convex Auth" verb="is" />
-
-We're working on supporting authentication for Next.js server-side. See
-[FAQ](https://labs.convex.dev/auth/faq).
