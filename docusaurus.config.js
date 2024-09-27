@@ -316,6 +316,13 @@ const config = {
     ],
     "./src/plugins/metrics",
   ],
+  scripts: [
+    {
+      src: "https://plausible.io/js/script.js",
+      defer: true,
+      "data-domain": "docs.convex.dev",
+    },
+  ],
 };
 
 module.exports = config;
