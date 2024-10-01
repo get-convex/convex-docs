@@ -28,13 +28,18 @@ Code generation is run automatically by
 ## Check generated code into version control
 
 Inside the convex folder is a `_generated/` directory containing code customized
-to your convex functions. Check this in to your git repo. This way your code
-will typecheck without needing to run `npx convex codegen` or `npx convex dev`
-(which includes codegen) first.
+to your convex functions. Check this folder in to your git repo. That way your
+code will typecheck without needing to run `npx convex codegen` or
+`npx convex dev` (which includes codegen) first.
 
-If someone needs to make changes to the frontend of an an app or website that
-uses they can run it against the production deployment by setting an environment
-variable, without ever needing to run the Convex CLI tool.
+This also allows developers to make changes to a project that uses convex by
+running it against the production deployment by setting an environment variable,
+without ever needing to run the Convex CLI tool. To run against a production
+deployment set an environment variable like VITE_CONVEX_URL (the exact variable
+name depends on the framework you use) to a production deployment URL like
+`https://happy-otter-123.convex.cloud` found in project's production deployment
+settings in the dashboard. Most frameworks search for variables like this in a
+file called `.env` or `.env.production`.
 
 ## Functions
 
