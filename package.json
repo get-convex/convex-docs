@@ -45,7 +45,7 @@
     "@docusaurus/module-type-aliases": "2.3.1",
     "@tsconfig/docusaurus": "1.0.6",
     "typescript": "~5.0.3",
-    "webpack": "~5.76.0",
+    "webpack": "5.94.0",
     "@docusaurus/types": "2.3.1",
     "cspell": "^6.30.2",
     "detect-port": "^1.5.1",
