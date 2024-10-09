@@ -356,10 +356,27 @@ article code {
   margin: 2rem 0 3rem;
 }
 
+.qs-cards {
+  display: grid;
+  gap: 1.25rem;
+  margin: 2rem 0 3rem;
+}
+
+/* This magic number 462 is the size of the article div container as rendered */
+@container (width > 462px) {
+  .qs-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* This magic number 743 is the size of the article div container as rendered */
 @container (width > 743px) {
   .cards {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .qs-cards {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
@@ -371,6 +388,10 @@ a.card {
   gap: 1rem;
   align-items: center;
   max-width: 550px;
+}
+
+.qs-cards a.card {
+  padding: 1rem 1rem;
 }
 
 a.card > div {
@@ -701,6 +722,10 @@ html[data-theme="dark"] .convex-menu-header {
 
 .convex-sidebar-android {
   --convex-icon: url("../../static/img/sidebar-icons/android.svg");
+}
+
+.convex-sidebar-swift {
+  --convex-icon: url("../../static/img/sidebar-icons/swift.svg");
 }
 
 .convex-sidebar-dashboard {

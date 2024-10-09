@@ -9,9 +9,61 @@ import RemixLogo from "@site/static/img/remix-logo.svg";
 import RustLogo from "@site/static/img/rust-logo.svg";
 import SvelteLogo from "@site/static/img/svelte-logo.svg";
 import VueLogo from "@site/static/img/vue-logo.svg";
-import AndroidLog from "@site/static/img/android-logo.svg";
+import AndroidLogo from "@site/static/img/android-logo.svg";
+import SwiftLogo from "@site/static/img/swift-logo.svg";
 import React from "react";
-import { DocCardList } from "./DocCardList";
+import Link from "@docusaurus/Link";
+import { ReactNode } from "@mdx-js/react/lib";
+import Heading from "@theme/Heading";
+
+// This is a variant of DocsCardList.tsx specifically for the Quickstarts page.
+type Item = {
+  docId: string;
+  href: string;
+  label: string;
+  icon?: ReactNode;
+  invertIcon?: true;
+};
+
+export function DocCardList(props: { items: Item[] }) {
+  const { items } = props;
+  return (
+    <div className="qs-cards">
+      {items.map((item, index) => (
+        <CardLink key={index} item={item} />
+      ))}
+    </div>
+  );
+}
+
+export function CardLink({
+  className,
+  item,
+}: {
+  className?: string;
+  item: Item;
+}) {
+  const icon = item.icon;
+  return (
+    <Link
+      href={item.href}
+      className={
+        "card" +
+        (item.invertIcon ? " convex-invert-icon" : "") +
+        " " +
+        (className ?? "")
+      }
+    >
+      {icon}
+      <div>
+        <Heading as="h2" className="text--truncate" title={item.label}>
+          {item.label}
+        </Heading>
+      </div>
+    </Link>
+  );
+}
+// End DocsCardList.tsx variant for Quickstarts page
 
 export function QuickstartsList() {
   return (
@@ -82,7 +134,13 @@ export function QuickstartsList() {
           label: "Python",
         },
         {
-          icon: <AndroidLog height={40} />,
+          icon: <SwiftLogo height={40} />,
+          href: "/quickstart/swift",
+          docId: "quickstart/swift",
+          label: "iOS Swift",
+        },
+        {
+          icon: <AndroidLogo height={40} />,
           href: "/quickstart/android",
           docId: "quickstart/android",
           label: "Android Kotlin",

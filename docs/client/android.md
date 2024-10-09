@@ -174,7 +174,7 @@ val recordsDeleted = convex.mutation<@ConvexNum Int>(
 ```
 
 If an error occurs during a call to `mutation`, it will throw an exception.
-Typically you'll want to catch
+Typically you may want to catch
 [`ConvexError`](https://docs.convex.dev/functions/error-handling/application-errors)
 and `ServerError` and handle them however is appropriate in your application.
 See documentation on
