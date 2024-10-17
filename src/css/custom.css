@@ -362,6 +362,12 @@ article code {
   margin: 2rem 0 3rem;
 }
 
+.component-cards {
+  display: grid;
+  gap: 1.25rem;
+  margin: 2rem 0 3rem;
+}
+
 /* This magic number 462 is the size of the article div container as rendered */
 @container (width > 462px) {
   .qs-cards {
@@ -372,6 +378,10 @@ article code {
 /* This magic number 743 is the size of the article div container as rendered */
 @container (width > 743px) {
   .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .component-cards {
     grid-template-columns: 1fr 1fr 1fr;
   }
 
@@ -658,6 +668,10 @@ html[data-theme="dark"] .convex-menu-header {
 
 .convex-sidebar-realtime {
   --convex-icon: url("../../static/img/sidebar-icons/lightning-bolt.svg");
+}
+
+.convex-sidebar-components {
+  --convex-icon: url("../../static/img/sidebar-icons/components.svg");
 }
 
 .convex-sidebar-production {

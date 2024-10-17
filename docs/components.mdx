@@ -1,0 +1,105 @@
+---
+title: "Components"
+description: "Self contained building blocks of your app"
+pagination_prev: search
+---
+
+import { ComponentCardList } from "@site/src/ComponentCardList.tsx";
+
+<span className="convex-hero">
+  Convex Components package up code and data in a sandbox that allows you to
+  confidently and quickly add new features to your backend.
+</span>
+
+Convex Components are like mini self-contained Convex backends, and installing
+them is always safe. They can't read your app's tables or call your app's
+functions unless you pass them in explicitly.
+
+You can read about the full vision in
+[Convex: The Software-Defined Database](https://stack.convex.dev/the-software-defined-database#introducing-convex-components)
+
+The Convex team has built a few components that add new features to your
+backend. You'll eventually be able to author your own components to use within
+your project and to share with the community, but we haven't stabilized and
+documented the authoring APIs yet.
+
+We've listed components built by the Convex team below. Each component is
+installed as its own independent library from NPM. Check out the component's
+README for installation and usage instructions. You can see the full directory
+on the [Convex website](https://convex.dev/components).
+
+## Database
+
+<ComponentCardList
+  items={[
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/migrations",
+      label: "Migrations",
+      description: "Manage live site migrations",
+    },
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/aggregate",
+      label: "Aggregate",
+      description: "Scalable sums and counts",
+    },
+  ]}
+/>
+
+## Durable Functions
+
+<ComponentCardList
+  items={[
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/workflow",
+      label: "Workflow (Beta)",
+      description: "Simplify long running code flows",
+    },
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/crons",
+      label: "Runtime Crons",
+      description: "Register crons programmatically",
+    },
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/action-retrier",
+      label: "Action Retrier",
+      description: "Retry idempotent external calls",
+    },
+  ]}
+/>
+
+## Backend
+
+<ComponentCardList
+  items={[
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/ratelimiter",
+      label: "Rate Limiter",
+      description: "Limit how often a resource is used",
+    },
+  ]}
+/>
+
+## Integrations
+
+<ComponentCardList
+  items={[
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/twilio",
+      label: "Twilio",
+      description: "Twilio status in your query function",
+    },
+    {
+      type: "link",
+      href: "https://www.npmjs.com/package/@convex-dev/expo-push-notifications",
+      label: "Expo Push Notifications",
+      description: "Manage mobile push notifications",
+    },
+  ]}
+/>
