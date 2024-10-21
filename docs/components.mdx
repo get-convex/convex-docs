@@ -28,21 +28,39 @@ installed as its own independent library from NPM. Check out the component's
 README for installation and usage instructions. You can see the full directory
 on the [Convex website](https://convex.dev/components).
 
+<Admonition type="caution" title="The component authoring APIs are in Beta">
+  The underlying authoring APIs for components are still in flux. The Convex
+  team authored components listed below will be kept up to date as the APIs
+  change.
+</Admonition>
+
 ## Database
 
 <ComponentCardList
   items={[
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/migrations",
+      href: "https://www.convex.dev/components/sharded-counter",
+      label: "Sharded Counter",
+      description: "High throughput counter",
+    },
+    {
+      type: "link",
+      href: "https://www.convex.dev/components/migrations",
       label: "Migrations",
       description: "Manage live site migrations",
     },
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/aggregate",
+      href: "https://www.convex.dev/components/aggregate",
       label: "Aggregate",
-      description: "Scalable sums and counts",
+      description: "Efficient sums, counts, randomization and more",
+    },
+    {
+      type: "link",
+      href: "https://www.convex.dev/components/geospatial",
+      label: "Geospatial (Beta)",
+      description: "Efficiently store and query points on the Earth's surface",
     },
   ]}
 />
@@ -53,19 +71,19 @@ on the [Convex website](https://convex.dev/components).
   items={[
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/workflow",
-      label: "Workflow (Beta)",
-      description: "Simplify long running code flows",
-    },
-    {
-      type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/crons",
+      href: "https://www.convex.dev/components/crons",
       label: "Runtime Crons",
       description: "Register crons programmatically",
     },
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/action-retrier",
+      href: "https://www.convex.dev/components/workflow",
+      label: "Workflow (Beta)",
+      description: "Simplify long running code flows",
+    },
+    {
+      type: "link",
+      href: "https://www.convex.dev/components/retrier",
       label: "Action Retrier",
       description: "Retry idempotent external calls",
     },
@@ -78,9 +96,15 @@ on the [Convex website](https://convex.dev/components).
   items={[
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/ratelimiter",
+      href: "https://www.convex.dev/components/rate-limiter",
       label: "Rate Limiter",
       description: "Limit how often a resource is used",
+    },
+    {
+      type: "link",
+      href: "https://www.convex.dev/components/action-cache",
+      label: "Action Cache",
+      description: "Cache repeated external calls",
     },
   ]}
 />
@@ -91,15 +115,90 @@ on the [Convex website](https://convex.dev/components).
   items={[
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/twilio",
-      label: "Twilio",
-      description: "Twilio status in your query function",
+      href: "https://www.convex.dev/components/twilio",
+      label: "Twilio SMS",
+      description: "Send SMS and query status",
     },
     {
       type: "link",
-      href: "https://www.npmjs.com/package/@convex-dev/expo-push-notifications",
+      href: "https://www.convex.dev/components/push-notifications",
       label: "Expo Push Notifications",
       description: "Manage mobile push notifications",
     },
+    {
+      type: "link",
+      href: "https://www.convex.dev/components/launchdarkly",
+      label: "LaunchDarkly feature flags",
+      description: "Sync flags from LaunchDarkly",
+    },
   ]}
 />
+
+## Understanding Components
+
+Components can be thought of as a combination of concepts from frontend
+components, third party APIs, and both monolith and service-oriented
+architectures.
+
+### Data
+
+Similar to frontend components, Convex Components encapsulate state and behavior
+and allow exposing a clean interface. However, instead of just storing state in
+memory, these can have internal state machines that can persist between user
+sessions, span users, and change in response to external inputs, such as
+webhooks. Components can store data in a few ways:
+
+- Database tables with their own schema validation definitions. Since Convex is
+  realtime by default, data reads are automatically reactive, and writes commit
+  transactionally.
+- File storage, independent of the main app’s file storage.
+- Durable functions via the built-in function scheduler. Components can reliably
+  schedule functions to run in the future and pass along state.
+
+Typically, libraries require configuring a third party service to add stateful
+off-the-shelf functionality, which lack the transactional guarantees that come
+from storing state in the same database.
+
+### Isolation
+
+Similar to regular npm libraries, Convex Components include functions, type
+safety, and are called from your code. However, they also provide extra
+guarantees.
+
+- Similar to a third-party API, components can’t read data for which you don’t
+  provide access. This includes database tables, file storage, environment
+  variables, scheduled functions, etc.
+- Similar to service-oriented architecture, functions in components are run in
+  an isolated environment, so they can’t read or write global variables or patch
+  system behavior.
+- Similar to a monolith architecture, data changes commit transactionally across
+  calls to components, without having to reason about complicated distributed
+  commit protocols or data inconsistencies. You’ll never have a component commit
+  data but have the calling code roll back.
+- In addition, each mutation call to a component is a sub-mutation isolated from
+  other calls, allowing you to safely catch errors thrown by components. It also
+  allows component authors to easily reason about state changes without races,
+  and trust that a thrown exception will always roll back the Component’s
+  sub-mutation. [Read more](/docs/components/using.mdx#transactions).
+
+### Encapsulation
+
+Being able to reason about your code is essential to scaling a codebase.
+Components allow you to reason about API boundaries and abstractions.
+
+- The transactional guarantees discussed above allows authors and users of
+  components to reason locally about data changes.
+- Components expose an explicit API, not direct database table access. Data
+  invariants can be enforced in code, within the abstraction boundary. For
+  example, the
+  [aggregate component](https://www.npmjs.com/package/@convex-dev/aggregate) can
+  internally denormalize data, the
+  [rate limiter](https://www.npmjs.com/package/@convex-dev/ratelimiter)
+  component can shard its data, and the
+  [push notification](https://www.npmjs.com/package/@convex-dev/expo-push-notifications)
+  component can internally batch API requests, while maintaining simple
+  interfaces.
+- Runtime validation ensures all data that cross a component boundary are
+  validated: both arguments and return values. As with normal Convex functions,
+  the validators also specify the TypeScript types, providing end-to-end typing
+  with runtime guarantees.
