@@ -190,12 +190,11 @@ Components allow you to reason about API boundaries and abstractions.
   components to reason locally about data changes.
 - Components expose an explicit API, not direct database table access. Data
   invariants can be enforced in code, within the abstraction boundary. For
-  example, the
-  [aggregate component](https://www.npmjs.com/package/@convex-dev/aggregate) can
-  internally denormalize data, the
-  [rate limiter](https://www.npmjs.com/package/@convex-dev/ratelimiter)
-  component can shard its data, and the
-  [push notification](https://www.npmjs.com/package/@convex-dev/expo-push-notifications)
+  example, the [aggregate component](https://convex.dev/components/aggregate)
+  can internally denormalize data, the
+  [rate limiter](https://convex.dev/components/rate-limiter) component can shard
+  its data, and the
+  [push notification](https://convex.dev/components/push-notifications)
   component can internally batch API requests, while maintaining simple
   interfaces.
 - Runtime validation ensures all data that cross a component boundary are
