@@ -315,6 +315,7 @@ const config = {
       },
     ],
     "./src/plugins/metrics",
+    "./src/plugins/prefixIds",
   ],
   scripts: [
     {
