@@ -93,6 +93,7 @@
     "typecheck",
     "Typecheck",
     "typechecked",
+    "typesafe",
     "typeof",
     "unauthed",
     "unparameterized",
@@ -107,7 +108,8 @@
     "webm",
     "whsec",
     "yourclientid",
-    "zoneinfo"
+    "zoneinfo",
+    "Linsley"
   ],
   "ignoreRegExpList": ["/#[\\w-]+/", "/\\w+.png/"],
   "enableFiletypes": ["mdx"]

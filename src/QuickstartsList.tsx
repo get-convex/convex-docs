@@ -11,6 +11,7 @@ import SvelteLogo from "@site/static/img/svelte-logo.svg";
 import VueLogo from "@site/static/img/vue-logo.svg";
 import AndroidLogo from "@site/static/img/android-logo.svg";
 import SwiftLogo from "@site/static/img/swift-logo.svg";
+import TanStackLogo from "@site/static/img/tanstack-logo.svg";
 import React from "react";
 import Link from "@docusaurus/Link";
 import { ReactNode } from "@mdx-js/react/lib";
@@ -88,6 +89,12 @@ export function QuickstartsList() {
           href: "/quickstart/remix",
           docId: "quickstart/remix",
           label: "Remix",
+        },
+        {
+          icon: <TanStackLogo height={40} />,
+          href: "/quickstart/tanstack-start",
+          docId: "quickstart/tanstack-start",
+          label: "TanStack Start",
         },
         {
           icon: <ExpoLogo height={40} />,

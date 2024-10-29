@@ -7,9 +7,18 @@ sidebar_position: 325
 import Setup from "!!raw-loader!@site/../demos/react-query/src/main.tsx";
 import App from "!!raw-loader!@site/../demos/react-query/src/App.tsx";
 
-If you already use [TanStack Query](https://tanstack.com/query/latest) the query
-options function `convexQuery` may be useful in addition to the standard
-[Convex React client](/client/react).
+[TanStack Query](https://tanstack.com/query/latest) is an excellent, popular
+library for managing requests to a server.
+
+The
+[`@convex-dev/react-query`](https://www.npmjs.com/package/@convex-dev/react-query)
+library provides
+[Query Option](https://tanstack.com/query/latest/docs/framework/react/guides/query-options)
+functions for use with TanStack Query.
+
+Not all features of the standard [Convex React client](/client/react) are
+available through the TanStack Query APIs but you can use the two alongside each
+other, dropping into the standard Convex React hooks as necessary.
 
 <BetaAdmonition feature="The TanStack Query adapter" verb="is" />
 
