@@ -40,14 +40,15 @@ The
 shows the values configured in your `auth.config.js` for user
 [authentication](/docs/auth.mdx) implementation.
 
-## Snapshot Export
+## Backup & Restore
 
 The
-[snapshot export page](https://dashboard.convex.dev/deployment/settings/snapshots)
-lets you [export a snapshot](/docs/database/import-export/export.mdx) of the
-data stored in your deployment's database
+[backup & restore page](https://dashboard.convex.dev/deployment/settings/backups)
+lets you [backup](/docs/database/backup-restore.mdx) the data stored in your
+deployment's database and file storage. On this page, you can schedule periodic
+backups.
 
-![deployment settings export page](/screenshots/deployment_settings_snapshot_export.png)
+![deployment settings export page](/screenshots/backups.png)
 
 ## Integrations
 
