@@ -132,7 +132,7 @@ npx convex import <path>.zip
 ```
 
 See description and use-cases:
-[snapshot import](/docs/database/import-export/import.mdx).
+[data import](/docs/database/import-export/import.mdx).
 
 ### Export data to a file
 
@@ -143,7 +143,7 @@ npx convex export --include-file-storage --path <path>
 ```
 
 See description and use-cases:
-[snapshot export](/docs/database/import-export/export.mdx).
+[data export](/docs/database/import-export/export.mdx).
 
 ### Display data from tables
 

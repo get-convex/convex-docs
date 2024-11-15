@@ -44,7 +44,7 @@ shows the values configured in your `auth.config.js` for user
 
 The
 [backup & restore page](https://dashboard.convex.dev/deployment/settings/backups)
-lets you [backup](/docs/database/backup-restore.mdx) the data stored in your
+lets you [backup](/database/backup-restore.mdx) the data stored in your
 deployment's database and file storage. On this page, you can schedule periodic
 backups.
 
