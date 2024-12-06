@@ -39,6 +39,21 @@ Note that restoring is a destructive operation that wipes your existing data and
 replaces it with that from the backup. It's recommended that you generate an
 additional backup before doing a restore.
 
+### Restoring in an emergency
+
+If your production deployment ends up in a bad state, you may want to consider
+doing a restore to return to a good state. Note that getting your data to a good
+state may not be enough. Consider whether you may need each of the following
+actions. Depending on the nature of your emergency, these may be required.
+
+- Take an additional backup prior to restore, since restores are destructive
+- Do a restore from a good backup - to restore data
+- Use `npx convex dev` to push a known version of good code.
+- Use `npx convex env` or the dashboard to restore to a good set of env vars
+- Use the dashboard to make any manual fixes to the database for your app.
+- Write mutations to make required (more programmatic) manual fixes to the
+  database for your app.
+
 # Downloading a backup
 
 You can download your manual and periodic backups from the dashboard via the
