@@ -7,8 +7,6 @@ sidebar_position: 5
 description: "Configuring your project to run with Convex"
 ---
 
-import mainJSX from "!!raw-loader!@site/../demos/tutorial/src/main.tsx";
-
 When
 [connecting to your backend](/docs/client/react.mdx#connecting-to-a-backend)
 it's important to correctly configure the deployment URL.

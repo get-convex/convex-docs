@@ -510,13 +510,19 @@ a.pagination-nav__link .pagination-nav__label:hover {
 
 /* Stylize the top doc headings to match convex.dev */
 .markdown h1:first-child {
-  --ifm-h1-font-size: 3.75rem;
+  --ifm-h1-font-size: 2.5rem;
   margin-top: 1.75rem;
   --ifm-heading-font-family: "GT America", system-ui, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
-  font-weight: 900;
+  font-weight: 700;
   letter-spacing: -0.03em;
+}
+
+@media (min-width: 997px) {
+  .markdown h1:first-child {
+    --ifm-h1-font-size: 3.5rem;
+  }
 }
 
 /* Make other headings less bold */
@@ -553,6 +559,10 @@ h2.text--truncate {
   letter-spacing: 0;
 }
 
+ul.menu__list {
+  transition: 150ms ease-in-out !important;
+}
+
 /* Top level sidebar items have bolder color */
 .theme-doc-sidebar-item-link-level-1 > a.menu__link:not(.menu__link--active),
 .theme-doc-sidebar-item-category-level-1
@@ -575,6 +585,19 @@ h2.text--truncate {
 /* Sidebar: Don't change the distinct background on hover for active category links */
 .menu__list-item-collapsible--active:hover {
   background: var(--ifm-menu-color-background-active);
+}
+
+/* Tutorial is special, it forwards to an internal page. Remove all this when we ban section pages. */
+.convex-sidebar-tutorial .menu__list-item-collapsible--active {
+  background: var(--ifm-background-color);
+}
+.convex-sidebar-tutorial .menu__list-item-collapsible--active:hover {
+  background: var(--ifm-menu-color-background-hover);
+}
+.convex-sidebar-tutorial
+  .menu__list-item-collapsible--active
+  > .menu__link--active {
+  font-weight: 400;
 }
 
 /* Sidebar dividers */

@@ -56,10 +56,9 @@ connection and re-establish it if it gets dropped.
 
 ## Fetching data
 
-The Swift Convex library gives you access to the
-Convex [reactor](/docs/tutorial/1_reactor.mdx), which enables
-real-time *subscriptions* to query results. You subscribe to queries with
-the `subscribe` method on `ConvexClient` which returns
+The Swift Convex library gives you access to the Convex sync engine, which
+enables real-time *subscriptions* to query results. You subscribe to queries
+with the `subscribe` method on `ConvexClient` which returns
 a [`Publisher`](https://developer.apple.com/documentation/combine). The data
 available via the `Publisher` will change over time as the underlying data
 backing the query changes.

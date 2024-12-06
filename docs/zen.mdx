@@ -130,7 +130,7 @@ discovered that keep their projects falling into this wonderful pit.
 
 <ZenHeader title="Performance" />
 
-<ZenTip type="do" title={<span>Double down on the <a href="/tutorial/reactor">reactor</a></span>} >
+<ZenTip type="do" title={<span>Double down on the <a href="/tutorial/index#how-convex-works">sync engine</a></span>} >
 
     There's a reason why a deterministic, reactive database is the beating heart
     of Convex: the more you center your apps around its properties, the better
@@ -145,7 +145,7 @@ discovered that keep their projects falling into this wonderful pit.
   function.
 </Details>
 
-<Details summary="Keep reactor functions light & fast">
+<Details summary="Keep sync engine functions light & fast">
   In general, your mutations and queries should be working with less than a few
   hundred records and should aim to finish in less than 100ms. It's nearly
   impossible to maintain a snappy, responsive app if your synchronous
@@ -180,7 +180,7 @@ things will Just Work and be plenty fast.
 <Details summary="Be thoughtful about the return values of mutations">
   Mutation return values can be useful to trigger state changes in your app, but
   it's rarely a good idea to use them to set in-app state to update the UI. Let
-  queries and the reactor do that.
+  queries and the sync engine do that.
 </Details>
 
 </ZenTip>

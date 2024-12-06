@@ -44,7 +44,9 @@
     "LangChain",
     "lateinit",
     "leaderboard",
+    "leaderboards",
     "libvips",
+    "Linsley",
     "llms",
     "localstorage",
     "loicpennequin",
@@ -69,6 +71,7 @@
     "Routable",
     "ROUTABLE",
     "runtimes",
+    "sandboxed",
     "sarahs",
     "Schedulable",
     "SENDGRID",
@@ -93,8 +96,8 @@
     "typecheck",
     "Typecheck",
     "typechecked",
-    "typesafe",
     "typeof",
+    "typesafe",
     "unauthed",
     "unparameterized",
     "unstub",
@@ -108,8 +111,7 @@
     "webm",
     "whsec",
     "yourclientid",
-    "zoneinfo",
-    "Linsley"
+    "zoneinfo"
   ],
   "ignoreRegExpList": ["/#[\\w-]+/", "/\\w+.png/"],
   "enableFiletypes": ["mdx"]
