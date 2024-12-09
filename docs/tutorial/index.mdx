@@ -78,8 +78,8 @@ of how Convex works.
 
 **Database.** The Convex database is a document-relational database, which means
 you have tables with documents in them. All documents have an id that can be
-used to create relations to other tables. You interact with the database through
-query and mutation functions that are written entirely in TypeScript.
+used to create relations between documents. You interact with the database
+through query and mutation functions that are written entirely in TypeScript.
 
 **Mutation functions.** Mutations are TypeScript functions that update the
 database. All mutation functions in Convex run as a database transaction. So
@@ -116,7 +116,7 @@ export const sendMessage = mutation({
     body: v.string(),
   },
   handler: async (ctx, args) => {
-    console.log("This TypeScript function running on the server.");
+    console.log("This TypeScript function is running on the server.");
     await ctx.db.insert("messages", {
       user: args.user,
       body: args.body,
@@ -129,11 +129,12 @@ Let's break this down:
 
 1. You've added a new backend `mutation` function called `sendMessage` and
    exposed it as a public api.
-1. The whole function automatically runs as a transaction.
+1. The whole function automatically runs as a transaction that will roll back if
+   an exception is thrown.
 1. Since this is just a TypeScript function you can drop `console.log` lines to
    do simple debugging on the server.
-1. `args:` enforces the function arguments are two strings named `user` and
-   `body`.
+1. `args:` ensures the function arguments are two strings named `user` and
+   `body`, both as types and runtime values.
 1. `ctx.db.insert` tells Convex to insert a new message document into the table.
 
 Now, let's connect this mutation to your web app.

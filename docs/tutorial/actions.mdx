@@ -10,10 +10,9 @@ hide_table_of_contents: true
 In the [previous step](/docs/tutorial/index.mdx), you built a fully
 self-contained chat app. Data in, data out.
 
-Mutation functions in Convex are not allowed to make `fetch` calls to the
-outside world since they are database transactions. Query functions are only
-allowed to read from the database. The only way our app has talked the the open
-web is through to our frontend app via the client library.
+In order to power the automatic reactivity we just saw while providing strong
+database transactions, query and mutation functions in Convex are not allowed to
+make `fetch` calls to the outside world.
 
 Real apps aren't this simple. They often need to talk to the rest of the
 internet directly from the backend. Convex lets you do this too via **action**
@@ -38,18 +37,6 @@ import { query, mutation, internalAction } from "./_generated/server";
 //...
 
 // highlight-next-line
-// Add the following code to the file:
-// highlight-next-line
-function getSummaryFromJSON(data: any) {
-  // highlight-next-line
-  const firstPageId = Object.keys(data.query.pages)[0];
-  // highlight-next-line
-  return data.query.pages[firstPageId].extract;
-  // highlight-next-line
-}
-// highlight-next-line
-
-// highlight-next-line
 export const getWikipediaSummary = internalAction({
   // highlight-next-line
   args: { topic: v.string() },
@@ -71,24 +58,35 @@ export const getWikipediaSummary = internalAction({
   },
   // highlight-next-line
 });
+// highlight-next-line
+
+// highlight-next-line
+function getSummaryFromJSON(data: any) {
+  // highlight-next-line
+  const firstPageId = Object.keys(data.query.pages)[0];
+  // highlight-next-line
+  return data.query.pages[firstPageId].extract;
+  // highlight-next-line
+}
 ```
 
 Let's walk through it:
 
-1. First, we have a helper TypeScript function called `getSummaryFromJSON` to
-   pull out the summary text from the JSON response.
-1. Then, we created a new Convex action function called `getWikipediaSummary`.
+1. First, we created a new Convex action function called `getWikipediaSummary`.
    We used `internalAction` because we want this function to be private to the
-   Convex backend and not exposed as a public API.
-1. This function then does a simple fetch to the Wikipedia API with our topic.
-   Then uses our helper function to extract the summary from the JSON response.
+   Convex backend and not exposed as a public API. This function does a simple
+   fetch to the Wikipedia API with our topic.
+1. Next, we have a helper TypeScript function called `getSummaryFromJSON` to
+   pull out the summary text from the JSON response.
+1. The `getWikipediaSummary` function calls our helper function like any other
+   TypeScript function.
 
 This is great and all, but how do I use it?
 
-To quickly test this function in the Convex dashboard. Go to
-https://dashboard.convex.dev and navigate to your project. Click on the
-Functions in the left nav, and then click on the `getWikipediaSummary` function.
-Click "Run Function".
+To quickly test this function in the Convex dashboard, go to
+[https://dashboard.convex.dev](https://dashboard.convex.dev/deployment/functions)
+and navigate to your project. Click on the Functions in the left nav, and then
+click on the `getWikipediaSummary` function. Click "Run Function".
 
 The function runner UI will pop up. Try making a few searches.
 
@@ -118,7 +116,7 @@ export const sendMessage = mutation({
     body: v.string(),
   },
   handler: async (ctx, args) => {
-    console.log("This TypeScript function running on the server.");
+    console.log("This TypeScript function is running on the server.");
     await ctx.db.insert("messages", {
       user: args.user,
       body: args.body,
@@ -145,14 +143,14 @@ export const sendMessage = mutation({
 ```
 
 Wait a second! What's with this `ctx.scheduler` stuff? Convex comes with a
-powerful durable functions with the scheduler. It's a fundamental part of the
-sync engine, and it's the way you coordinate multiple functions in Convex.
+powerful durable function scheduler. It's a fundamental part of the sync engine,
+and it's the way you coordinate asynchronous functions in Convex.
 
-In the case of mutations, it's the only way to call an action to do a fetch to
-the outside world. The really cool part is, if for some reason your mutation
-fails, for example, if you throw an exception anywhere in the code, then nothing
-is scheduled. This is because mutations are transactions, and scheduling is just
-a write in the database to tell Convex to run this function at a future time.
+In the case of mutations, it's the only way to call an action to fetch from the
+outside world. The really cool part is, if for some reason your mutation throws
+an exception, then nothing is scheduled. This is because mutations are
+transactions, and scheduling is just a write in the database to tell Convex to
+run this function at a future time.
 
 Ok so, we can schedule our action, but we still need to write the summary back
 to the chat.
@@ -204,7 +202,7 @@ Queries and mutations are the only ways to interact with the database and the
 scheduler enables building sophisticated workflows with actions in between.
 
 Actions are just an escape hatch. It's the reality of dealing with the messy
-outside world with little to no guarantees.
+outside world that has little to no guarantees.
 
 Actions are not part of the sync engine. To talk to the database they have to
 talk through query and mutation functions. This restriction lets Convex enforce
