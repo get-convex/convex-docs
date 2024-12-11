@@ -21,6 +21,9 @@
 /tutorial/2_client                  /tutorial
 /tutorial/3_actions                 /tutorial/actions
 /tutorial/4_next                    /tutorial
+/tutorial/client                    /tutorial
+/tutorial/reactor                   /tutorial
+/tutorial/next                      /tutorial
 /typescript                         /production/best-practices/typescript
 /understanding                                       /
 /understanding/convex-fundamentals/                  /
