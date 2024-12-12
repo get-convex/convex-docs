@@ -37,7 +37,7 @@
     "algoliasearch": "~4.20.0",
     "react-markdown": "~8.0.7",
     "@types/react": "^18.0.0",
-    "prettier": "3.2.5"
+    "prettier": "3.4.2"
   },
   "devDependencies": {
     "docusaurus-plugin-typedoc": "npm:@convex-dev/docusaurus-plugin-typedoc@0.19.2",
@@ -48,7 +48,7 @@
     "webpack": "5.94.0",
     "@docusaurus/types": "2.3.1",
     "cspell": "^6.30.2",
-    "detect-port": "^1.5.1",
+    "detect-port": "^2.1.0",
     "@types/node": "^18.17.0",
     "@docusaurus/theme-classic": "~2.4.3"
   },
