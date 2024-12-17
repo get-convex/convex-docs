@@ -51,6 +51,8 @@ Applied per document and to any nested `Object` unless stated otherwise.
 
 - Field names must only contain non-control alphanumeric ASCII characters and
   underscores and must start with an alphabetic character or underscore.
+- Documents cannot contain top-level fields that start with an underscore, other
+  than the system-provided `_id` and `_creationTime` fields.
 - Strings must be valid Unicode sequences with no unpaired surrogates.
 
 ## Functions
