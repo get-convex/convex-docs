@@ -326,7 +326,7 @@ const config = {
     {
       src: "https://widget.kapa.ai/kapa-widget.bundle.js",
       "data-button-hide": "true",
-      "data-modal-override-open-id": "kapa-ai-chat-button",
+      "data-modal-override-open-class": "js-launch-kapa-ai",
       "data-website-id": "a20c0988-f33e-452b-9174-5045a58b965d",
       "data-project-name": "Convex",
       "data-project-color": "#141414",

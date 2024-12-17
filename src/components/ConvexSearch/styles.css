@@ -13,8 +13,6 @@
   --cs-key-shadow: inset 0 -2px 0 0 #c2c2c2, inset 0 0 1px 1px #fff,
     0 1px 2px 1px rgba(30, 35, 90, 0.4);
   --cs-markdown-code-bg: #141414;
-  --cs-results-header-button-text: #141414;
-  --cs-results-header-button-underline: #3f3f3f;
   --cs-search-bg: #ffffff;
   --cs-search-border: #2122b5;
   --cs-search-placeholder: #797979;
@@ -113,6 +111,40 @@
 
 .cs-dialog-searchBox {
   flex-grow: 1;
+}
+
+.cs-dialog-aiButton {
+  background: var(--cs-hit-bg);
+  color: var(--cs-hit-content-text);
+  border: none;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  border: 2px solid var(--cs-hit-border);
+  border-radius: 0.25rem;
+}
+
+.cs-dialog-aiButton:hover {
+  cursor: pointer;
+  border-color: var(--cs-hit-border-active);
+}
+
+.cs-dialog-aiButton-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cs-dialog-aiButton-text strong {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.cs-dialog-aiButton-text span {
+  font-size: 0.875rem;
+  opacity: 0.8;
 }
 
 .cs-dialog-closeButton {
@@ -225,32 +257,13 @@
   flex-grow: 1;
 }
 
-.cs-results-header {
-  display: flex;
-  flex-direction: row;
-  gap: 0.75rem;
-}
-
-.cs-results-header-button {
-  border: none;
-  background: none;
-  font-family: Inter, sans-serif;
-  font-size: 1.125rem;
-  cursor: pointer;
-  padding: 0.25rem 0;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.2s ease-in-out;
-  color: var(--cs-results-header-button-text);
-}
-
-.cs-results-header-button.cs-results-header-button--selected {
-  border-color: var(--cs-results-header-button-underline);
-}
-
 .cs-results-container {
   color-scheme: light;
   overflow-y: auto;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .cs-hitList {

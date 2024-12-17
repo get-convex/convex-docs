@@ -1,14 +1,8 @@
-import algoliasearch from "algoliasearch/lite";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import React, { useCallback, useEffect, useState } from "react";
-import { InstantSearch } from "react-instantsearch-hooks-web";
 import Dialog from "./Dialog";
 import SearchButton from "./SearchButton";
 import "./styles.css";
-
-const searchClient = algoliasearch(
-  "1KIE511890",
-  "d5802c3142d1d81cebdac1ccbb02ea9f",
-);
 
 const ConvexSearch = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -34,12 +28,15 @@ const ConvexSearch = () => {
   }, []);
 
   return (
-    <InstantSearch searchClient={searchClient} indexName="docs">
-      <div className="cs-root cs-root--custom">
-        <SearchButton onClick={() => setDialogOpen(true)} />
-        <Dialog open={dialogOpen} onClose={handleCloseDialog} />
-      </div>
-    </InstantSearch>
+    // Render this only on the client, as it uses `document` and `window`.
+    <BrowserOnly>
+      {() => (
+        <div className="cs-root cs-root--custom">
+          <SearchButton onClick={() => setDialogOpen(true)} />
+          <Dialog open={dialogOpen} onClose={handleCloseDialog} />
+        </div>
+      )}
+    </BrowserOnly>
   );
 };
 

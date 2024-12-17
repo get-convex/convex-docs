@@ -1,5 +1,4 @@
 import React from "react";
-import { Highlight } from "react-instantsearch-hooks-web";
 import Markdown from "./Markdown";
 import {
   DiscordHit,
@@ -33,7 +32,7 @@ const renderDocsContent = (hit: DocsHit) => {
         {hit.title}
       </span>
       <div className="cs-hit-content">
-        <Highlight hit={hit} attribute="contents" />
+        <Markdown text={hit.contents} />
       </div>
     </a>
   );
@@ -56,7 +55,7 @@ const renderStackContent = (hit: StackHit) => {
         {hit.title}
       </span>
       <div className="cs-hit-content">
-        <Highlight hit={hit} attribute="content" />
+        <Markdown text={hit.content} />
       </div>
     </a>
   );

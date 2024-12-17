@@ -1,49 +1,56 @@
-import React, { useState } from "react";
-import { Index } from "react-instantsearch-hooks-web";
+import algoliasearch from "algoliasearch/lite";
+import React, { useEffect, useState } from "react";
+import { SearchHit } from "./types";
 import HitList from "./HitList";
 
-const indexes = [
-  {
-    name: "docs",
-    title: "Docs",
-    link: "https://docs.convex.dev",
-  },
-  {
-    name: "stack",
-    title: "Stack",
-    link: "https://stack.convex.dev",
-  },
-  {
-    name: "discord",
-    title: "Discord",
-    link: "https://discord.com/invite/nk6C2qTeCq",
-  },
-];
+type SearchResults = {
+  hits: SearchHit[];
+}[];
 
-export default function Results() {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+const searchClient = algoliasearch(
+  "1KIE511890",
+  "d5802c3142d1d81cebdac1ccbb02ea9f",
+);
+
+const indexes = ["docs", "stack", "discord"];
+
+interface ResultsProps {
+  query: string;
+}
+
+export default function Results({ query }: ResultsProps) {
+  const [searchResults, setSearchResults] = useState<SearchHit[]>([]);
+
+  useEffect(() => {
+    if (query) {
+      searchClient
+        .search<SearchHit>(
+          indexes.map((indexName) => ({
+            indexName,
+            query,
+            params: {
+              hitsPerPage: 10,
+            },
+          })),
+        )
+        .then((response) => {
+          const [docsResults, stackResults, discordResults] =
+            response.results as SearchResults;
+          setSearchResults([
+            ...docsResults.hits,
+            ...stackResults.hits,
+            ...discordResults.hits,
+          ]);
+        });
+    } else {
+      setSearchResults([]); // Clear results if query is empty.
+    }
+  }, [query]);
 
   return (
     <div className="cs-results">
-      <div className="cs-results-header">
-        {indexes.map(({ name, title }, index) => (
-          <button
-            className={`cs-results-header-button ${
-              index === selectedIndex
-                ? "cs-results-header-button--selected"
-                : ""
-            }`}
-            key={name}
-            onClick={() => setSelectedIndex(index)}
-          >
-            {title}
-          </button>
-        ))}
-      </div>
       <div className="cs-results-container">
-        <Index indexName={indexes[selectedIndex].name}>
-          <HitList />
-        </Index>
+        <HitList hits={searchResults} />
       </div>
     </div>
   );

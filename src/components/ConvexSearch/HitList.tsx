@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useHits } from "react-instantsearch-hooks-web";
 import Hit from "./Hit";
 import { SearchHit } from "./types";
 
-export default function HitList() {
-  const { hits } = useHits<SearchHit>();
+interface HitListProps {
+  hits: SearchHit[];
+}
+
+const HitList = React.memo(({ hits }: HitListProps) => {
   const [selectedHit, setSelectedHit] = useState(0);
   const [usingKeyboard, setUsingKeyboard] = useState(false);
   const listRef = useRef<HTMLUListElement>(null);
@@ -77,4 +79,6 @@ export default function HitList() {
       {hits.length === 0 && <li>No results found.</li>}
     </ul>
   );
-}
+});
+
+export default HitList;

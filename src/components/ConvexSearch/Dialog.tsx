@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { useSearchBox } from "react-instantsearch-hooks-web";
 import KeyboardLegend from "./KeyboardLegend";
 import Results from "./Results";
 import SearchBox from "./SearchBox";
@@ -11,9 +10,20 @@ type Props = {
 };
 
 const Dialog = ({ open, onClose }: Props) => {
-  const { refine } = useSearchBox();
   const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [container] = useState(() => document.createElement("div"));
+
+  // Debounce the query to reduce search requests.
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 250);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [query]);
 
   // Append the container to the body, outside of the current component tree.
   useEffect(() => {
@@ -31,12 +41,10 @@ const Dialog = ({ open, onClose }: Props) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setQuery(value);
-    refine(value);
   };
 
   const handleClear = () => {
     setQuery("");
-    refine("");
   };
 
   useEffect(() => {
@@ -73,7 +81,30 @@ const Dialog = ({ open, onClose }: Props) => {
         </div>
         {query !== "" && (
           <>
-            <Results />
+            <button
+              className="cs-dialog-aiButton js-launch-kapa-ai"
+              onClick={onClose}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="2rem"
+                height="2rem"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ color: "rgb(20, 20, 20)" }}
+              >
+                <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"></path>
+              </svg>
+              <div className="cs-dialog-aiButton-text">
+                <strong>Ask AI</strong>
+                <span>Get an instant AI answer</span>
+              </div>
+            </button>
+            <Results query={debouncedQuery} />
             <KeyboardLegend />
           </>
         )}
