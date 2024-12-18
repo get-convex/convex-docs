@@ -180,38 +180,18 @@ results are not supported.
 
 ## Search Behavior
 
-### Fuzzy and Prefix Search
+### Typeahead Search
 
-Convex full-text search is designed to power as-you-type search experiences. To
-achieve this, full-text search automatically applies fuzzy and prefix matching
-rules to search terms! This means that documents matched by a search query do
-not necessarily need to exactly match any of the query's terms.
-
-Depending on the length of search terms, a fixed number of typos is permitted
-between matches. Typos are defined in terms of
-[Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The
-specific typo-tolerance rules are:
-
-- Terms with length `<=` 4 allow no typos
-- Terms with 5 `<` length `<=` 8 allow 1 typo
-- Terms with length `>` 8 allow 2 typos
-
-For example, the expression `search("body", "hello something")` would match the
-following documents:
-
-- `"hillo"`
-- `"somethan"`
-- `"hallo somethan"`
-- `"I left something in my car"`
-
-In addition to typo-tolerance, the final search term has _prefix search_
-enabled, matching any term that is a prefix of the original term. For example,
-the expression `search("body", "r")` would match the documents:
+Convex full-text search is designed to power as-you-type search experiences. In
+your search queries, the final search term has _prefix search_ enabled, matching
+any term that is a prefix of the original term. For example, the expression
+`search("body", "r")` would match the documents:
 
 - `"rabbit"`
-- `"Rakeeb searches"`
 - `"send request"`
-- ...
+
+Fuzzy search matches are deprecated. After January 15, 2025, search results will
+not include `"snake"` for a typo like `"stake"`.
 
 ### Relevance order
 
