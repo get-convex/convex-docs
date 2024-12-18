@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import SearchIcon from "./SearchIcon";
 import CloseIcon from "./CloseIcon";
+import { cn } from "@site/src/lib/cn";
 
 interface SearchBoxProps {
   value: string;
@@ -38,7 +39,7 @@ export default function SearchBox({
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Enter") {
         const linkElement = document.querySelector(
-          '.cs-hitList-item[aria-selected="true"] a',
+          '.js-hitList-item[aria-selected="true"] a',
         );
         if (linkElement) {
           const url = linkElement.getAttribute("href");
@@ -56,10 +57,15 @@ export default function SearchBox({
   }, []);
 
   return (
-    <div className={`cs-search ${className}`}>
-      <SearchIcon className="cs-search-icon" />
+    <div
+      className={cn(
+        "border-2 border-solid border-neutral-n11 rounded-md flex p-2 justify-center gap-1 bg-neutral-white",
+        className,
+      )}
+    >
+      <SearchIcon className="h-7 w-7 text-plum-p4" />
       <input
-        className="cs-search-input"
+        className="bg-transparent border-none flex-grow text-lg font-sans text-neutral-n11 focus:outline-none"
         type="text"
         placeholder="Search across Docs, Stack, and Discord..."
         value={value}
@@ -68,11 +74,11 @@ export default function SearchBox({
       />
       {value !== "" && (
         <button
-          className="cs-search-clearButton"
+          className="border-none bg-transparent py-0 px-1 flex items-center cursor-pointer"
           onClick={handleClear}
           aria-label="Clear search"
         >
-          <CloseIcon className="cs-search-clearIcon" />
+          <CloseIcon className="" />
         </button>
       )}
     </div>

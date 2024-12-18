@@ -2,7 +2,6 @@ import BrowserOnly from "@docusaurus/BrowserOnly";
 import React, { useCallback, useEffect, useState } from "react";
 import Dialog from "./Dialog";
 import SearchButton from "./SearchButton";
-import "./styles.css";
 
 const ConvexSearch = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -29,9 +28,10 @@ const ConvexSearch = () => {
 
   return (
     // Render this only on the client, as it uses `document` and `window`.
+    // TODO: Remove `cs-` class names once CSS variables are no longer in use.
     <BrowserOnly>
       {() => (
-        <div className="cs-root cs-root--custom">
+        <div className="cs-root cs-root--custom order-2 lg:order-1">
           <SearchButton onClick={() => setDialogOpen(true)} />
           <Dialog open={dialogOpen} onClose={handleCloseDialog} />
         </div>

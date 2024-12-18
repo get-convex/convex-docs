@@ -2,9 +2,9 @@ import React from "react";
 
 const KeyboardLegend = () => {
   return (
-    <div className="cs-keyboardLegend">
-      <div className="cs-keyboardLegend-section">
-        <kbd className="cs-keyboardLegend-key">
+    <div className="hidden md:flex gap-4">
+      <div className="flex items-center">
+        <kbd className="flex items-center p-0 bg-gradient-to-tl from-neutral-n3 to-neutral-n1 rounded-sm [box-shadow:inset_0_-2px_0_0_#c2c2c2,inset_0_0_1px_1px_#fff,0_1px_2px_1px_rgba(30,35,90,0.4)] h-[1.125rem] w-5 justify-center mr-[0.4em] text-neutral-n8 border-none">
           <svg width="15" height="15" aria-label="Enter key" role="img">
             <g
               fill="none"
@@ -17,10 +17,10 @@ const KeyboardLegend = () => {
             </g>
           </svg>
         </kbd>
-        <span className="cs-keyboardLegend-label">to open link</span>
+        <span className="text-xs text-neutral-n8">to open link</span>
       </div>
-      <div className="cs-keyboardLegend-section">
-        <kbd className="cs-keyboardLegend-key">
+      <div className="flex items-center">
+        <kbd className="flex items-center p-0 bg-gradient-to-tl from-neutral-n3 to-neutral-n1 rounded-sm [box-shadow:inset_0_-2px_0_0_#c2c2c2,inset_0_0_1px_1px_#fff,0_1px_2px_1px_rgba(30,35,90,0.4)] h-[1.125rem] w-5 justify-center mr-[0.4em] text-neutral-n8 border-none">
           <svg width="15" height="15" aria-label="Arrow down" role="img">
             <g
               fill="none"
@@ -33,7 +33,7 @@ const KeyboardLegend = () => {
             </g>
           </svg>
         </kbd>
-        <kbd className="cs-keyboardLegend-key">
+        <kbd className="flex items-center p-0 bg-gradient-to-tl from-neutral-n3 to-neutral-n1 rounded-sm [box-shadow:inset_0_-2px_0_0_#c2c2c2,inset_0_0_1px_1px_#fff,0_1px_2px_1px_rgba(30,35,90,0.4)] h-[1.125rem] w-5 justify-center mr-[0.4em] text-neutral-n8 border-none">
           <svg width="15" height="15" aria-label="Arrow up" role="img">
             <g
               fill="none"
@@ -46,10 +46,10 @@ const KeyboardLegend = () => {
             </g>
           </svg>
         </kbd>
-        <span className="cs-keyboardLegend-label">to select</span>
+        <span className="text-xs text-neutral-n8">to select</span>
       </div>
-      <div className="cs-keyboardLegend-section">
-        <kbd className="cs-keyboardLegend-key">
+      <div className="flex items-center">
+        <kbd className="flex items-center p-0 bg-gradient-to-tl from-neutral-n3 to-neutral-n1 rounded-sm [box-shadow:inset_0_-2px_0_0_#c2c2c2,inset_0_0_1px_1px_#fff,0_1px_2px_1px_rgba(30,35,90,0.4)] h-[1.125rem] w-5 justify-center mr-[0.4em] text-neutral-n8 border-none">
           <svg width="15" height="15" aria-label="Escape key" role="img">
             <g
               fill="none"
@@ -62,7 +62,7 @@ const KeyboardLegend = () => {
             </g>
           </svg>
         </kbd>
-        <span className="cs-keyboardLegend-label">to close</span>
+        <span className="text-xs text-neutral-n8">to close</span>
       </div>
     </div>
   );

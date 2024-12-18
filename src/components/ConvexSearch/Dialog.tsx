@@ -1,5 +1,7 @@
+import { cn } from "@site/src/lib/cn";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import AskAI from "./AskAI";
 import KeyboardLegend from "./KeyboardLegend";
 import Results from "./Results";
 import SearchBox from "./SearchBox";
@@ -62,55 +64,39 @@ const Dialog = ({ open, onClose }: Props) => {
   }, [onClose]);
 
   const dialogContent = open && (
-    <div className="cs-root cs-dialog">
+    <div className="cs-root h-screen left-0 top-0 overflow-y-auto fixed w-screen z-[1000] md:flex md:justify-center">
       <div
-        className={`cs-dialog-content ${
-          query === "" ? "cs-dialog-content--empty" : ""
-        }`}
+        className={cn(
+          "bg-gradient-to-b from-neutral-n3 to-neutral-n1 h-full w-full p-4 flex flex-col gap-4 md:z-[1001] md:rounded-lg md:shadow-lg md:h-[calc(min(80vh,60rem))] md:mt-20 md:w-[calc(min(80vw,60rem))]",
+          {
+            "md:h-20": query === "",
+          },
+        )}
       >
-        <div className="cs-dialog-header">
+        <div className="flex gap-2">
           <SearchBox
-            className="cs-dialog-searchBox"
+            className="grow"
             value={query}
             onChange={handleChange}
             onClear={handleClear}
           />
-          <button className="cs-dialog-closeButton" onClick={onClose}>
+          <button
+            className="border-none bg-transparent font-sans cursor-pointer md:hidden"
+            onClick={onClose}
+          >
             Cancel
           </button>
         </div>
         {query !== "" && (
           <>
-            <button
-              className="cs-dialog-aiButton js-launch-kapa-ai"
-              onClick={onClose}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="2rem"
-                height="2rem"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                style={{ color: "rgb(20, 20, 20)" }}
-              >
-                <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z"></path>
-              </svg>
-              <div className="cs-dialog-aiButton-text">
-                <strong>Ask AI</strong>
-                <span>Get an instant AI answer</span>
-              </div>
-            </button>
+            <AskAI onClick={onClose} />
             <Results query={debouncedQuery} />
             <KeyboardLegend />
           </>
         )}
       </div>
       <button
-        className="cs-dialog-backdrop"
+        className="hidden bg-neutral-n12/50 dark:bg-neutral-n12/80 inset-0 absolute border-none p-0 w-screen h-screen backdrop-blur-sm md:block"
         aria-label="Close search"
         onClick={onClose}
       />

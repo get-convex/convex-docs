@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Hit from "./Hit";
 import { SearchHit } from "./types";
+import { cn } from "@site/src/lib/cn";
 
 interface HitListProps {
   hits: SearchHit[];
@@ -53,7 +54,11 @@ const HitList = React.memo(({ hits }: HitListProps) => {
   }, [hits]);
 
   return (
-    <ul className="cs-hitList" role="list" ref={listRef}>
+    <ul
+      className="flex flex-col list-none p-0 gap-2 m-0"
+      role="list"
+      ref={listRef}
+    >
       {hits.map((hit, index) => (
         <li
           key={hit.objectID}
@@ -63,11 +68,15 @@ const HitList = React.memo(({ hits }: HitListProps) => {
             }
           }}
           role="listitem"
+          // This is referenced by SearchBox.
           aria-selected={index === selectedHit}
           data-hit-index={index}
-          className={`cs-hitList-item ${
-            index === selectedHit ? "cs-hitList-item--selected" : ""
-          }`}
+          className={cn(
+            "js-hitList-item border-2 border-solid border-neutral-n3 p-3 bg-neutral-white rounded-md overflow-hidden transition-all",
+            {
+              "border-plum-p4 shadow-sm": index === selectedHit,
+            },
+          )}
           onMouseEnter={() => {
             setUsingKeyboard(false);
             setSelectedHit(index);
@@ -76,7 +85,9 @@ const HitList = React.memo(({ hits }: HitListProps) => {
           <Hit hit={hit} />
         </li>
       ))}
-      {hits.length === 0 && <li>No results found.</li>}
+      {hits.length === 0 && (
+        <li className="text-neutral-n9">No results found.</li>
+      )}
     </ul>
   );
 });

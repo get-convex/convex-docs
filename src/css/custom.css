@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
@@ -1132,46 +1136,9 @@ html[data-theme="dark"] a.card.convex-invert-icon svg {
   filter: invert(100%);
 }
 
-/* Customizations to the Convex Search component. */
-.cs-root.cs-root--custom {
-  --cs-backdrop-bg: rgba(101, 108, 133, 0.8);
-  --cs-hit-title-text: var(--ifm-link-color);
-}
-html[data-theme="dark"] .cs-root.cs-root--custom {
-  --cs-backdrop-bg: rgba(9, 10, 17, 0.8);
-  --cs-dialog-content-bg: linear-gradient(to bottom, #292929, #111111);
-  --cs-dialog-content-shadow: inset 1px 1px 0 0 #3f3f3f, 0 3px 8px 0 #111111;
-  --cs-hit-bg: #141414;
-  --cs-hit-border-active: #f3c01c;
-  --cs-hit-border: #3f3f3f;
-  --cs-hit-content-text: #f6f6f6;
-  --cs-key-bg: linear-gradient(-225deg, #141414, #3f3f3f);
-  --cs-key-shadow: inset 0 -2px 0 0 #6e6e6e, inset 0 0 1px 1px #3f3f3f,
-    0 1px 2px 1px rgba(30, 35, 90, 0.4);
-  --cs-markdown-code-bg: #000000;
-  --cs-search-bg: #000000;
-  --cs-search-border: #f3c01c;
-  --cs-search-placeholder: #c2c2c2;
-  --cs-search-text: #f6f6f6;
-  --cs-searchButton-bg: #292929;
-  --cs-searchButton-border: #f3c01c;
-  --cs-searchButton-keyboard-bg: #3f3f3f;
-  --cs-searchButton-keyboard-text: #adadad;
-  --cs-searchButton-text: #adadad;
-}
-
 @media (max-width: 996px) {
   .navbar__brand {
     margin-right: auto;
-  }
-
-  .convex-ai-chat {
-    order: 1;
-    margin-right: 0.5rem;
-  }
-
-  .cs-root.cs-root--custom {
-    order: 2;
   }
 }
 

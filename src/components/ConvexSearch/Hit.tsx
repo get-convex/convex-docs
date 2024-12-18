@@ -1,5 +1,4 @@
 import React from "react";
-import Markdown from "./Markdown";
 import {
   DiscordHit,
   DocsHit,
@@ -21,8 +20,11 @@ type HitProps = {
 
 const renderDocsContent = (hit: DocsHit) => {
   return (
-    <a href={getRelativeUrl(hit.objectID)} className="cs-hit">
-      <span className="cs-hit-title">
+    <a
+      href={getRelativeUrl(hit.objectID)}
+      className="hover:no-underline focus-within:outline-none"
+    >
+      <span className="font-bold text-lg flex items-center gap-2 mb-2 text-neutral-n12 leading-tight">
         <img
           src="https://search.convex.dev/icon-convex.svg"
           alt="Convex logo"
@@ -31,8 +33,8 @@ const renderDocsContent = (hit: DocsHit) => {
         />
         {hit.title}
       </span>
-      <div className="cs-hit-content">
-        <Markdown text={hit.contents} />
+      <div className="overflow-hidden line-clamp-2 text-neutral-n9 leading-snug">
+        {hit.contents}
       </div>
     </a>
   );
@@ -42,10 +44,10 @@ const renderStackContent = (hit: StackHit) => {
   return (
     <a
       href={`https://stack.convex.dev/${hit.objectID}`}
-      className="cs-hit"
+      className="hover:no-underline focus-within:outline-none"
       target="_blank"
     >
-      <span className="cs-hit-title">
+      <span className="font-bold text-lg flex items-center gap-2 mb-2 text-neutral-n12 leading-tight">
         <img
           src="https://search.convex.dev/icon-stack.svg"
           alt="Stack logo"
@@ -54,48 +56,54 @@ const renderStackContent = (hit: StackHit) => {
         />
         {hit.title}
       </span>
-      <div className="cs-hit-content">
-        <Markdown text={hit.content} />
+      <div className="overflow-hidden line-clamp-2 text-neutral-n9 leading-snug">
+        {hit.content}
       </div>
     </a>
   );
 };
 
 const renderDiscordContent = (hit: DiscordHit) => (
-  <div className="cs-hit">
-    <a href={hit.url} className="cs-hit-title" target="_blank">
-      <img
-        src="https://search.convex.dev/icon-discord.svg"
-        alt="Discord logo"
-        width={20}
-        height={20}
-      />
-      {hit.title}
+  <div>
+    <a
+      href={hit.url}
+      className="hover:no-underline focus-within:outline-none"
+      target="_blank"
+    >
+      <span className="font-bold text-lg flex items-center gap-2 mb-2 text-neutral-n12 leading-tight">
+        <img
+          src="https://search.convex.dev/icon-discord.svg"
+          alt="Discord logo"
+          width={20}
+          height={20}
+        />
+        {hit.title}
+      </span>
     </a>
-    <ol className="cs-hit-thread">
+    <ol className="p-0 pt-2 pl-2">
       {hit.messages.slice(0, 3).map((message, index) => (
-        <li key={index} className="cs-hit-message">
+        <li key={index} className="text-neutral-n9 flex items-start gap-2 mb-4">
           <img
             src={message.author.avatar}
             alt={`Profile image for ${message.author.name}`}
-            width={32}
-            height={32}
-            className="cs-hit-message-avatar"
+            width={28}
+            height={28}
+            className="rounded-full shrink-0 bg-neutral-n11"
           />
-          <div className="cs-hit-message-wrapper">
-            <strong className="cs-hit-message-author">
+          <div className="flex flex-col overflow-hidden gap-1 w-full">
+            <strong className="flex gap-1 items-center">
               <span>{message.author.name}</span>
               {message.author.convexer && (
                 <img
                   src="https://search.convex.dev/icon-convex.svg"
                   alt="Convex team member"
-                  width={20}
-                  height={20}
+                  width={16}
+                  height={16}
                 />
               )}
             </strong>
-            <div className="cs-markdown">
-              <Markdown text={message.body} />
+            <div className="overflow-hidden line-clamp-2 text-neutral-n9 leading-snug">
+              {message.body}
             </div>
           </div>
         </li>

@@ -48,8 +48,14 @@ export default function Results({ query }: ResultsProps) {
   }, [query]);
 
   return (
-    <div className="cs-results">
-      <div className="cs-results-container">
+    <div className="flex flex-col overflow-hidden gap-3 grow">
+      <div
+        className="overflow-y-auto grow flex flex-col gap-2"
+        // Keeps the scroll bar light in dark mode.
+        style={{
+          colorScheme: "light",
+        }}
+      >
         <HitList hits={searchResults} />
       </div>
     </div>
