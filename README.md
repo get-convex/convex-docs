@@ -1,4 +1,9 @@
-# Website
+# Convex Docs
+
+This powers the [Convex Docs](https://docs.convex.dev). This is an up-to-date
+export of the documentation. It may not build in the open source repo - since it
+was designed to run inside the Convex internal environment. Feel free to use and
+modify the docs. We'll fix the docs build process eventually.
 
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
 static website generator.
