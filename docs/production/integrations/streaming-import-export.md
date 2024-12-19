@@ -34,10 +34,10 @@ Convex directly. Some use cases include:
      [Snowflake](https://www.snowflake.com/) is more appropriate.
 2. Flexible querying
    - While Convex has powerful
-     [database queries](/database/reading-data.mdx#querying-documents) and
-     built-in [full text search](/docs/search.mdx) support, there are still some
-     queries that are difficult to write within Convex. If you need very dynamic
-     sorting and filtering for something like an "advanced search" view,
+     [database queries](/docs/database/reading-data/reading-data.mdx#querying-documents)
+     and built-in [full text search](/docs/search.mdx) support, there are still
+     some queries that are difficult to write within Convex. If you need very
+     dynamic sorting and filtering for something like an "advanced search" view,
      databases like [ElasticSearch](https://www.elastic.co) can be helpful.
 3. Machine learning training
    - Convex isn't optimized for queries running computationally intensive

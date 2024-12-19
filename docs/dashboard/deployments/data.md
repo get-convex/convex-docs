@@ -30,10 +30,11 @@ the top of the page.
 ![Data filters](/screenshots/data_filters.png)
 
 All fields in a document are filterable by the operations supported in Convex
-query syntax. [Equality](/docs/database/reading-data.mdx#equality-conditions)
-and [Comparison](/docs/database/reading-data.mdx#comparisons) when filtering in
-the dashboard share the same rules as a query using the Convex client. You may
-also filter based on the type of the field.
+query syntax.
+[Equality](/docs/database/reading-data/reading-data.mdx#equality-conditions) and
+[Comparison](/docs/database/reading-data/reading-data.mdx#comparisons) when
+filtering in the dashboard share the same rules as a query using the Convex
+client. You may also filter based on the type of the field.
 
 To add a filter, click the `+` next to an existing filter. If you add more than
 one condition, they will be evaluated using the `and` operation.
@@ -55,9 +56,9 @@ adding two filter conditions for `creationTime >= $time` and
 
 ## Writing custom queries
 
-You can write a [query](/docs/database/reading-data.mdx) directly in the
-dashboard. This allows you to perform arbitrary filtering and transformation of
-the data, including sorting, joins, grouping and aggregations.
+You can write a [query](/docs/database/reading-data/reading-data.mdx) directly
+in the dashboard. This allows you to perform arbitrary filtering and
+transformation of the data, including sorting, joins, grouping and aggregations.
 
 In the `⋮` overflow menu at the top of the data page click on the “Custom query”
 option.
@@ -196,7 +197,8 @@ menu at the top of the data page.
 
 This button will open a panel showing the saved
 [schema](/docs/database/schemas.mdx) and
-[indexes](/docs/database/indexes/indexes.md) associated with the selected table.
+[indexes](/docs/database/reading-data/indexes/indexes.md) associated with the
+selected table.
 
 Indexes that have not completed backfilling will be accompanied by a loading
 spinner next to their name.

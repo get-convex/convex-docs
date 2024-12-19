@@ -157,7 +157,7 @@ Display a simple view of the
 
 The command supports `--limit` and `--order` flags to change data displayed. For
 more complex filters, use the dashboard data page or write a
-[query](/database/reading-data.mdx).
+[query](/docs/database/reading-data/reading-data.mdx).
 
 The `npx convex data <table>` command works with
 [system tables](/database/advanced/system-tables.mdx), such as `_storage`, in
@@ -210,7 +210,8 @@ This command will:
 1. Regenerate the [generated code](/generated-api/) in the `convex/_generated`
    directory.
 1. Bundle your Convex functions and their dependencies.
-1. Push your functions, [indexes](/docs/database/indexes/indexes.md), and
+1. Push your functions,
+   [indexes](/docs/database/reading-data/indexes/indexes.md), and
    [schema](/docs/database/schemas.mdx) to production.
 
 Once this command succeeds the new functions will be available immediately.
@@ -249,7 +250,8 @@ Deploy Key, this command will:
 1. Regenerate the [generated code](/generated-api/) in the `convex/_generated`
    directory.
 1. Bundle your Convex functions and their dependencies.
-1. Push your functions, [indexes](/docs/database/indexes/indexes.md), and
+1. Push your functions,
+   [indexes](/docs/database/reading-data/indexes/indexes.md), and
    [schema](/docs/database/schemas.mdx) to the deployment.
 1. Run a function specified by `--preview-run` (similar to the `--run` option
    for `npx convex dev`).

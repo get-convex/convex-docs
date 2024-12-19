@@ -2,6 +2,9 @@
 # THIS LIST IS NOT ALPHABETICAL! It mostly is, but order matters for wildcards.
 /ai                                 /search 
 /database/import-export/airbyte     /database/import-export/streaming
+/database/indexes                   /database/reading-data/indexes
+/database/indexes/indexes-and-query-perf            /database/reading-data/indexes/indexes-and-query-perf
+/database/document-storage          /database/
 /client/react/project-setup         /client/react/deployment-urls
 /contact                            /production/contact
 /functions/http-endpoints		    /functions/http-actions

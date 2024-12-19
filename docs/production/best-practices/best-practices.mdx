@@ -95,8 +95,8 @@ limited scenarios, such as calling third-party services.
 
 ### Use indexes or paginate all large database queries.
 
-[Database indexes](/docs/database/indexes/indexes.md) with
-[range expressions](/docs/database/indexes/indexes.md#querying-documents-using-indexes)
+[Database indexes](/docs/database/reading-data/indexes/indexes.md) with
+[range expressions](/docs/database/reading-data/indexes/indexes.md#querying-documents-using-indexes)
 allow you to write efficient database queries that only scan a small number of
 documents in the table. [Pagination](/docs/database/pagination.mdx) allows you
 to quickly display incremental lists of results. If your table could contain
@@ -104,7 +104,7 @@ more than a few thousand documents, you should consider pagination or an index
 with a range expression to ensure that your queries stay fast.
 
 For more details, check out our
-[Introduction to Indexes and Query Performance](/docs/database/indexes/indexes-and-query-perf.md)
+[Introduction to Indexes and Query Performance](/docs/database/reading-data/indexes/indexes-and-query-perf.md)
 article.
 
 ### Use tables to separate logical object types.
@@ -112,7 +112,7 @@ article.
 Even though Convex does support nested documents, it is often better to put
 separate objects into separate tables and use `Id`s to create references between
 them. This will give you more flexibility when loading and
-[querying documents](/docs/database/reading-data.mdx).
+[querying documents](/docs/database/reading-data/reading-data.mdx).
 
 You can read more about this at [Document IDs](/docs/database/document-ids.mdx).
 

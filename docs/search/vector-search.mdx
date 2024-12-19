@@ -33,9 +33,10 @@ To use vector search you need to:
 
 ## Defining vector indexes
 
-Like [database indexes](/docs/database/indexes/indexes.md), vector indexes are a
-data structure that is built in advance to enable efficient querying. Vector
-indexes are defined as part of your Convex [schema](/docs/database/schemas.mdx).
+Like [database indexes](/docs/database/reading-data/indexes/indexes.md), vector
+indexes are a data structure that is built in advance to enable efficient
+querying. Vector indexes are defined as part of your Convex
+[schema](/docs/database/schemas.mdx).
 
 To add a vector index onto a table, use the
 [`vectorIndex`](/api/classes/server.TableDefinition#vectorindex) method on your
@@ -265,8 +266,8 @@ Vector indexes must have:
 - Up to 16 filter fields.
 
 Vector indexes count towards the
-[limit of 32 indexes per table](/docs/database/indexes/indexes.md#limits). In
-addition you can have up to 4 vector indexes per table.
+[limit of 32 indexes per table](/docs/database/reading-data/indexes/indexes.md#limits).
+In addition you can have up to 4 vector indexes per table.
 
 Vector searches can have:
 

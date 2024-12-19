@@ -1,15 +1,15 @@
 ---
 title: "Indexes"
-sidebar_position: 80
+sidebar_position: 100
 ---
 
 Indexes are a data structure that allow you to speed up your
-[document queries](/docs/database/reading-data.mdx#querying-documents) by
-telling Convex how to organize your documents. Indexes also allow you to change
-the order of documents in query results.
+[document queries](/docs/database/reading-data/reading-data.mdx#querying-documents)
+by telling Convex how to organize your documents. Indexes also allow you to
+change the order of documents in query results.
 
 For a more in-depth introduction to indexing see
-[Indexes and Query Performance](/docs/database/indexes/indexes-and-query-perf.md).
+[Indexes and Query Performance](/docs/database/reading-data/indexes/indexes-and-query-perf.md).
 
 ## Defining indexes
 
@@ -162,7 +162,7 @@ isn't a useful index for finding messages in all channels created 1-2 minutes
 ago. The TypeScript types within `withIndex` will guide you through this.
 
 To better understand what queries can be run over which indexes, see
-[Introduction to Indexes and Query Performance](/docs/database/indexes/indexes-and-query-perf.md).
+[Introduction to Indexes and Query Performance](/docs/database/reading-data/indexes/indexes-and-query-perf.md).
 
 **The performance of your query is based on the specificity of the range.**
 
