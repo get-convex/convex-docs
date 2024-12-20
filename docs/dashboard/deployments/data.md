@@ -1,7 +1,7 @@
 ---
 title: "Data"
 slug: "data"
-sidebar_position: 0
+sidebar_position: 5
 ---
 
 ![Data Dashboard Page](/screenshots/data.png)

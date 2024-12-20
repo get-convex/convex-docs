@@ -65,8 +65,6 @@ Applied per document and to any nested `Object` unless stated otherwise.
 | Function argument size                                                            | 8 MiB                               | 8 MiB                                                     |                                                                                                               |
 | Function return value size                                                        | 8 MiB                               | 8 MiB                                                     |                                                                                                               |
 | HTTP action response size                                                         | 20 MiB                              | 20 MiB                                                    | There is no specific limit on request size                                                                    |
-| Number of documents scanned in a query                                            | 16384                               | 16384                                                     | Documents not returned due to a `filter` count as scanned                                                     |
-| Number of documents written in a mutation                                         | 8192                                | 8192                                                      |
 | Length of a console.log line                                                      | 4 KiB                               | 4 KiB                                                     |                                                                                                               |
 | [Log streaming](/docs/production/integrations/log-streams/log-streams.mdx) limits | 4096 logs, flushed every 10 seconds | 4096 logs, flushed every 10 seconds                       | How many logs can be buffered when streaming                                                                  |
 
@@ -85,10 +83,13 @@ Applied per document and to any nested `Object` unless stated otherwise.
 
 These limits apply to each `query` or `mutation` function.
 
-|              |       |
-| ------------ | ----- |
-| Data read    | 8 MiB |
-| Data written | 8 MiB |
+|                            |        | Notes                                                     |
+| -------------------------- | ------ | --------------------------------------------------------- |
+| Data read                  | 8 MiB  | Data not returned due to a `filter` counts as scanned     |
+| Data written               | 8 MiB  |
+| Documents scanned          | 16,384 | Documents not returned due to a `filter` count as scanned |
+| Documents written          | 8,192  |
+| Function return value size | 8 MiB  |
 
 ## Environment Variables
 
