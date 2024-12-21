@@ -143,10 +143,3 @@ better your response times will be.
 
 Clicking on any of the charts will give you a larger, detailed view where you
 can customize the time ranges you're inspecting.
-
-## Scheduled Functions
-
-You can see a summary of all
-[scheduled invocations](/docs/scheduling/scheduled-functions.mdx) for the
-function you are currently viewing, and choose to cancel all scheduled
-invocations for that function.
