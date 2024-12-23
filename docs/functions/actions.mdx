@@ -252,3 +252,47 @@ Make sure to await all promises created within an action. Async tasks still
 running when the function returns might or might not complete. In addition,
 since the Node.js execution environment might be reused between action calls,
 dangling promises might result in errors in subsequent action invocations.
+
+## Best practices
+
+### `await ctx.runAction` should only be used for crossing JS runtimes
+
+**Why?** `await ctx.runAction` incurs to overhead of another Convex server
+function. It counts as an extra function call, it allocates it's own system
+resources, and while you're awaiting this call the parent action call is frozen
+holding all it's resources. If you pile enough of these calls on top of each
+other, your app may slow down significantly.
+
+**Fix:** The reason this api exists is to let you run code in the
+[Node.js environment](functions/runtimes). If you want to call an action from
+another action that's in the same runtime, which is the normal case, the best
+way to do this is to pull the code you want to call into a TypeScript
+[helper function](/docs/production/best-practices/best-practices.mdx#use-helper-functions-to-write-shared-code)
+and call the helper instead.
+
+### Avoid `await ctx.runMutation` / `await ctx.runQuery`
+
+```ts
+// ❌
+const foo = await ctx.runQuery(...)
+const bar = await ctx.runQuery(...)
+
+// ✅
+const fooAndBar = await ctx.runQuery(...)
+```
+
+**Why?** Multiple runQuery / runMutations execute in separate transactions and
+aren’t guaranteed to be consistent with each other (e.g. foo and bar could read
+the same document and return two different results), while a single runQuery /
+runMutation will always be consistent. Additionally, you’re paying for multiple
+function calls when you don’t have to.
+
+**Fix:** Make a new internal query / mutation that does both things. Refactoring
+the code for the two functions into helpers will make it easy to create a new
+internal function that does both things while still keeping around the original
+functions. Potentially try and refactor your action code to “batch” all the
+database access.
+
+Caveats: Separate runQuery / runMutation calls are valid when intentionally
+trying to process more data than fits in a single transaction (e.g. running a
+migration, doing a live aggregate).

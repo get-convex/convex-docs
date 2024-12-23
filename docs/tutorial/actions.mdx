@@ -202,8 +202,10 @@ Go ahead, now play with your app!
 Queries and mutations are the only ways to interact with the database and the
 scheduler enables building sophisticated workflows with actions in between.
 
-Actions are just an escape hatch. It's the reality of dealing with the messy
-outside world that has little to no guarantees.
+[Actions](/docs/functions/actions.mdx) are normal serverless functions like AWS
+Lambda and Google Cloud Run. They help model flows like calling AI APIs and
+using the Vector Store. They serve as an escape hatch. They deal with the
+reality of the messy outside world with few guarantees.
 
 Actions are not part of the sync engine. To talk to the database they have to
 talk through query and mutation functions. This restriction lets Convex enforce
@@ -211,11 +213,11 @@ transactional guarantees in the database and keep the sync engine fast and
 nimble.
 
 The best way to structure your application for scale is to minimize the work
-that happens in an action to only the part that needs the
+that happens in an action. Only the part that needs the
 [non-determinism](https://en.wikipedia.org/wiki/Deterministic_algorithm), like
-making the external `fetch` call. In an ideal scenario most actions are about as
-simple as the action in this tutorial. This is the most scalable architecture in
-Convex, enabling the highest throughput.
+making the external `fetch` call should use them. Keeping them as small as
+possible is the most scalable way to build Convex apps, enabling the highest
+throughput.
 
 The scheduler allows your app to keep most of its important logic in queries and
 mutations and structure your code as workflows in and out of actions.

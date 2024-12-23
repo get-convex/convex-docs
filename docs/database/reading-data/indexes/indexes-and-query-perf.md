@@ -2,7 +2,6 @@
 sidebar_label: "Indexes and Query Performance"
 title: "Introduction to Indexes and Query Performance"
 sidebar_position: 100
-todo: Suggesting n00bs read all this first is bad, remove from parent
 ---
 
 How do I ensure my Convex

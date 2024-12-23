@@ -53,8 +53,8 @@ During setup, you'll see that Convex uses your GitHub account for
 authentication. Sign into Convex with GitHub and then accept the default project
 setup prompts.
 
-This will create your backend and a folder called `convex/` in your project,
-where you'll write your backend code.
+This will **automatically create your backend** and a folder called `convex/` in
+your project, where you'll write your backend code.
 
 **Make sure you keep this command (`npm run dev`) running in the background
 throughout this tutorial.** It's running both the dev web server for the
@@ -79,9 +79,10 @@ of how Convex works.
 </div>
 
 **Database.** The Convex database is a document-relational database, which means
-you have tables with documents in them. All documents have an id that can be
-used to create relations between documents. You interact with the database
-through query and mutation functions that are written entirely in TypeScript.
+you have tables with JSON like documents in them. All documents have an
+auto-generated `_id` that can be used to create relations between documents. You
+interact with the database through mutation and query functions that are written
+entirely in TypeScript.
 
 **Mutation functions.** Mutations are TypeScript functions that update the
 database. All mutation functions in Convex run as a database transaction. So
@@ -92,7 +93,8 @@ the database. As we'll see in a bit, you subscribe to them from your frontend to
 keep your app automatically up to date.
 
 Your frontend registers to listen to query updates through the **client
-library**.
+library**. The client libraries talk to Convex via WebSockets for fast realtime
+updates.
 
 The **sync engine** reruns query functions when any input to the function
 changes, including any changes to the documents in the database that the query
@@ -209,6 +211,11 @@ Convex automatically created a `messages` table when you sent the first message.
 In Convex, [schemas](/docs/database/schemas.mdx) are optional. Eventually,
 you'll want to enforce the structure of your tables, but for the purposes of the
 tutorial we'll skip this.
+
+In the dashboard you can also go to the
+[logs screen](https://dashboard.convex.dev/deployment/logs) and see every call
+to the mutation as you ran with the log line we added earlier. The logs screen
+is a critical part of debugging your backend in development.
 
 You've successfully created a `mutation` function, which is also a database
 transaction, and connected it to your UI.
