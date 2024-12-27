@@ -65,14 +65,14 @@ If you aren't familiar with how to create a Convex schema, read the
 [schema doc](/docs/database/schemas.mdx).
 
 Let’s assume you’re building a chat app and want to get all messages in a
-particular channel. You can define a new index called `by_channel` in the
+particular channel. You can define a new index called `by_channel` on the
 `messages` table by using the `.index()` method in your schema.
 
 ```ts noDialect title="convex/schema.ts"
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
-// Define a messages table with two indexes.
+// Define a messages table with an index.
 export default defineSchema({
   messages: defineTable({
     channel: v.id("channels"),
