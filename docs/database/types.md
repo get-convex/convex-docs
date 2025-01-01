@@ -41,6 +41,55 @@ For information on other limits, see [here](/docs/production/state/limits.mdx).
 If any of these limits don't work for you,
 [let us know](https://convex.dev/community)!
 
+## Working with `undefined`
+
+The TypeScript value `undefined` is not a valid Convex value, so it cannot be
+used in Convex function arguments or return values, or in stored documents.
+
+1. Objects/records with `undefined` values are the same as if the field were
+   missing: `{a: undefined}` is transformed into `{}` when passed to a function
+   or stored in the database. You can think of Convex function calls and the
+   Convex database as serializing the data with `JSON.stringify`, which
+   similarly removes `undefined` values.
+2. Validators for object fields can use `v.optional(...)` to indicate that the
+   field might not be present.
+   - If an object's field "a" is missing, i.e. `const obj = {};`, then
+     `obj.a === undefined`. This is a property of TypeScript/JavaScript, not
+     specific to Convex.
+3. You can use `undefined` in filters and index queries, and it will match
+   documents that do not have the field. i.e.
+   `.withIndex("by_a", q=>q.eq("a", undefined))` matches document `{}` and
+   `{b: 1}`, but not `{a: 1}` or `{a: null, b: 1}`.
+   - In Convex's ordering scheme, `undefined < null < all other values`, so you
+     can match documents that _have_ a field via `q.gte("a", null as any)`.
+4. There is exactly one case where `{a: undefined}` is different from `{}`: when
+   passed to `ctx.db.patch`. Passing `{a: undefined}` removes the field "a" from
+   the document, while passing `{}` does not change the field "a". See
+   [Updating existing documents](/docs/database/writing-data.mdx#updating-existing-documents).
+5. Since `undefined` gets stripped from function arguments but has meaning in
+   `ctx.db.patch`, there are some tricks to pass patch's argument from the
+   client.
+   - If the client passing `args={}` (or `args={a: undefined}` which is
+     equivalent) should leave the field "a" unchanged, use
+     `ctx.db.patch(id, args)`.
+   - If the client passing `args={}` should remove the field "a", use
+     `ctx.db.patch(id, {a: undefined, ...args})`.
+   - If the client passing `args={}` should leave the field "a" unchanged and
+     `args={a: null}` should remove it, you could do
+     ```ts
+     if (args.a === null) {
+       args.a = undefined;
+     }
+     await ctx.db.patch(id, args);
+     ```
+6. Functions that return a plain `undefined`/`void` are treated as if they
+   returned `null`.
+7. Arrays containing `undefined` values, like `[undefined]`, throw an error when
+   used as Convex values.
+
+If you would prefer to avoid the special behaviors of `undefined`, you can use
+`null` instead, which _is_ a valid Convex value.
+
 ## Working with dates and times
 
 Convex does not have a special data type for working with dates and times. How
