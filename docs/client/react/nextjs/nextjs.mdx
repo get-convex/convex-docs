@@ -5,7 +5,7 @@ sidebar_position: 200
 description: "How Convex works in a Next.js app"
 ---
 
-import Config from "!!raw-loader!@site/../private-demos/quickstarts/nextjs-app-dir/app/_ConvexClientProviderAuth.tsx";
+import Config from "!!raw-loader!@site/../private-demos/quickstarts/nextjs-app-dir-14/app/_ConvexClientProviderAuth.tsx";
 
 [Next.js](https://nextjs.org/) is a React web development framework. When used
 with Convex, Next.js provides:
@@ -54,16 +54,44 @@ to avoid needing to reconnect to Convex on client-side page navigation.
 
 ### Server and client side
 
-If you also want to access user information or load Convex data requiring
-`ctx.auth` from Server Components, Server Actions or Route Handlers, you need to
-use the Next.js specific SDKs provided by Clerk and Auth0.
-
-Follow the respective quickstart:
-
-- [Clerk](https://clerk.com/docs/quickstarts/nextjs)
-- [Auth0](https://auth0.com/docs/quickstart/webapp/nextjs/01-login)
+To access user information or load Convex data requiring `ctx.auth` from Server
+Components, Server Actions, or Route Handlers you need to use the Next.js
+specific SDKs provided by Clerk and Auth0.
 
 Additional `.env.local` configuration is needed for these hybrid SDKs.
+
+#### Clerk
+
+For an example of using Convex and with Next.js 15, run
+
+<p>
+  <b>
+    <CodeWithCopyButton text="npm create convex@latest -- -t nextjs-clerk" />
+  </b>
+</p>
+
+Otherwise, follow the
+[Clerk Next.js quickstart](https://clerk.com/docs/quickstarts/nextjs), a guide
+from Clerk that includes steps for adding `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+and `CLERK_SECRET_KEY` to the .env.local file. In Next.js 15, the
+`<ClerkProvider>` component imported from the `@clerk/nextjs` v6 package
+functions as both a client and a server context provider so you probably won't
+need the `ClerkProvider` from `@clerk/clerk-react`.
+
+#### Auth0
+
+See the
+[Auth0 Next.js](https://auth0.com/docs/quickstart/webapp/nextjs/01-login) guide.
+
+#### Other providers
+
+Convex uses JWT identity tokens on the client for live query subscriptions and
+running mutations and actions, and on the Next.js backend for running queries,
+mutations, and actions in server components and API routes.
+
+Obtain the appropriate OpenID Identity JWT in both locations and you should be
+able to use any auth provider. See
+[Custom Auth](https://docs.convex.dev/auth/advanced/custom-auth) for more.
 
 ## Server rendering (SSR)
 

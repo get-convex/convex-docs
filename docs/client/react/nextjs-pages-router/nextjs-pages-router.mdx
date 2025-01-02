@@ -72,13 +72,13 @@ To load and edit Convex data in your endpoints, use the
 
 ## Server-side rendering
 
-**We currently recommend client-side rendering Convex data when using Next.js.**
-This is because data from Convex is
-[fully reactive](/docs/functions/query-functions.mdx#caching-reactivity). Convex
-needs a connection from your deployment to the browser in order to push updates
-as data changes and that must happen on the client.
+**Consider client-side rendering Convex data when using Next.js.** Data from
+Convex is
+[fully reactive](/docs/functions/query-functions.mdx#caching-reactivity) so
+Convex needs a connection from your deployment to the browser in order to push
+updates as data changes.
 
-If you need Convex data on the server, you can load data from Convex in
+You can of course load data from Convex in
 [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching/get-static-props)
 or
 [`getServerSideProps`](https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props),
