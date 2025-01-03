@@ -138,7 +138,7 @@ Some JavaScript and TypeScript libraries use features that are not included in
 the default Convex runtime. This is why Convex actions provide an escape hatch
 to [Node.js 18](https://nodejs.org/en/about) via the `"use node"` directive at
 the top of a file that contains your action.
-[Learn more](/docs/functions/actions.mdx#calling-third-party-apis-and-using-npm-packages).
+[Learn more](/docs/functions/actions.mdx#choosing-the-runtime-use-node).
 
 Use of the Node.js environment is restricted to **action functions only**. If
 you want to use a library designed for Node.js and interact with the Convex
@@ -149,6 +149,11 @@ query or mutation.
 
 Every `.ts` and `.js` file in the convex directory
 [is bundled](/docs/functions/bundling.mdx) either for the default Convex
-JavaScript runtime or Node.js, even if it contains no Convex functions. So a
-`convex/utils.ts` file that used Node.js-specific libraries would also need to
-have `"use node"` at the top to avoid warnings at bundle time.
+JavaScript runtime or Node.js, along with any code it imports.
+
+Files with the `"use node"` directive should not contain any Convex queries or
+mutations since they cannot be run in the Node.js runtime. Additionally, files
+without the `"use node"` directive should not import any files with the
+`"use node"` directive. Files that contain no Convex functions, like a
+`convex/utils.ts` file, also need the "use node" directive if they use
+Node.js-specific libraries.
