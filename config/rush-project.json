@@ -4,7 +4,7 @@
   "operationSettings": [
     {
       "operationName": "build",
-      "outputFolderNames": [".docusaurus", "docs", "build"]
+      "outputFolderNames": [".docusaurus", "docs/api", "build"]
     }
   ]
 }
