@@ -1,5 +1,5 @@
 import { cn } from "@site/src/lib/cn";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import AskAI from "./AskAI";
 import KeyboardLegend from "./KeyboardLegend";
@@ -49,10 +49,15 @@ const Dialog = ({ open, onClose }: Props) => {
     setQuery("");
   };
 
+  const handleClose = useCallback(() => {
+    setQuery("");
+    onClose();
+  }, [onClose]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        handleClose();
       }
     };
 
@@ -61,13 +66,13 @@ const Dialog = ({ open, onClose }: Props) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [onClose]);
+  }, [handleClose]);
 
   const dialogContent = open && (
-    <div className="cs-root h-screen left-0 top-0 overflow-y-auto fixed w-screen z-[1000] md:flex md:justify-center">
+    <div className="h-screen left-0 top-0 overflow-y-auto fixed w-screen z-[1000] md:flex md:justify-center">
       <div
         className={cn(
-          "bg-gradient-to-b from-neutral-n3 to-neutral-n1 h-full w-full p-4 flex flex-col gap-4 md:z-[1001] md:rounded-lg md:shadow-lg md:h-[calc(min(80vh,60rem))] md:mt-20 md:w-[calc(min(80vw,60rem))]",
+          "bg-gradient-to-b from-neutral-white to-neutral-n2 h-full w-full p-4 flex flex-col gap-4 md:z-[1001] md:rounded-lg md:shadow-lg md:h-[calc(min(80vh,60rem))] md:mt-20 md:w-[calc(min(80vw,60rem))]",
           {
             "md:h-20": query === "",
           },

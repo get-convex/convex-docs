@@ -6,7 +6,7 @@ const lightCodeTheme = require("prism-react-renderer/themes/github");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const darkCodeTheme = require("./src/theme/prism-theme/oneDark");
 
-// Configure CONVEX_URL for AI bot in .env.local
+// Load environment variables.
 require("dotenv").config({ path: ".env.local" });
 
 const ENTRY_POINTS_TO_DOCUMENT = [
@@ -39,8 +39,9 @@ const config = {
     locales: ["en"],
   },
   customFields: {
-    // Put your custom environment here
-    convexUrl: process.env.CONVEX_URL,
+    // Make these environment variables available to the docs site.
+    KAPA_AI_PROJECT: process.env.KAPA_AI_PROJECT,
+    KAPA_AI_KEY: process.env.KAPA_AI_KEY,
   },
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -343,7 +344,6 @@ const config = {
       "data-project-logo":
         "https://img.stackshare.io/service/41143/default_f1d33b63d360437ba28c8ac981dd68d7d2478b22.png",
       "data-user-analytics-fingerprint-enabled": "true",
-      "data-search-mode-enabled": "true",
       async: true,
     },
   ],

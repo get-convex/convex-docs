@@ -1,5 +1,5 @@
+import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import React from "react";
-import SearchIcon from "./SearchIcon";
 
 type Props = {
   onClick: () => void;
@@ -14,8 +14,8 @@ function SearchButton({ onClick }: Props) {
       onClick={onClick}
       aria-label="Search"
     >
-      <SearchIcon className="w-6 text-neutral-n9 dark:text-neutral-n6 shrink-0 h-6" />
-      <span className="hidden mr-1 sm:block text-neutral-n9 dark:text-neutral-n6 whitespace-nowrap">
+      <MagnifyingGlassIcon className="w-6 text-neutral-n9 dark:text-neutral-n6 shrink-0 h-6" />
+      <span className="hidden mr-1 sm:block text-neutral-n11 dark:text-neutral-n6 whitespace-nowrap">
         Search docs and more...
       </span>
 
