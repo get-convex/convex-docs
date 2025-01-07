@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npm run start",
-    "start": "rm -r docs/tutorial/1.mdx docs/tutorial/2.mdx docs/api 2>/dev/null; docusaurus start --port $(detect 3000)",
-    "build": "rm -r docs/tutorial/1.mdx docs/tutorial/2.mdx docs/api 2>/dev/null; docusaurus build && cp _redirects build/",
+    "start": "rm -r docs/api 2>/dev/null; docusaurus start --port $(detect 3000)",
+    "build": "rm -r docs/api 2>/dev/null; docusaurus build && cp _redirects build/",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

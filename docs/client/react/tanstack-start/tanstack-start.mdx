@@ -1,7 +1,8 @@
 ---
 title: "TanStack Start"
 sidebar_label: "TanStack Start"
-sidebar_position: 150
+sidebar_position: 180
+description: "How Convex works with TanStack Start"
 ---
 
 [TanStack Start](https://tanstack.com/start/latest) is a new React web framework
@@ -23,10 +24,9 @@ without React Query, as do the
 [React Query hooks](/docs/client/tanstack-query.mdx) without TanStack Start! But
 using all three is a sweet spot.
 
-<Admonition type="caution" title="TanStack Start is in Alpha">
-  TanStack Start is a new React framework currently in alpha. You can try it
-  today but there will probably be breaking changes made to it before a stable
-  release.
+<Admonition type="caution" title="TanStack Start is in Beta">
+  TanStack Start is a new React framework currently in beta. You can use it
+  today but there may be breaking changes made to it before a stable release.
 </Admonition>
 
 ## Getting started
@@ -110,3 +110,14 @@ export const Route = createFileRoute('/posts')({
   },
 })
 ```
+
+## Authentication
+
+Client-side authentication in Start works the way
+[client-side authentication with Convex](https://docs.convex.dev/auth) generally
+works in React because TanStack Start works well as a client-side framework.
+
+To use Clerk auth to make authenticated Convex calls on the server as well see
+the [TanStack Start + Clerk guide](/client/react/tanstack-start/clerk.mdx).
+
+Clerk is an official partner of TanStack, see our setup guide.
