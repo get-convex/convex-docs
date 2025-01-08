@@ -7,6 +7,7 @@
 /database/document-storage          /database/
 /client/react/project-setup         /client/react/deployment-urls
 /contact                            /production/contact
+/errors                             /error
 /functions/http-endpoints		    /functions/http-actions
 /functions/testing                  /testing
 /get-started                        /tutorial
@@ -25,6 +26,7 @@
 /tutorial/3_actions                 /tutorial/actions
 /tutorial/4_next                    /tutorial
 /tutorial/client                    /tutorial
+/tutorial/how-it-works              /tutorial/#how-convex-works
 /tutorial/reactor                   /tutorial
 /tutorial/next                      /tutorial
 /tutorial/welcome-to-convex         /tutorial
@@ -56,6 +58,7 @@
 /using/document-ids                 /database/document-ids
 /using/environment-variables                     /production/environment-variables
 /production/hosting/environment-variables        /production/environment-variables
+/production/log-streams                          /production/integrations/log-streams/
 /using/error-handling               /functions/error-handling
 /using/export                       /database/import-export/export
 /using/external-functions           /functions/http-actions

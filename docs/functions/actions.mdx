@@ -264,9 +264,9 @@ holding all it's resources. If you pile enough of these calls on top of each
 other, your app may slow down significantly.
 
 **Fix:** The reason this api exists is to let you run code in the
-[Node.js environment](functions/runtimes). If you want to call an action from
-another action that's in the same runtime, which is the normal case, the best
-way to do this is to pull the code you want to call into a TypeScript
+[Node.js environment](/docs/functions/runtimes.mdx). If you want to call an
+action from another action that's in the same runtime, which is the normal case,
+the best way to do this is to pull the code you want to call into a TypeScript
 [helper function](/docs/production/best-practices/best-practices.mdx#use-helper-functions-to-write-shared-code)
 and call the helper instead.
 
