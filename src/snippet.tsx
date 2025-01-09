@@ -79,8 +79,6 @@ export function Snippet({
       } else {
         throw new Error(`Invalid snippet command in ${trimmed}`);
       }
-    } else if (trimmed.startsWith("// @newline")) {
-      nonSnippetLines.push("");
     } else {
       nonSnippetLines.push(line);
     }
