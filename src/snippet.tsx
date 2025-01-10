@@ -23,6 +23,9 @@ const FILE_EXTENSION_TO_LANGUAGE = {
  *
  * If `snippet` is not provided, this function returns the source file with all
  * snippet comment lines removed. Otherwise, it extracts the selected snippet.
+ *
+ * Other special comments:
+ * // @skipNextLine
  */
 export function Snippet({
   title,
@@ -51,7 +54,20 @@ export function Snippet({
   const allSpans = new Map<string, { start: number; end: number }>();
   const openSpans = new Map<string, { start: number }>();
   const nonSnippetLines = [];
-  for (const line of lines) {
+  const linesOmittingSkipped = [];
+  let lineIndex = 0;
+  while (lineIndex < lines.length) {
+    const line = lines[lineIndex];
+    const trimmed = line.trim();
+    if (trimmed.startsWith("// @skipNextLine")) {
+      lineIndex += 2;
+      continue;
+    } else {
+      linesOmittingSkipped.push(line);
+      lineIndex += 1;
+    }
+  }
+  for (const line of linesOmittingSkipped) {
     const trimmed = line.trim();
     if (
       trimmed.startsWith("// @snippet") ||
@@ -96,6 +112,9 @@ export function Snippet({
     if (invalidSnippet !== undefined) {
       throw new Error(`Invalid snippet="${invalidSnippet}"`);
     }
+    console.log(
+      ...spans.map(([_, span]) => nonSnippetLines.slice(span.start, span.end)),
+    );
     finalSource = trimLeftWhitespace(
       (prefix?.split("\n") ?? []).concat(
         ...spans.map(([_, span]) =>
@@ -144,10 +163,11 @@ export function Snippet({
 }
 
 function trimLeftWhitespace(lines: string[]): string[] {
+  const nonEmptyLines = lines.filter((line) => line.trim().length > 0);
   const toTrim = Math.min(
-    ...lines.map((line) => line.length - line.trimLeft().length),
+    ...nonEmptyLines.map((line) => line.length - line.trimStart().length),
   );
-  return lines.map((line) => line.slice(toTrim));
+  return lines.map((line) => (line !== "" ? line.slice(toTrim) : ""));
 }
 
 function highlightLines(source: string, patterns: string[]): string {
