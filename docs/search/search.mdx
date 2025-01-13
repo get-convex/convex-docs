@@ -10,9 +10,9 @@ search query.
 
 Unlike normal
 [document queries](/docs/database/reading-data/reading-data.mdx#querying-documents),
-search queries look _within_ a string field to find the keywords. This can be
-used to build search features within your app like searching for messages that
-contain certain words.
+search queries look _within_ a string field to find the keywords. Search queries
+are useful for building features like searching for messages that contain
+certain words.
 
 Search queries are automatically reactive, consistent, transactional, and work
 seamlessly with pagination. They even include new documents created with a
@@ -25,6 +25,10 @@ To use full text search you need to:
 
 1. Define a search index.
 2. Run a search query.
+
+Search indexes are built and queried using Convex's multi-segment search
+algorithm on top of [Tantivy](https://github.com/quickwit-oss/tantivy), a
+powerful, open-source, full-text search library written in Rust.
 
 <BetaAdmonition feature="Search" verb="is" />
 
@@ -216,6 +220,12 @@ first.
 
 ## Limits
 
+Search indexes work best with English or other Latin-script languages. Text is
+tokenized using Tantivy's
+[`SimpleTokenizer`](https://docs.rs/tantivy/latest/tantivy/tokenizer/struct.SimpleTokenizer.html),
+which splits on whitespace and punctuation. We also limit terms to 32 characters
+in length and lowercase them.
+
 Search indexes must have:
 
 - Exactly 1 search field.
@@ -230,5 +240,8 @@ Search queries can have:
 - Up to 8 filter expressions.
 
 Additionally, search queries can scan up to 1024 results from the search index.
+
+The source of truth for these limits is our
+[source code](https://github.com/get-convex/convex-backend/blob/main/crates/search/src/constants.rs).
 
 For information on other limits, see [here](/docs/production/state/limits.mdx).
