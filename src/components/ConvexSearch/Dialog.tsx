@@ -72,7 +72,7 @@ const Dialog = ({ open, onClose }: Props) => {
     <div className="h-screen left-0 top-0 overflow-y-auto fixed w-screen z-[1000] md:flex md:justify-center">
       <div
         className={cn(
-          "bg-gradient-to-b from-neutral-white to-neutral-n2 h-full w-full p-4 flex flex-col gap-4 md:z-[1001] md:rounded-lg md:shadow-lg md:h-[calc(min(80vh,60rem))] md:mt-20 md:w-[calc(min(80vw,60rem))]",
+          "bg-gradient-to-b from-neutral-white to-neutral-n2 h-full w-full p-4 flex flex-col gap-4 md:z-[1001] md:rounded-lg md:shadow-lg md:h-[calc(min(80vh,60rem))] md:mt-20 md:w-[45rem] dark:from-neutral-n11 dark:to-neutral-n13",
           {
             "md:h-20": query === "",
           },
@@ -87,14 +87,14 @@ const Dialog = ({ open, onClose }: Props) => {
           />
           <button
             className="border-none bg-transparent font-sans cursor-pointer md:hidden"
-            onClick={onClose}
+            onClick={handleClose}
           >
             Cancel
           </button>
         </div>
         {query !== "" && (
           <>
-            <AskAI onClick={onClose} />
+            <AskAI onClick={handleClose} />
             <Results query={debouncedQuery} />
             <KeyboardLegend />
           </>
@@ -103,7 +103,7 @@ const Dialog = ({ open, onClose }: Props) => {
       <button
         className="hidden bg-neutral-n12/50 dark:bg-neutral-n12/80 inset-0 absolute border-none p-0 w-screen h-screen backdrop-blur-sm md:block"
         aria-label="Close search"
-        onClick={onClose}
+        onClick={handleClose}
       />
     </div>
   );

@@ -173,9 +173,6 @@ for when the whole page is scrolled down */
 /* Customize the search button in nav and modal */
 @import url("./search.css");
 
-/* Customize the ai chat button in nav */
-@import url("./ai-chat.css");
-
 /* START: Icon links in top nav */
 @media (min-width: 997px) {
   .navbar__items .convex-icon-link {
@@ -1249,9 +1246,4 @@ html[data-theme="dark"] .StackPosts-title-image--dark {
 
 .StackPosts-post-content-author-name {
   font-size: 0.875rem;
-}
-
-/* Convex AI Chat */
-#convex-ai-chat {
-  z-index: 200;
 }

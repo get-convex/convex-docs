@@ -83,6 +83,7 @@ export default function ResultList({ results }: ResultListProps) {
     >
       {results.map((result, index) => (
         <li
+          key={result.url}
           ref={(element) => {
             if (index === selectedResult) {
               selectedResultRef.current = element;
@@ -95,7 +96,7 @@ export default function ResultList({ results }: ResultListProps) {
           className={cn(
             "js-hitList-item border-2 border-solid border-transparent p-2 rounded-md overflow-hidden transition-all",
             {
-              "border-plum-p4/50 shadow bg-neutral-white":
+              "border-plum-p4/50 shadow bg-neutral-white dark:bg-neutral-n12 dark:border-plum-p3/80":
                 index === selectedResult,
             },
           )}
@@ -107,7 +108,7 @@ export default function ResultList({ results }: ResultListProps) {
         >
           <a
             href={result.url}
-            className="text-neutral-n10 flex gap-4 items-center hover:no-underline hover:text-neutral-n10 w-full"
+            className="text-neutral-n10 flex gap-4 items-center hover:no-underline hover:text-neutral-n10 w-full dark:text-neutral-n2"
           >
             <div className="flex flex-col grow min-w-0">
               <div className="font-bold text-sm">{result.title}</div>

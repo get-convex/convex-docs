@@ -58,13 +58,13 @@ export default function SearchBox({
   return (
     <div
       className={cn(
-        "border-2 border-solid border-neutral-n7 rounded-md flex p-2 justify-center gap-1 bg-neutral-white",
+        "border-2 border-solid border-neutral-n7 rounded-md flex p-2 justify-center gap-1 bg-neutral-white dark:bg-neutral-n12 dark:border-neutral-n9",
         className,
       )}
     >
-      <MagnifyingGlassIcon className="h-7 w-7 text-plum-p4" />
+      <MagnifyingGlassIcon className="h-7 w-7 text-plum-p4 dark:text-plum-p3" />
       <input
-        className="bg-transparent border-none flex-grow text-lg font-sans text-neutral-n11 focus:outline-none"
+        className="bg-transparent border-none flex-grow text-lg font-sans text-neutral-n11 focus:outline-none dark:text-neutral-n2"
         type="text"
         placeholder="Search across Docs, Stack, and Discord..."
         value={value}
@@ -77,7 +77,7 @@ export default function SearchBox({
           onClick={handleClear}
           aria-label="Clear search"
         >
-          <Cross1Icon className="h-5 w-5 text-neutral-n9" />
+          <Cross1Icon className="h-5 w-5 text-neutral-n9 dark:text-neutral-n6" />
         </button>
       )}
     </div>
