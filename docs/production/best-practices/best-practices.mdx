@@ -260,8 +260,9 @@ internal functions can only be called within Convex.
 
 ### How?
 
-Search for `ctx.runQuery`, `ctx.runMutation`, and
-`ctx.runAction in your Convex codebase. Also search for `ctx.scheduler`and check the`crons.ts` file. Ensure all of these use`internal.foo.bar`functions instead of`api.foo.bar`
+Search for `ctx.runQuery`, `ctx.runMutation`, and `ctx.runAction` in your Convex
+codebase. Also search for `ctx.scheduler` and check the `crons.ts` file. Ensure
+all of these use `internal.foo.bar` functions instead of `api.foo.bar`
 functions.
 
 If you have code you want to share between a public Convex function and an
