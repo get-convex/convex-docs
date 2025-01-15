@@ -10,20 +10,12 @@ explore everything on the [Convex GitHub page](https://github.com/get-convex).
 ## Convex Backend
 
 The [open-source Convex Backend](https://github.com/get-convex/convex-backend)
-codebase consists of just over 200,000 lines of code, which comprise the core
-backend implementation of Convex. The majority of the backend is written in
-Rust, with a healthy dose of TypeScript supporting the server-side function
-environment.
+contains the same fully up-to-date code the cloud service uses. The majority of
+the backend is written in Rust, with a healthy dose of TypeScript supporting the
+server-side function environment.
 
-While this is a single-machine version of Convex, it contains exactly the same
-fully up-to-date code used by the cloud service. All app APIs are supported, so
-any project that runs in the cloud service can be run by the open-source
-backend.
-
-You are welcome to use this code to run your application, either for local
-testing or in production, but you are on your own managing it and ensuring the
-system is reliable and secure. It doesn't include the scale-out services,
-replicated database backend, production dashboard, or operational tooling.
+We are currently working on open-sourcing the Dashboard, our Postgres bindings,
+and better packaging for self-hosting.
 
 You can learn more about open-sourcing at Convex in our
 [announcement](https://news.convex.dev/convex-goes-open-source/) and the
