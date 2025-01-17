@@ -252,6 +252,13 @@ Here's an example of computing an average:
   sourceJS={averageExample}
 />
 
+> If you need more scalable aggregate options (for example to handle frequent
+> updates or large tables), consider using the
+> [Sharded Counter](https://www.convex.dev/components/sharded-counter) or
+> [Aggregate](https://www.convex.dev/components/aggregate) components. These
+> components can help you handle high-throughput counters, sums, or computations
+> without looping through the whole table.
+
 ### Group by
 
 Here's an example of grouping and counting:
