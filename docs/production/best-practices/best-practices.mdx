@@ -447,7 +447,7 @@ multiple in a row with no other code between them, replace them with a single
 `ctx.runQuery` or `ctx.runMutation` that handles both things. Refactoring your
 code to use helper functions will make this easier.
 
-### Example
+### Example: Queries
 
 <TSAndJSSnippet
   title="convex/teams.ts"
@@ -462,6 +462,24 @@ code to use helper functions will make this easier.
   sourceJS={BestPracticesTS}
   snippet="runQueryCorrect"
   prefix={`import * as Teams from './model/teams';\nimport * as Users from './model/users';\n`}
+/>
+
+### Example: Mutations
+
+<TSAndJSSnippet
+  title="convex/teams.ts"
+  sourceTS={BestPracticesTS}
+  sourceJS={BestPracticesTS}
+  snippet="runMutationWrong"
+  prefix={`import * as Users from './model/users';\n`}
+/>
+
+<TSAndJSSnippet
+  title="convex/teams.ts"
+  sourceTS={BestPracticesTS}
+  sourceJS={BestPracticesTS}
+  snippet="runMutationCorrect"
+  prefix={`import * as Users from './model/users';\n`}
 />
 
 ### Exceptions
