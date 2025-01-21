@@ -464,7 +464,7 @@ code to use helper functions will make this easier.
   prefix={`import * as Teams from './model/teams';\nimport * as Users from './model/users';\n`}
 />
 
-### Example: Mutations
+### Example: Loops
 
 <TSAndJSSnippet
   title="convex/teams.ts"
@@ -472,6 +472,10 @@ code to use helper functions will make this easier.
   sourceJS={BestPracticesTS}
   snippet="runMutationWrong"
   prefix={`import * as Users from './model/users';\n`}
+  replacements={[
+    [/\sOMIT_ME.*/g, ""],
+    [/_OMIT_[0-9]+/g, ""],
+  ]}
 />
 
 <TSAndJSSnippet
@@ -480,6 +484,10 @@ code to use helper functions will make this easier.
   sourceJS={BestPracticesTS}
   snippet="runMutationCorrect"
   prefix={`import * as Users from './model/users';\n`}
+  replacements={[
+    [/\sOMIT_ME.*/g, ""],
+    [/_OMIT_[0-9]+/g, ""],
+  ]}
 />
 
 ### Exceptions
