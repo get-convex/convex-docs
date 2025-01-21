@@ -33,7 +33,9 @@ export function StackPosts({ query }: StackPostsProps) {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "X-Algolia-API-Key": "d5802c3142d1d81cebdac1ccbb02ea9f",
+              // Search-only API key, safe to use in frontend code. See:
+              // https://www.algolia.com/doc/guides/security/api-keys/#search-only-api-key
+              "X-Algolia-API-Key": "07096f4c927e372785f8453f177afb16",
               "X-Algolia-Application-Id": AlgoliaAppID,
             },
             body: JSON.stringify(queryObject),

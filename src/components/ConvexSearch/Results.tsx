@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import ResultList from "./ResultList";
 import { AlgoliaResponse, AlgoliaResult, KapaResponse, Result } from "./types";
 
+// Search-only API key, safe to use in frontend code. See:
+// https://www.algolia.com/doc/guides/security/api-keys/#search-only-api-key
 const searchClient = algoliasearch(
   "1KIE511890",
-  "d5802c3142d1d81cebdac1ccbb02ea9f",
+  "07096f4c927e372785f8453f177afb16",
 );
 
 interface ResultsProps {
